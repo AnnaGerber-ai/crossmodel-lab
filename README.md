@@ -17,14 +17,60 @@ The goal is not to build a generic virtual influencer. The goal is to test **cha
 
 ## Current stage
 
-Early prototype.
+## Visual continuity cases
 
-Current work:
-- define a compact character baseline;
-- build behavioral test cases;
-- compare outputs against the baseline;
-- document visual continuity across generated media;
-- evaluate where the character remains recognizable and where identity drifts.
+The visual layer of the study tests whether Q. remains recognizable when expression, styling, context, framing, and body presentation change.
+
+These images are curated continuity references rather than a complete character gallery.
+
+### Case 00 — Introduction
+
+Initial presentation of Q. in a natural environmental context.
+
+<img src="media/case-00_introduction.jpg" width="420">
+
+### Case 01 — Expression range
+
+Tests whether facial identity remains recognizable across controlled, serious expressions and deliberately playful or exaggerated ones.
+
+<p>
+  <img src="media/case-01_expression-01-serious.jpg" width="320">
+  <img src="media/case-01_expression-02-playful.jpg" width="320">
+</p>
+
+### Case 02 — Candid continuity
+
+Tests recognition outside controlled portrait conditions: ordinary behavior, distraction, imperfect timing, and a less deliberate camera moment.
+
+<img src="media/case-02_candid-coffee.jpg" width="420">
+
+### Case 03 — Styling continuity
+
+Tests whether identity remains stable while wardrobe, silhouette, and presentation change within a controlled visual environment.
+
+<p>
+  <img src="media/case-03_styling-01.jpg" width="210">
+  <img src="media/case-03_styling-02.jpg" width="210">
+  <img src="media/case-03_styling-03.jpg" width="210">
+</p>
+
+### Case 04 — Facial baseline
+
+Neutral facial reference with reduced environmental and stylistic noise.
+
+<img src="media/case-04_facial-baseline.jpg" width="420">
+
+### Case 05 — Body baseline
+
+Neutral full-body reference used to track proportions, silhouette, posture, and overall physical presence.
+
+<img src="media/case-05_body-baseline.jpg" width="320">
+
+Visual continuity is not evaluated by exact duplication.
+
+The goal is to determine how far expression, pose, styling, environment, and generation conditions can change while the character still remains recognizably Q.
+
+All visual materials shown here are AI-generated or AI-assisted and human-curated for research purposes. See [RIGHTS.md](RIGHTS.md) for usage and attribution notes.
 
 ## Repository structure
 
