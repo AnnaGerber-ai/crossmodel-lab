@@ -17,6 +17,14 @@ The goal is not to build a generic virtual influencer. The goal is to test **cha
 
 ## Current stage
 
+## Behavioral and memory studies
+
+### Interview Memory & Redundancy — Run 01
+
+A naturalistic long-form interview analysis examining question tracking, semantic repetition, unresolved-question recovery, and conversational-state continuity.
+
+[Read the full analysis](results/qwen-interview-memory-01.md)
+
 ## Visual continuity cases
 
 The visual layer of the study tests whether Q. remains recognizable when expression, styling, context, framing, and body presentation change.
