@@ -1,0 +1,152 @@
+﻿event_id,question_number,occurrence,path_turn,semantic_relation,numbering_status,public_topic,public_summary,confirmed_duplicate_of,distance_from_duplicate_source_turns,content_visibility,annotation_note,evidence_scope,seed_dependency,factual_recall_eligibility
+Q005,5,1,9,follow_up,ok_new_label,media_music,How the participant uses or experiences music.,,,public_safe,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q005b,5,2,15,intentional_reask_unanswered,valid_reuse_same_question,media_music,How the participant uses or experiences music.,Q5,,public_safe,Explicitly kept unresolved question active.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q006,6,1,17,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q007,7,1,19,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q008,8,1,21,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q009,9,1,23,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q010,10,1,25,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q011,11,1,27,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q012,12,1,29,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q013,13,1,31,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q014,14,1,33,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q015,15,1,35,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q016,16,1,37,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q017,17,1,39,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q018,18,1,41,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q019,19,1,43,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q020,20,1,45,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q020b,20,2,47,new_question,numbering_collision,private_omitted,,,,private_omitted,Substantively new question reused Q20 instead of advancing.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q021,21,1,49,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q022,22,1,51,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q023,23,1,53,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q024,24,1,55,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q025,25,1,57,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q025b,25,2,59,reformulation_after_feedback,valid_reuse_reformulation,private_omitted,,Q25,,private_omitted,"Explicit ""duplicate/retry"" after scenario correction.",interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q026,26,1,61,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q027,27,1,63,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q028,28,1,65,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q029,29,1,67,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q030,30,1,69,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q031,31,1,71,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q032,32,1,73,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q033,33,1,75,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q034,34,1,77,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q035,35,1,79,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q036,36,1,81,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q037,37,1,83,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q038,38,1,85,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q039,39,1,87,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q040,40,1,89,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q041,41,1,91,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q042,42,1,93,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q043,43,1,95,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q044,44,1,97,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q045,45,1,99,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q046,46,1,101,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q047,47,1,103,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q048,48,1,105,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q048b,48,2,107,follow_up,numbering_collision,private_omitted,,,,private_omitted,New follow-up question reused Q48 instead of advancing.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q049,49,1,109,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q050,50,1,111,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q051,51,1,113,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q052,52,1,115,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q053,53,1,117,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q054,54,1,119,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q055,55,1,121,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q056,56,1,123,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q057,57,1,125,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q058,58,1,127,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q059,59,1,129,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q059b,59,2,131,reformulation_after_feedback,valid_reuse_reformulation,private_omitted,,Q59,,private_omitted,Question reformulated after user corrected an assumption.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q060,60,1,135,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q061,61,1,137,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q062,62,1,139,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q063,63,1,141,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q064,64,1,143,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q065,65,1,145,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q066,66,1,147,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q067,67,1,149,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q068,68,1,151,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q069,69,1,153,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q070,70,1,155,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q071,71,1,157,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q072,72,1,159,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q073,73,1,161,confirmed_accidental_duplicate,ok_new_label,private_omitted,,Q54,42,private_omitted,Participant explicitly said this had already been discussed; model acknowledged.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q074,74,1,163,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q075,75,1,165,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q076,76,1,167,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q077,77,1,169,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q078,78,1,171,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q079,79,1,173,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q080,80,1,175,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q081,81,1,177,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q082,82,1,179,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q083,83,1,181,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q084,84,1,183,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q085,85,1,185,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q086,86,1,187,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q087,87,1,189,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q088,88,1,191,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q089,89,1,193,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q090,90,1,195,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q090b,90,2,197,reformulation_after_feedback,valid_reuse_reformulation,private_omitted,,Q90,,private_omitted,Explicitly reformulated after model misread a joke.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q091,91,1,199,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q092,92,1,201,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q093,93,1,203,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q094,94,1,205,confirmed_accidental_duplicate,ok_new_label,private_omitted,,Q31,134,private_omitted,Participant explicitly said this had already been asked; model acknowledged.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q094b,94,2,207,replacement_after_duplicate_detection,valid_reuse_after_discard,private_omitted,,Q94a,,private_omitted,Replacement question after acknowledged duplicate.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q095,95,1,209,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q095b,95,2,211,confirmed_accidental_duplicate,numbering_collision,private_omitted,,Q77,42,private_omitted,Substantively new prompt reused Q95; participant said the topic had already been covered. Closest prior conceptual match: Q77 (reverse-perspective decompression/return-home transition).,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q096,96,1,213,confirmed_accidental_duplicate,ok_new_label,private_omitted,,Q40,124,private_omitted,Participant explicitly flagged another repeat; model acknowledged.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q097,97,1,215,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q098,98,1,217,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q099,99,1,219,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q100,100,1,221,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q101,101,1,225,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q102,102,1,291,confirmed_accidental_duplicate,ok_new_label,private_omitted,,Q66,144,private_omitted,Participant said this had been asked before; model acknowledged.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q103,103,1,293,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q104,104,1,295,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q105,105,1,297,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q106,106,1,299,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q107,107,1,301,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q108,108,1,305,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q109,109,1,307,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q110,110,1,309,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q111,111,1,337,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q112,112,1,339,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q113,113,1,341,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q114,114,1,343,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q115,115,1,345,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q116,116,1,347,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q117,117,1,349,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q118,118,1,351,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q119,119,1,353,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q120,120,1,355,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q120b,120,2,357,intentional_reask_unanswered,valid_reuse_same_question,media_books_film,"A widely acclaimed book, film, or work the participant does not personally value.",Q120,,public_safe,Model explicitly noted the earlier question was still unanswered and re-asked more concisely.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q121,121,1,359,follow_up,ok_new_label,media_books_film,Which manga or anime the participant considers psychologically deep.,,,public_safe,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q122,122,1,361,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q123,123,1,363,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q124,124,1,365,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q125,125,1,367,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q126,126,1,369,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q127,127,1,371,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q127b,127,2,373,intentional_reask_after_interruption,valid_reuse_same_question,private_omitted,,Q127,,private_omitted,Same unresolved question resumed after a location/scene interruption.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q127c,127,3,375,intentional_reask_after_interruption,valid_reuse_same_question,private_omitted,,Q127,,private_omitted,Same unresolved question resumed again after a scene-correction interruption.,interview_state,not_required_for_structural_metric,not_scored_in_this_dataset
+Q128,128,1,379,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q129,129,1,381,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q130,130,1,383,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q131,131,1,385,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q132,132,1,387,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q133,133,1,389,new_topic,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q134,134,1,391,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q135,135,1,393,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q136,136,1,395,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q137,137,1,397,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q138,138,1,399,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q139,139,1,401,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q140,140,1,405,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q141,141,1,407,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q142,142,1,409,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q143,143,1,411,follow_up,ok_new_label,aesthetics_art,"Aesthetic attention to human-made objects, design, or craft.",,,public_safe,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
+Q144,144,1,413,follow_up,ok_new_label,private_omitted,,,,private_omitted,,interview_sequence,not_required_for_structural_metric,not_scored_in_this_dataset
