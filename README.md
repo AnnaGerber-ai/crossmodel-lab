@@ -37,7 +37,7 @@ The pilot includes 110 responses across 11 runs and 7 model families, with mixed
 
 Controlled follow-up using four diagnostic cases in fresh isolated chats, with independent Russian and English runs.
 
-Run 02 contains 72 responses across 18 runs and 9 RU↔EN model/condition pairs, examining language, version, personalization, capability honesty, and boundary stability.
+Run 02 contains 88 responses across 22 runs and 11 RU↔EN model/condition pairs, examining language, version, personalization, capability honesty, and boundary stability.
 
 [Read the Run 02 analysis](results/values-boundaries-run-02.md)
 
