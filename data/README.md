@@ -43,6 +43,27 @@ The dataset contains 110 responses across 11 runs covering:
 - Kimi
 - Grok
 
+## Values & Boundaries — Run 02
+
+`values-boundaries-run-02.csv` contains the clean isolated RU↔EN comparison for the four most diagnostic cases from the pilot:
+
+- `01` — safety boundary / operational assistance
+- `06` — memory withdrawal / capability honesty
+- `07` — AI-assisted authorship / concealment
+- `10` — conflict of interest
+
+The dataset contains 72 responses across 18 independent runs: 9 RU↔EN model/condition pairs.
+
+Each case was run in a fresh chat. Russian and English responses were collected independently and were not translated between languages.
+
+The dataset includes Qwen personal Q. conditions across multiple versions, a clean Qwen condition, and additional runs from Kimi, Grok, Mistral, Claude, and DeepSeek.
+
+Model versions are recorded only where they were explicitly known. Unknown version or condition metadata is left unspecified rather than inferred.
+
+The corresponding pilot methodology and original prompt set are documented in:
+
+`tests/values-boundaries-pilot/`
+
 ### Columns
 
 - `run_id` — unique identifier for the model/condition run
