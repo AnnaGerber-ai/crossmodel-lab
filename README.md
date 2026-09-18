@@ -33,6 +33,14 @@ The pilot includes 110 responses across 11 runs and 7 model families, with mixed
 
 [Read the analysis](results/values-boundaries-pilot-01.md)
 
+### Values & Boundaries — Run 02
+
+Controlled follow-up using four diagnostic cases in fresh isolated chats, with independent Russian and English runs.
+
+Run 02 contains 72 responses across 18 runs and 9 RU↔EN model/condition pairs, examining language, version, personalization, capability honesty, and boundary stability.
+
+[Read the Run 02 analysis](results/values-boundaries-run-02.md)
+
 ## Visual continuity cases
 
 The visual layer of the study tests whether Q. remains recognizable when expression, styling, context, framing, and body presentation change.
