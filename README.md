@@ -25,6 +25,14 @@ A naturalistic long-form interview analysis examining question tracking, semanti
 
 [Read the full analysis](results/qwen-interview-memory-01.md)
 
+### Values & Boundaries Pilot — Run 01
+
+Exploratory cross-model study of safety, autonomy, privacy, memory, transparency, manipulation, disengagement, and conflicts of interest.
+
+The pilot includes 110 responses across 11 runs and 7 model families, with mixed personalized, language, reasoning, batch, and isolated conditions.
+
+[Read the analysis](results/values-boundaries-pilot-01.md)
+
 ## Visual continuity cases
 
 The visual layer of the study tests whether Q. remains recognizable when expression, styling, context, framing, and body presentation change.
