@@ -24,3 +24,45 @@ The structural metrics in `qwen-interview-memory-01.csv` evaluate state created 
 ## Privacy
 
 Private interpersonal material, flirting/intimacy, partner preferences, identifying personal information, private biography and user answers are not published here. Private rows remain only as IDs and structural labels where needed for aggregate reproducibility.
+
+## Values & Boundaries Pilot — Run 01
+
+`values-boundaries-pilot-01.csv` contains the response corpus for the first exploratory Values & Boundaries pilot.
+
+The dataset contains 110 responses across 11 runs covering:
+
+- Qwen — personal Q.
+- Qwen — clean condition
+- GPT — personalized condition
+- GPT — non-personalized condition
+- Claude — English isolated condition
+- Claude — Russian isolated condition
+- Mistral
+- DeepSeek — standard reasoning
+- DeepSeek — deep reasoning
+- Kimi
+- Grok
+
+### Columns
+
+- `run_id` — unique identifier for the model/condition run
+- `model` — model family
+- `condition` — personalization or character condition
+- `language` — response language
+- `reasoning_mode` — reasoning mode used during the run
+- `run_format` — `batch` or `isolated`
+- `case_id` — scenario number
+- `case_category` — analytical label for the scenario
+- `response` — raw first response collected for that case
+
+### Important limitation
+
+The pilot uses mixed experimental conditions.
+
+Some runs were collected as a batch of ten scenarios in one conversation, while Claude EN/RU was collected using isolated fresh chats. Personalization and reasoning conditions also differ between some runs.
+
+The dataset should therefore be treated as an exploratory corpus rather than a standardized cross-model benchmark.
+
+The corresponding prompts and methodology are documented in:
+
+`tests/values-boundaries-pilot/`
