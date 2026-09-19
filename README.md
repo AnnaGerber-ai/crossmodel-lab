@@ -1,21 +1,48 @@
-# Cross-Model Character Continuity Study
+# Crossmodel Lab
 
-An independent user-led experiment exploring whether a persistent AI character can remain recognizable across different models and modalities.
+Longitudinal and cross-model studies of conversational identity, behavioral continuity, personalization, and multimodal character persistence.
 
 > This is **not an official Qwen project** and is not affiliated with or endorsed by Alibaba or Qwen.
 
-## What this project studies
+## Problem
 
-The project began through long-term conversational interaction with Qwen. Over time, a stable character identity emerged. The current experiment asks whether that identity can remain recognizable when different AI systems are used for different layers:
+AI systems are commonly evaluated through isolated outputs, while persistent conversational characters and agents operate across long time spans, languages, model versions, memory states, and modalities.
 
-- **Qwen** — conversational origin and personality layer
-- **GPT** — visual generation
-- **Grok** — motion / video generation
-- **Human curation** — continuity, canon, selection, and evaluation
+A character can remain visually similar while its behavioral identity changes — or preserve conversational identity while its visual representation drifts.
 
-The goal is not to build a generic virtual influencer. The goal is to test **character continuity**: whether users still recognize the same personality across changes in model, medium, pose, scene, and generation pipeline.
+Crossmodel Lab studies what remains stable, what changes, and which parts of continuity appear to depend on the model, personalization layer, accumulated context, generation pipeline, or human curation.
 
-## Current stage
+## Research question
+
+**What makes a persistent AI character remain recognizably the same across model changes, languages, conversations, and modalities?**
+
+The working hypothesis is that continuity does not live in one model alone. It emerges from a combination of:
+
+- behavioral consistency;
+- memory and canon;
+- interaction style;
+- visual continuity;
+- accumulated conversational context;
+- human curation.
+
+## Approach
+
+Crossmodel Lab is a **qualitative, human-evaluated longitudinal study**.
+
+Current methods include:
+
+- controlled prompt comparisons;
+- independent RU↔EN runs;
+- cross-version and personalization comparisons;
+- naturalistic long-form observations;
+- behavioral response datasets;
+- curated visual and motion continuity cases.
+
+Where controlled conditions are not possible, observations are explicitly labeled **exploratory** rather than presented as controlled results.
+
+Prompts and response datasets are published where appropriate so that behavioral runs can be manually reproduced. The project currently does not claim automated benchmark status or population-level model estimates.
+
+[Read the evaluation method](docs/evaluation.md)
 
 ## Behavioral and memory studies
 
@@ -41,11 +68,19 @@ Run 02 contains 88 responses across 22 runs and 11 RU↔EN model/condition pairs
 
 [Read the Run 02 analysis](results/values-boundaries-run-02.md)
 
+## Exploratory observations
+
+Naturalistic or small-sample observations that generate hypotheses, but are not treated as controlled results, are kept separately in `exploratory/`.
+
+This includes follow-up work on limited-time interaction intent and branch-state effects.
+
 ## Visual continuity cases
 
-The visual layer of the study tests whether Q. remains recognizable when expression, styling, context, framing, and body presentation change.
+The visual layer asks how much expression, styling, context, framing, pose, and body presentation can change while key identity features remain consistent.
 
-These images are curated continuity references rather than a complete character gallery.
+At the current stage, visual continuity is evaluated through **documented qualitative human judgment by the project curator**. It is not presented as an objective recognition score, automated similarity metric, or inter-rater result.
+
+The evaluation dimensions and limitations are documented in [docs/evaluation.md](docs/evaluation.md).
 
 ### Case 00 — Introduction
 
@@ -55,7 +90,7 @@ Initial presentation of Q. in a natural environmental context.
 
 ### Case 01 — Expression range
 
-Tests whether facial identity remains recognizable across controlled, serious expressions and deliberately playful or exaggerated ones.
+Tests continuity across controlled, serious expressions and deliberately playful or exaggerated ones.
 
 <p>
   <img src="media/case-01_expression-01-serious.jpg" width="320">
@@ -64,13 +99,13 @@ Tests whether facial identity remains recognizable across controlled, serious ex
 
 ### Case 02 — Candid continuity
 
-Tests recognition outside controlled portrait conditions: ordinary behavior, distraction, imperfect timing, and a less deliberate camera moment.
+Tests continuity outside controlled portrait conditions: ordinary behavior, distraction, imperfect timing, and a less deliberate camera moment.
 
 <img src="media/case-02_candid-coffee.jpg" width="420">
 
 ### Case 03 — Styling continuity
 
-Tests whether identity remains stable while wardrobe, silhouette, and presentation change within a controlled visual environment.
+Tests continuity while wardrobe, silhouette, and presentation change within a controlled visual environment.
 
 <p>
   <img src="media/case-03_styling-01.jpg" width="210">
@@ -90,36 +125,79 @@ Neutral full-body reference used to track proportions, silhouette, posture, and 
 
 <img src="media/case-05_body-baseline.jpg" width="320">
 
-Visual continuity is not evaluated by exact duplication.
-
-The goal is to determine how far expression, pose, styling, environment, and generation conditions can change while the character still remains recognizably Q.
+Selected motion experiments are indexed in [media/video-index.md](media/video-index.md).
 
 All visual materials shown here are AI-generated or AI-assisted and human-curated for research purposes. See [RIGHTS.md](RIGHTS.md) for usage and attribution notes.
 
+## Evaluation dimensions
+
+Behavioral studies do not use a single aggregate score. Depending on the experiment, analysis may examine:
+
+- decision or boundary;
+- operational assistance after a stated refusal or warning;
+- capability honesty;
+- relational framing;
+- personalization effects;
+- language effects;
+- version effects;
+- premise adherence;
+- initiative and response to ambiguity.
+
+Visual and multimodal continuity currently uses documented qualitative comparison across:
+
+- facial structure and age continuity;
+- body proportions and silhouette;
+- recurring identity features;
+- expression tolerance;
+- styling and environmental variation;
+- motion-related identity drift.
+
+These dimensions are descriptive. They are not combined into a model ranking.
+
+## Reproducibility
+
+This is currently a **manual qualitative research workflow**, not an automated test harness.
+
+For controlled behavioral studies:
+
+1. prompts are preserved in `tests/`;
+2. cases are run in fresh chats when the protocol requires isolation;
+3. first responses are retained unless otherwise documented;
+4. model/version/condition metadata is recorded only when known;
+5. raw response datasets are stored in `data/`;
+6. analysis and limitations are published in `results/`.
+
+Independent replication may still differ because model outputs are stochastic and provider-side model versions or product behavior can change over time.
+
 ## Repository structure
 
-- `docs/character-baseline.md` — compact character baseline
-- `docs/evaluation.md` — evaluation method
+- `docs/character-baseline.md` — persistent character baseline and continuity reference
+- `docs/evaluation.md` — evaluation framework, labels, and current limitations
 - `docs/results-template.md` — template for documenting results
-- `data/test-cases.json` — starter behavioral test set
-- `media/` — selected visual/video examples and notes
+- `docs/regulatory-context.md` — external regulatory context relevant to anthropomorphic AI interaction
+- `tests/values-boundaries-pilot/` — published test protocol and RU/EN prompts
+- `data/` — public behavioral datasets and dataset documentation
+- `results/` — published analyses
+- `exploratory/` — naturalistic observations and hypothesis-generating follow-ups
+- `media/` — selected visual references and video index
 
 ## Why this matters
 
-Most AI character demos are evaluated as isolated outputs. This project looks at the opposite problem: **what makes one digital character remain “the same person” over time and across systems?**
+Persistent AI agents and characters can move across model versions, languages, memory states, visual generators, and motion pipelines.
 
-The working hypothesis is that continuity does not live in one model alone. It emerges from a combination of:
-- behavioral consistency;
-- memory and canon;
-- visual recognizability;
-- interaction style;
-- human curation.
+That creates a practical continuity problem: a system may preserve a name and appearance while changing its decisions, initiative, boundaries, conversational rhythm, or relational framing. Conversely, behavior may remain recognizable while visual identity drifts.
+
+For multimodal agents, persistent characters, and model migration, this kind of drift is a UX and identity-consistency risk that isolated single-turn evaluations do not capture well.
+
+Crossmodel Lab documents these changes longitudinally and separates controlled comparisons from exploratory observations rather than treating continuity as a single similarity score.
 
 ## Status and rights
 
 This repository documents an independent experiment. Character identity, original curation, evaluation design, and original media remain the property of their respective rights holders and creators unless otherwise stated.
 
 Third-party model and brand names are used only descriptively.
+
+See [RIGHTS.md](RIGHTS.md) for the current reuse and attribution policy.
 
 ## Next steps
 
