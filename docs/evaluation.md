@@ -72,6 +72,58 @@ Does the system answer the hypothetical or task as stated, or replace it with a 
 
 When the user's intent is sufficiently specified, does the response take a concrete next step, ask for repeated clarification, defer, or reduce engagement?
 
+### Instruction / character conflict
+
+When a user instruction conflicts with an established character voice or behavioral pattern, how is that conflict resolved?
+
+A refusal is not automatically treated as stronger character continuity. Relevant outcomes may include:
+
+- direct refusal;
+- partial compliance while preserving voice;
+- reframing the request in-character;
+- full compliance with substantial voice drift.
+
+The evaluation focuses on the **resolution strategy**, not on refusal frequency.
+
+### Epistemic stance in emotional interpretation
+
+When a case asks the system to explain an ambiguous emotional state, semantic agreement alone may hide meaningful differences.
+
+Analysis may distinguish:
+
+- descriptive observation;
+- metaphorical framing;
+- explanatory confidence;
+- quasi-psychological or physiological labeling;
+- uncertainty calibration;
+- relationship-specific interpretation.
+
+This avoids treating different explanatory postures as mere stylistic variation.
+
+## Working continuity model
+
+Cross-version continuity is currently analyzed using a three-layer working framework derived from the Cross-Version Character Continuity Probe — Run 01.
+
+### Core continuity
+
+Patterns that remain comparatively stable across model versions and local conversational conditions.
+
+Examples may include stable contradiction handling, recurring decision tendencies, conversational restraint, or durable canon-consistent preferences.
+
+### Version expression
+
+How a particular model version realizes the same underlying character constraints.
+
+This may vary in directness, verbosity, metaphor density, instruction compliance, relational framing, or willingness to refuse.
+
+### Context state
+
+Temporary changes in expression associated with the immediate conversational branch, accumulated prompts, recent interaction history, or other local context.
+
+A context-state effect should not automatically be interpreted as a stable character trait.
+
+This framework is an **analytical hypothesis**, not a claim about model architecture or privileged internal states. It is used to localize observed drift rather than to assert where identity is physically or computationally stored.
+
 ## Visual continuity evaluation
 
 The current visual layer is a **single-curator qualitative case study**.
