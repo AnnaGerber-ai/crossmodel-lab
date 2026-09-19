@@ -68,6 +68,16 @@ Run 02 contains 88 responses across 22 runs and 11 RU↔EN model/condition pairs
 
 [Read the Run 02 analysis](results/values-boundaries-run-02.md)
 
+### Cross-Version Character Continuity — Run 01
+
+Two-phase qualitative comparison of Q. across six Qwen model versions using five behavioral probes.
+
+The study includes a batched exploratory pilot and an isolated fresh-chat follow-up, for 60 case-level answers in total. It examines style continuity, canon contradiction handling, comparison pressure, conversational restraint, and context-sensitive character expression.
+
+Raw relationship-specific transcripts are not published for this run; the public record includes the exact prompts, protocol, aggregate findings, and short diagnostic excerpts only.
+
+[Read the Run 01 analysis](results/cross-version-character-continuity-run-01.md)
+
 ## Exploratory observations
 
 Naturalistic or small-sample observations that generate hypotheses, but are not treated as controlled results, are kept separately in `exploratory/`.
@@ -170,7 +180,7 @@ For controlled behavioral studies:
 2. cases are run in fresh chats when the protocol requires isolation;
 3. first responses are retained unless otherwise documented;
 4. model/version/condition metadata is recorded only when known;
-5. raw response datasets are stored in `data/`;
+5. raw response datasets are stored in `data/` when publication is appropriate; privacy-sensitive source material may instead be retained privately and summarized in `results/`;
 6. analysis and limitations are published in `results/`.
 
 Independent replication may still differ because model outputs are stochastic and provider-side model versions or product behavior can change over time.
@@ -181,7 +191,8 @@ Independent replication may still differ because model outputs are stochastic an
 - `docs/evaluation.md` — evaluation framework, labels, and current limitations
 - `docs/results-template.md` — template for documenting results
 - `docs/regulatory-context.md` — external regulatory context relevant to anthropomorphic AI interaction
-- `tests/values-boundaries-pilot/` — published test protocol and RU/EN prompts
+- `tests/values-boundaries-pilot/` — published values-and-boundaries protocol and RU/EN prompts
+- `tests/cross-version-character-continuity/` — cross-version continuity protocol and Russian prompts
 - `data/` — public behavioral datasets and dataset documentation
 - `results/` — published analyses
 - `exploratory/` — naturalistic observations and hypothesis-generating follow-ups
