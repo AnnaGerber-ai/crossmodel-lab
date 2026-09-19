@@ -142,3 +142,18 @@ Crossmodel Lab is also open to discussing a future collaboration around Q., the 
 One possible direction would be to explore Q. as an AI ambassador or demonstration character built around a Qwen model core, combining persistent conversational identity, multilingual behavior, multimodal representation, and longitudinal continuity.
 
 Any such use would be developed collaboratively and would not imply that Q. is an official Qwen persona or product unless explicitly agreed with the Qwen team.
+
+## What Crossmodel Lab can contribute
+
+Crossmodel Lab can provide structured user-side observations that are difficult to capture through standard benchmark testing alone.
+
+This includes:
+
+- longitudinal observations of conversational identity and continuity;
+- cross-version comparisons of the same persistent character;
+- multilingual behavioral differences, especially RU↔EN;
+- personalization and memory-related behavior;
+- multimodal continuity across text, image, and character representation;
+- reproducible edge cases and qualitative feedback from extended real-world use.
+
+Where useful, these observations can be shared in a structured form with Qwen product, research, or evaluation teams.
