@@ -120,3 +120,17 @@ The working hypothesis is that continuity does not live in one model alone. It e
 This repository documents an independent experiment. Character identity, original curation, evaluation design, and original media remain the property of their respective rights holders and creators unless otherwise stated.
 
 Third-party model and brand names are used only descriptively.
+
+## Next steps
+
+Over the next six months, Crossmodel Lab will continue developing reproducible longitudinal and cross-model studies, with Qwen as one of the core systems.
+
+Planned work includes:
+
+- controlled test cases for personalization and conversational continuity;
+- RU↔EN and other multilingual behavioral comparisons;
+- public datasets and concise research notes;
+- continued work on persistent character continuity across model versions and modalities;
+- structured observations that may be useful to model, product, and research teams.
+
+The goal is to build a small but systematic public record of how conversational identity, personalization, language, and model changes affect behavior over time.
