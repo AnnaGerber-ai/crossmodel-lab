@@ -201,9 +201,9 @@ Crossmodel Lab documents these changes longitudinally and separates controlled c
 
 This repository documents an independent experiment. Character identity, original curation, evaluation design, and original media remain the property of their respective rights holders and creators unless otherwise stated.
 
-Third-party model and brand names are used only descriptively.
+Licensing is layered: research methods, test structures, data, character identity, curation, and visual media may be subject to different reuse terms. Current rights and attribution conditions are outlined in [RIGHTS.md](RIGHTS.md).
 
-See [RIGHTS.md](RIGHTS.md) for the current reuse and attribution policy.
+Third-party model and brand names are used only descriptively.
 
 ## Next steps
 
