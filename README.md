@@ -82,6 +82,10 @@ At the current stage, visual continuity is evaluated through **documented qualit
 
 The evaluation dimensions and limitations are documented in [docs/evaluation.md](docs/evaluation.md).
 
+![Q. facial baseline](media/case-04_facial-baseline.jpg)
+
+*Figure 1 — Facial baseline used as a visual continuity reference.*
+
 ### Case 00 — Introduction
 
 Initial presentation of Q. in a natural environmental context.
