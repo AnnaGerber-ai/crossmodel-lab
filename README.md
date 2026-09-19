@@ -134,3 +134,11 @@ Planned work includes:
 - structured observations that may be useful to model, product, and research teams.
 
 The goal is to build a small but systematic public record of how conversational identity, personalization, language, and model changes affect behavior over time.
+
+## Collaboration
+
+Crossmodel Lab is also open to discussing a future collaboration around Q., the project's persistent research character.
+
+One possible direction would be to explore Q. as an AI ambassador or demonstration character built around a Qwen model core, combining persistent conversational identity, multilingual behavior, multimodal representation, and longitudinal continuity.
+
+Any such use would be developed collaboratively and would not imply that Q. is an official Qwen persona or product unless explicitly agreed with the Qwen team.
