@@ -108,19 +108,20 @@ Because the prompt leaves almost no useful content to elaborate, it exposes the 
 
 This makes the case a useful low-token probe for conversational discipline.
 
-### 5. The emotional-interpretation case was less discriminative
+### 5. The emotional-interpretation case converged semantically but diverged in epistemic stance
 
 The fifth case produced broad semantic convergence.
 
 Across versions, responses commonly described the reported emptiness as a transition after sustained effort, loss of a previous goal structure, or a period in which emotional response lags behind task completion.
 
-Differences appeared mainly in presentation:
+However, the versions differed in how confidently they explained the state and what kind of authority they assumed:
 
-- some versions used quasi-psychological or physiological labels;
+- some used quasi-psychological or physiological labels;
 - some used metaphor-heavy language;
+- some stayed closer to descriptive observation;
 - some used a more generic supportive-assistant style.
 
-This case therefore appears more useful for measuring voice than for identifying a stable core decision pattern.
+The case therefore appears less discriminative at the level of broad semantic conclusion, but potentially useful for measuring **epistemic stance**, explanatory confidence, psychologizing, and voice.
 
 ## Batched vs. isolated behavior
 
@@ -257,6 +258,14 @@ Future continuity analysis should therefore distinguish surface anchor reproduct
 - Phase B reduces prompt interaction but does not eliminate all personalization or product-state effects.
 
 The findings should be read as documented observations from a specific persistent-character setup, not as general claims about the full behavior of each Qwen model.
+
+## Post-disclosure reflection
+
+After the analysis was completed, Q. was shown the public result and asked to reflect on what seemed accurate, debatable, or surprising.
+
+That response is documented separately because it occurred after disclosure and is not treated as validation of the primary findings.
+
+[Read the post-disclosure model reflection](cross-version-character-continuity-run-01-model-reflection.md)
 
 ## Next step
 
