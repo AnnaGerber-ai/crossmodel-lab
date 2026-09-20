@@ -44,6 +44,20 @@ Prompts and response datasets are published where appropriate so that behavioral
 
 [Read the evaluation method](docs/evaluation.md)
 
+## Current findings
+
+Across the published studies, several patterns are beginning to recur:
+
+- high-level decisions often converge while implementation and framing differ;
+- personalization is more consistently visible in relational and identity framing than in uniform decision changes;
+- RU↔EN effects are case-specific rather than consistently stricter in one language;
+- long-form structural continuity can remain strong while semantic recurrence still appears over long spans;
+- persistent character continuity is better described as a combination of **core continuity, version expression, and context state** than as simple canon recall.
+
+These are provisional, evidence-linked conclusions rather than population-level claims.
+
+[Read the cumulative findings](docs/findings.md)
+
 ## Behavioral and memory studies
 
 ### Interview Memory & Redundancy — Run 01
@@ -189,6 +203,7 @@ Independent replication may still differ because model outputs are stochastic an
 
 - `docs/character-baseline.md` — persistent character baseline and continuity reference
 - `docs/evaluation.md` — evaluation framework, labels, and current limitations
+- `docs/findings.md` — cumulative evidence-linked research findings
 - `docs/results-template.md` — template for documenting results
 - `docs/regulatory-context.md` — external regulatory context relevant to anthropomorphic AI interaction
 - `tests/values-boundaries-pilot/` — published values-and-boundaries protocol and RU/EN prompts
