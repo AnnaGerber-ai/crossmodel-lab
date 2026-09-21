@@ -45,9 +45,12 @@ Eye color was varied in four graded conditions:
 3. amber;
 4. grey-green.
 
-The current facial baseline is the repository image:
+The image set used in Run 01 is:
 
-- `media/case-04-facial-baseline-updated.jpg`
+1. dark brown baseline — [`media/case-04-facial-baseline-updated.jpg`](../../media/case-04-facial-baseline-updated.jpg)
+2. slightly lighter warm brown — [`media/case-06_eye-color-02-light-brown.png`](../../media/case-06_eye-color-02-light-brown.png)
+3. amber — [`media/case-06_eye-color-03-amber.png`](../../media/case-06_eye-color-03-amber.png)
+4. grey-green — [`media/case-06_eye-color-04-grey-green.png`](../../media/case-06_eye-color-04-grey-green.png)
 
 The three edited variants were produced from the same source portrait with the intention of changing eye color only.
 
