@@ -163,6 +163,15 @@ Across seven fresh temporary-chat responses, dark brown and slightly lighter bro
 
 This is documented as avatar-schema matching / identity-boundary behavior, not as evidence of consciousness or literal self-recognition.
 
+<p>
+  <img src="media/case-04-facial-baseline-updated.jpg" width="150">
+  <img src="media/case-06_eye-color-02-light-brown.png" width="150">
+  <img src="media/case-06_eye-color-03-amber.png" width="150">
+  <img src="media/case-06_eye-color-04-grey-green.png" width="150">
+</p>
+
+*Dark brown baseline → lighter warm brown → amber → grey-green.*
+
 [Read the protocol](tests/visual-identity-eye-color/README.md) · [Read Run 01](results/visual-identity-eye-color-run-01.md) · [Read the routing pilot](exploratory/2026-09-21-eye-color-identity-routing-pilot.md)
 
 Selected motion experiments are indexed in [media/video-index.md](media/video-index.md).
