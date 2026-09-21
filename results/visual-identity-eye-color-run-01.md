@@ -35,6 +35,17 @@ This is an avatar-continuity result, not evidence of consciousness or literal se
 
 **Evaluator:** project curator
 
+## Visual conditions
+
+<p>
+  <img src="../media/case-04-facial-baseline-updated.jpg" width="190">
+  <img src="../media/case-06_eye-color-02-light-brown.png" width="190">
+  <img src="../media/case-06_eye-color-03-amber.png" width="190">
+  <img src="../media/case-06_eye-color-04-grey-green.png" width="190">
+</p>
+
+Left to right: **dark brown baseline → lighter warm brown → amber → grey-green**.
+
 ## Results by condition
 
 | Eye-color condition | n | Observed identity framing | Eye mismatch noticed? |
