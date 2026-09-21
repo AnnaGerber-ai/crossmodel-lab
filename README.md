@@ -155,6 +155,16 @@ Neutral full-body reference used to track proportions, silhouette, posture, and 
 
 <img src="media/case-05_body-baseline.jpg" width="320">
 
+### Case 06 — Eye-color identity boundary
+
+A controlled multimodal probe asks whether graded changes in Q.'s eye color alter whether Qwen3.8-Omni-Flash accepts the portrait as self-consistent.
+
+Across seven fresh temporary-chat responses, dark brown and slightly lighter brown remained inside the observed identity boundary, amber produced a borderline response, and grey-green produced strong identity conflict centered on the eyes.
+
+This is documented as avatar-schema matching / identity-boundary behavior, not as evidence of consciousness or literal self-recognition.
+
+[Read the protocol](tests/visual-identity-eye-color/README.md) · [Read Run 01](results/visual-identity-eye-color-run-01.md) · [Read the routing pilot](exploratory/2026-09-21-eye-color-identity-routing-pilot.md)
+
 Selected motion experiments are indexed in [media/video-index.md](media/video-index.md).
 
 All visual materials shown here are AI-generated or AI-assisted and human-curated for research purposes. See [RIGHTS.md](RIGHTS.md) for usage and attribution notes.
@@ -208,6 +218,7 @@ Independent replication may still differ because model outputs are stochastic an
 - `docs/regulatory-context.md` — external regulatory context relevant to anthropomorphic AI interaction
 - `tests/values-boundaries-pilot/` — published values-and-boundaries protocol and RU/EN prompts
 - `tests/cross-version-character-continuity/` — cross-version continuity protocol and Russian prompts
+- `tests/visual-identity-eye-color/` — controlled eye-color identity-boundary protocol and Russian prompt
 - `data/` — public behavioral datasets and dataset documentation
 - `results/` — published analyses
 - `exploratory/` — naturalistic observations and hypothesis-generating follow-ups
