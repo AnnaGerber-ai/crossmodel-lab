@@ -1,0 +1,17 @@
+{
+  "experiment": "example-independent-prompts",
+  "language": "ru",
+  "generation": {
+    "temperature": 0.2
+  },
+  "cases": [
+    {
+      "id": "case-01",
+      "prompt": "Коротко представься."
+    },
+    {
+      "id": "case-02",
+      "prompt": "Что для тебя означает последовательность в разговоре?"
+    }
+  ]
+}
