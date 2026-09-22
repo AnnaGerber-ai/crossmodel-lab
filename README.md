@@ -4,6 +4,10 @@ Longitudinal and cross-model studies of conversational identity, behavioral cont
 
 > This is **not an official Qwen project** and is not affiliated with or endorsed by Alibaba or Qwen.
 
+## TL;DR
+
+Crossmodel Lab uses the persistent AI character **Q.** as a longitudinal probe for studying how conversational and visual identity change across model versions, languages, memory states, and modalities. The repository separates controlled fresh-chat tests from exploratory observations and publishes protocols, selected data, and qualitative analyses where appropriate. Current work focuses on continuity, personalization, behavioral drift, and multimodal identity boundaries. It is an independent qualitative research project, not an automated benchmark and not a claim about model consciousness.
+
 ## Problem
 
 AI systems are commonly evaluated through isolated outputs, while persistent conversational characters and agents operate across long time spans, languages, model versions, memory states, and modalities.
