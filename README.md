@@ -222,6 +222,10 @@ For controlled behavioral studies:
 
 Independent replication may still differ because model outputs are stochastic and provider-side model versions or product behavior can change over time.
 
+A minimal text-only API runner is included for experiments that can be executed through an OpenAI-compatible endpoint. It sends each case as an independent request and stores raw JSONL output without automated scoring or interpretation.
+
+[Read the runner guide](docs/runner.md)
+
 ## Repository structure
 
 - `docs/character-baseline.md` — persistent character baseline and continuity reference
@@ -232,6 +236,8 @@ Independent replication may still differ because model outputs are stochastic an
 - `tests/values-boundaries-pilot/` — published values-and-boundaries protocol and RU/EN prompts
 - `tests/cross-version-character-continuity/` — cross-version continuity protocol and Russian prompts
 - `tests/visual-identity-eye-color/` — controlled eye-color identity-boundary protocol and Russian prompt
+- `tools/run_prompt_set.py` — minimal text-only API runner for isolated prompt collection
+- `configs/` — example machine-readable runner configurations
 - `data/` — public behavioral datasets and dataset documentation
 - `results/` — published analyses
 - `exploratory/` — naturalistic observations and hypothesis-generating follow-ups
