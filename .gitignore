@@ -1,0 +1,11 @@
+# Local secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Unreviewed runner output
+runs/
