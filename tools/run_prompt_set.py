@@ -136,6 +136,8 @@ def main() -> int:
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     generation = dict(config.get("generation", {}))
 
+    had_errors = False
+
     with output_path.open("a", encoding="utf-8") as out:
         for index, case in enumerate(config["cases"], start=1):
             started_at = utc_now()
@@ -184,6 +186,7 @@ def main() -> int:
                 )
                 print("ok")
             except Exception as exc:  # preserve failures as part of the run record
+                had_errors = True
                 record.update(
                     {
                         "completed_at": utc_now(),
@@ -203,6 +206,9 @@ def main() -> int:
             out.flush()
 
     print(f"Saved: {output_path}")
+    if had_errors:
+        print("One or more API requests failed.", file=sys.stderr)
+        return 1
     return 0
 
 
