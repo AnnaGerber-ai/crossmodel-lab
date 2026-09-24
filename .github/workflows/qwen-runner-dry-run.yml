@@ -1,0 +1,27 @@
+name: Qwen runner dry run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run prompt runner in dry-run mode
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/example-run.json
+          --model qwen3.8-omni-flash
+          --dry-run
