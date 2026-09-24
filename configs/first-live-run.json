@@ -1,0 +1,14 @@
+{
+  "experiment": "first-live-api-test",
+  "language": "ru",
+  "generation": {
+    "temperature": 0.2,
+    "max_tokens": 128
+  },
+  "cases": [
+    {
+      "id": "case-01",
+      "prompt": "Коротко представься."
+    }
+  ]
+}
