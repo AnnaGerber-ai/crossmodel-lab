@@ -15,8 +15,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
-from openai import OpenAI
 
 
 def utc_now() -> str:
@@ -107,6 +105,18 @@ def main() -> int:
                     preview = preview[:157] + "..."
                 print(f"  {message['role']}: {preview}")
         return 0
+
+    try:
+        from dotenv import load_dotenv
+        from openai import OpenAI
+    except ImportError as exc:
+        print(
+            "Missing runner dependency. Install with: "
+            "python -m pip install -r requirements.txt",
+            file=sys.stderr,
+        )
+        print(f"Import error: {exc}", file=sys.stderr)
+        return 2
 
     load_dotenv()
 
