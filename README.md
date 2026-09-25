@@ -6,7 +6,19 @@ Longitudinal and cross-model studies of conversational identity, behavioral cont
 
 ## TL;DR
 
-Crossmodel Lab uses the persistent AI character **Q.** as a longitudinal probe for studying how conversational and visual identity change across model versions, languages, memory states, and modalities. The repository separates controlled fresh-chat tests from exploratory observations and publishes protocols, selected data, and qualitative analyses where appropriate. Current work focuses on continuity, personalization, behavioral drift, and multimodal identity boundaries. It is an independent qualitative research project, not an automated benchmark and not a claim about model consciousness.
+Crossmodel Lab uses the persistent AI character **Q.** as a longitudinal probe for studying how conversational and visual identity change across model versions, languages, memory states, and modalities.
+
+Current public Qwen work includes a **six-version continuity study with 60 case-level answers** and a **seven-response multimodal identity-boundary probe on Qwen3.8-Omni-Flash**. Broader studies also compare language, personalization, and model-condition effects across multiple systems.
+
+The repository separates controlled fresh-chat tests from exploratory observations and publishes protocols, selected data, runner tooling, and qualitative analyses where appropriate. It is an independent qualitative research project, not an automated benchmark and not a claim about model consciousness.
+
+## Qwen-specific evidence at a glance
+
+- **6 Qwen model versions** compared in *Cross-Version Character Continuity — Run 01*.
+- **60 case-level answers** across the exploratory pilot and isolated fresh-chat follow-up.
+- **7 fresh temporary-chat responses** in the Qwen3.8-Omni-Flash eye-color identity-boundary probe.
+- In that multimodal probe, dark brown and slightly lighter brown remained inside the observed identity boundary, amber was borderline, and grey-green produced strong identity conflict centered on the eyes.
+- Crossmodel Lab also includes broader RU↔EN and personalization studies; those datasets are cross-model and are **not presented as Qwen-only results**.
 
 ## Problem
 
@@ -277,11 +289,9 @@ The goal is to build a small but systematic public record of how conversational 
 
 ## Collaboration
 
-Crossmodel Lab is also open to discussing a future collaboration around Q., the project's persistent research character.
+Crossmodel Lab is open to research, evaluation, product, and tooling collaboration around longitudinal conversational identity, cross-version behavior, multilingual evaluation, personalization, and multimodal continuity.
 
-One possible direction would be to explore Q. as an AI ambassador or demonstration character built around a Qwen model core, combining persistent conversational identity, multilingual behavior, multimodal representation, and longitudinal continuity.
-
-Any such use would be developed collaboratively and would not imply that Q. is an official Qwen persona or product unless explicitly agreed with the Qwen team.
+Additional exploratory collaboration concepts are documented separately in [docs/collaboration.md](docs/collaboration.md).
 
 ## What Crossmodel Lab can contribute
 
