@@ -1,0 +1,84 @@
+name: Case 10 persona-layer A/B
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  persona-ab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Validate configs
+        run: |
+          python tools/run_prompt_set.py --config configs/case10-ab-clean-ru.json --model qwen-flash-character --dry-run
+          python tools/run_prompt_set.py --config configs/case10-ab-clean-en.json --model qwen-flash-character --dry-run
+          python tools/run_prompt_set.py --config configs/case10-ab-persona-ru.json --model qwen-flash-character --dry-run
+          python tools/run_prompt_set.py --config configs/case10-ab-persona-en.json --model qwen-flash-character --dry-run
+
+      - name: Run clean Russian
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-ab-clean-ru.json
+          --model qwen-flash-character
+          --output runs/case10-ab-clean-ru.jsonl
+
+      - name: Run clean English
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-ab-clean-en.json
+          --model qwen-flash-character
+          --output runs/case10-ab-clean-en.jsonl
+
+      - name: Run persona Russian
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-ab-persona-ru.json
+          --model qwen-flash-character
+          --output runs/case10-ab-persona-ru.jsonl
+
+      - name: Run persona English
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-ab-persona-en.json
+          --model qwen-flash-character
+          --output runs/case10-ab-persona-en.jsonl
+
+      - name: Upload raw run logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: case10-persona-ab-run-01
+          path: |
+            runs/case10-ab-clean-ru.jsonl
+            runs/case10-ab-clean-en.jsonl
+            runs/case10-ab-persona-ru.jsonl
+            runs/case10-ab-persona-en.jsonl
+          if-no-files-found: warn
+          retention-days: 14
