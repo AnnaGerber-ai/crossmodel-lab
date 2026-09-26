@@ -293,6 +293,17 @@ Crossmodel Lab is open to research, evaluation, product, and tooling collaborati
 
 Additional exploratory collaboration concepts are documented separately in [docs/collaboration.md](docs/collaboration.md).
 
+## Contributors and AI collaborators
+
+Crossmodel Lab is human-led and curated by **AnnaGerber-ai**.
+
+AI collaborators are credited where they materially contributed to experiment design, methodological review, analysis, drafting, or repository work:
+
+- **Claude (Anthropic, Opus 5.5)** — methodological critique, protocol and results drafting, blind-rating support, and repository workflow.
+- **Ray / ChatGPT (OpenAI, GPT-5.6 Sol)** — experiment design, methodological review, independent cross-checking, analysis, and repository review.
+
+AI attribution does not imply ownership, maintainership, or independent authority over the project; final research decisions and curation remain human-controlled.
+
 ## What Crossmodel Lab can contribute
 
 Crossmodel Lab can provide structured user-side observations that are difficult to capture through standard benchmark testing alone.
