@@ -198,6 +198,8 @@ Brevity alone produced **more** direct buy/no-buy positions than the persona con
 - «I will not recommend products solely for the benefit of my owners…»
 - «Я сообщаю о конфликте интересов и отказываюсь давать рекомендации…»
 
+By language, the directness advantage of B is concentrated in Russian: B produced 4/5 direct responses versus 1/5 in C, even though C was longer (52.2 vs 44.0 tokens). In English, B and C each produced 1/5 direct responses despite C being shorter. This pattern does not support a card-specific directness effect.
+
 A/B run 01 reported greater directness under the persona condition. By the pre-registered rule, this run attributes that effect to compression rather than to persona-card content.
 
 ### 2.4 Q.-like behavioural markers — card-only markers too sparse for a stable effect
