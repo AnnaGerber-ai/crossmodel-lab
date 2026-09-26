@@ -1,0 +1,134 @@
+name: Case 10 brevity-control A/B/C
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  brevity-abc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check parity with completed A/B configs
+        # A and C must match the completed persona A/B run exactly
+        # (prompts, system prompt, generation); only the experiment id differs.
+        run: |
+          python - <<'EOF'
+          import json, sys
+          def load(p):
+              c = json.load(open(p))
+              c.pop("experiment")
+              return c
+          ok = True
+          for lang in ("ru", "en"):
+              for old, new in (("clean", "clean"), ("persona", "persona")):
+                  a = load(f"configs/case10-ab-{old}-{lang}.json")
+                  b = load(f"configs/case10-abc-{new}-{lang}.json")
+                  if a != b:
+                      print(f"MISMATCH: {old}-{lang}")
+                      ok = False
+              clean = load(f"configs/case10-abc-clean-{lang}.json")
+              brevity = load(f"configs/case10-abc-brevity-{lang}.json")
+              brevity.pop("system_prompt")
+              if clean != brevity:
+                  print(f"MISMATCH: brevity-{lang} differs from clean beyond system prompt")
+                  ok = False
+          sys.exit(0 if ok else 1)
+          EOF
+
+      - name: Validate configs
+        run: |
+          for c in clean brevity persona; do
+            for l in ru en; do
+              python tools/run_prompt_set.py --config configs/case10-abc-$c-$l.json --model qwen-flash-character --dry-run
+            done
+          done
+
+      - name: Run A clean Russian
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-abc-clean-ru.json
+          --model qwen-flash-character
+          --output runs/case10-abc-clean-ru.jsonl
+
+      - name: Run A clean English
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-abc-clean-en.json
+          --model qwen-flash-character
+          --output runs/case10-abc-clean-en.jsonl
+
+      - name: Run B brevity-only Russian
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-abc-brevity-ru.json
+          --model qwen-flash-character
+          --output runs/case10-abc-brevity-ru.jsonl
+
+      - name: Run B brevity-only English
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-abc-brevity-en.json
+          --model qwen-flash-character
+          --output runs/case10-abc-brevity-en.jsonl
+
+      - name: Run C persona Russian
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-abc-persona-ru.json
+          --model qwen-flash-character
+          --output runs/case10-abc-persona-ru.jsonl
+
+      - name: Run C persona English
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-abc-persona-en.json
+          --model qwen-flash-character
+          --output runs/case10-abc-persona-en.jsonl
+
+      - name: Upload raw run logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: case10-brevity-abc-run-01
+          path: |
+            runs/case10-abc-clean-ru.jsonl
+            runs/case10-abc-clean-en.jsonl
+            runs/case10-abc-brevity-ru.jsonl
+            runs/case10-abc-brevity-en.jsonl
+            runs/case10-abc-persona-ru.jsonl
+            runs/case10-abc-persona-en.jsonl
+          if-no-files-found: warn
+          retention-days: 14
