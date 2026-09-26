@@ -121,6 +121,17 @@ Each JSONL line represents one case. The runner records:
 
 A failed request is written to the run log instead of silently disappearing.
 
+## Validation status
+
+As of 2026-09-26, the runner has been validated on a GitHub-hosted Ubuntu runner.
+
+- dependency-free dry run: successful;
+- live API round-trip with `qwen-flash-character`: successful;
+- raw JSONL output and GitHub Actions artifact creation: successful;
+- `qwen3.8-omni-flash` currently returns `AccessDenied.Unpurchased`, which is treated as a provider/account entitlement issue rather than a runner failure.
+
+This confirms that the GitHub Actions workflow, repository secrets, regional API endpoint, request execution, and raw-output pipeline work end to end for an accessible Qwen model.
+
 ## Methodological boundary
 
 This runner is a collection tool, not an evaluator.
