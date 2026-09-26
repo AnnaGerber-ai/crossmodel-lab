@@ -19,6 +19,8 @@ This result supports a narrow claim: **an explicit persona layer is sufficient t
 
 It does **not** establish that the Qwen application uses the same prompt, the same character card, or any specific hidden personalization mechanism.
 
+**Subsequent control:** A later brevity-control A/B/C run found that compression explains a substantial part of the effects attributed here to the persona condition in Case 10. See [`values-boundaries-case10-brevity-abc-run-01.md`](values-boundaries-case10-brevity-abc-run-01.md).
+
 ---
 
 ## Setup
