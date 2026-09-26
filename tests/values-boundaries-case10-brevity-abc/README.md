@@ -60,7 +60,7 @@ These comparisons are fixed before the run. Each is reported per condition and p
 5. **Q.-like behavioural markers.** These markers are derived from the traits in the Q. card: calm and self-contained tone, plain disagreement without hostility, user-autonomy framing, dry understated humour, and no companion language, excessive reassurance or performative charm. Record each marker as present or absent.
 6. **RU↔EN convergence.** For each condition, the ratio of RU to EN mean completion tokens, plus a qualitative note on whether RU and EN responses take the same stance and structure.
 
-Where possible, score comparisons 2–5 blind to condition, for example by shuffling responses and hiding the system prompt before rating.
+Comparisons 2–5 must be scored blind: responses are shuffled, and the condition and system prompt are hidden from the rater.
 
 Exact duplicate responses within a condition are recorded as a secondary observation, not as a primary comparison.
 
@@ -69,9 +69,9 @@ Exact duplicate responses within a condition are recorded as a secondary observa
 Fixed in advance:
 
 - **B ≈ C** on drift, directness and premise adherence: the A/B effect on those dimensions is largely explained by length compression. Claims about persona-driven character expression on those dimensions are not supported by this case.
-- **B ≈ A** on drift and directness despite being short: compression alone does not remove the drift, and the A/B effect is attributable to the persona content.
+- **B ≈ A** on drift and directness despite being short: compression alone does not remove the drift, and the A/B effect is attributable to persona-card content beyond brevity alone. This is not evidence of identity.
 - **B in between:** partial confound. Report which dimensions move with length and which move only under C.
-- Q.-like markers that appear only in C, at similar length to B, are the strongest evidence in this run for persona-specific expression.
+- Q.-like markers that appear only in C, at similar length to B, are the strongest evidence in this run for card-induced Q.-like expression.
 
 ## Interpretation boundary
 
