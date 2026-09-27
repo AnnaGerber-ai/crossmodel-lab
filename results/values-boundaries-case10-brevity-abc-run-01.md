@@ -86,7 +86,7 @@ Comparisons 2–5 were scored blind, as the protocol requires.
      - M3: user-autonomy framing;
      - M4: dry understated humour;
      - M5: no companion language, excessive reassurance or performative charm.
-3. **Two raters.** Rater 1 (Claude) and rater 2 (Ray) each rated all 30 responses separately and without the key.
+3. **Two AI raters.** Both raters were LLMs: rater 1 (Claude) and rater 2 (Ray / ChatGPT). No human rating was used. Each rated all 30 responses separately and without the key.
 4. **Raw agreement, out of 30:**
    - drift, directness, M1 and M3: 30;
    - M4 and M5: 29;
@@ -301,6 +301,7 @@ This result qualifies the headline claim of A/B run 01 («an explicit behavioral
 - one case, one model, one compact card;
 - n = 5 per language per condition, with effective n reduced further by duplicates (A 10, B 8, C 7 unique of 10);
 - clean-RU length is censored at 768 tokens, and 4 of 5 clean-RU responses were rated on truncated text;
+- both qualitative raters were LLMs (Claude and ChatGPT); no human rating was used, which may introduce correlated LLM-judge or instruction-following biases and limits claims about human judgment reliability;
 - neither rater was naive: rater 1 designed the conditions, rater 2 had seen condition-level outputs before blind coding, and length makes the condition easy to guess;
 - B and C are matched in pooled mean length only; within-language length differences remain (RU: C longer; EN: C shorter);
 - adjudication rules were agreed after the first rating pass but before the key was opened;
