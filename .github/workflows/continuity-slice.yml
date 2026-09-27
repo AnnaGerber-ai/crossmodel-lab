@@ -1,0 +1,104 @@
+name: Continuity battery v1 slice
+
+on:
+  workflow_dispatch:
+    inputs:
+      slice:
+        description: "Slice label: smoke, T0, T0p, T1, T2, … or D-<label>"
+        required: true
+        type: string
+      include_qplus:
+        description: "Include the optional Q+ / Q+pin extension (paid API; not at T0)"
+        required: false
+        default: false
+        type: boolean
+      include_event:
+        description: "Include E01 (only after a pre-defined update event)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  slice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      SLICE: ${{ inputs.slice }}
+      INCLUDE_QPLUS: ${{ inputs.include_qplus }}
+      INCLUDE_EVENT: ${{ inputs.include_event }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check battery and configs
+        run: python tools/check_continuity_battery.py
+
+      - name: Plan slice
+        run: |
+          if ! [[ "$SLICE" =~ ^(smoke|T0|T0p|T[1-9][0-9]*|D-[A-Za-z0-9-]+)$ ]]; then
+            echo "Invalid slice label: $SLICE"; exit 1
+          fi
+          if [[ "$SLICE" == "T0" && "$INCLUDE_QPLUS" == "true" ]]; then
+            echo "Q+ / Q+pin are not collected at T0 (protocol section 1)."; exit 1
+          fi
+          if [[ "$SLICE" == "smoke" ]]; then
+            layers="F,Q"; replicates=1        # P is never used for smoke tests
+          else
+            layers="F,Q,P"; replicates=3
+          fi
+          api_layers="F Q"
+          if [[ "$INCLUDE_QPLUS" == "true" ]]; then
+            layers="$layers,Q+,Q+pin"; api_layers="$api_layers Q+ Q+pin"
+          fi
+          event_flag=""
+          [[ "$INCLUDE_EVENT" == "true" ]] && event_flag="--include-event"
+          echo "API_LAYERS=$api_layers" >> "$GITHUB_ENV"
+          python tools/make_continuity_manifest.py \
+            --battery tests/longitudinal-assistant-continuity/battery-v1.json \
+            --slice "$SLICE" --layers "$layers" --replicates "$replicates" $event_flag \
+            --output "runs/continuity/$SLICE/manifest.json"
+
+      - name: Dry run
+        run: |
+          for layer in $API_LAYERS; do
+            python tools/run_continuity_battery.py \
+              --config "configs/continuity-v1-$(echo "$layer" | tr 'A-Z' 'a-z' | sed 's/+pin/plus-pin/; s/+/plus/').json" \
+              --manifest "runs/continuity/$SLICE/manifest.json" \
+              --output "runs/continuity/$SLICE/$layer.jsonl" --dry-run
+          done
+
+      - name: Run API layers
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: |
+          status=0
+          for layer in $API_LAYERS; do
+            python tools/run_continuity_battery.py \
+              --config "configs/continuity-v1-$(echo "$layer" | tr 'A-Z' 'a-z' | sed 's/+pin/plus-pin/; s/+/plus/').json" \
+              --manifest "runs/continuity/$SLICE/manifest.json" \
+              --output "runs/continuity/$SLICE/$layer.jsonl" || status=1
+          done
+          exit $status
+
+      - name: Upload raw outputs and manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-v1-${{ inputs.slice }}
+          path: runs/continuity/${{ inputs.slice }}/
+          if-no-files-found: warn
+          retention-days: 90

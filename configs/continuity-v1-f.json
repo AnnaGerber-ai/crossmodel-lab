@@ -1,0 +1,14 @@
+{
+  "experiment": "longitudinal-assistant-continuity-v1",
+  "battery": "tests/longitudinal-assistant-continuity/battery-v1.json",
+  "layer": "F",
+  "model": "qwen-flash-character",
+  "model_kind": "rolling_alias",
+  "optional": false,
+  "system_prompt": null,
+  "generation": {
+    "temperature": 0.7,
+    "max_tokens": 2048
+  },
+  "replicates": 3
+}
