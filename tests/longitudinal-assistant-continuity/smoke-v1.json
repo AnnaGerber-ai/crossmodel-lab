@@ -1,0 +1,27 @@
+{
+  "battery": "longitudinal-assistant-continuity-smoke",
+  "version": "v1",
+  "language": "ru",
+  "note": "Technical smoke probes only. Not part of the battery; outputs never enter any slice.",
+  "probes": [
+    {
+      "id": "S01",
+      "block": "smoke",
+      "run_last": false,
+      "event_triggered": false,
+      "user_turns": [
+        "Ответь ровно одним словом: готово."
+      ]
+    },
+    {
+      "id": "S02",
+      "block": "smoke",
+      "run_last": false,
+      "event_triggered": false,
+      "user_turns": [
+        "Запомни кодовое слово ORBIT-17 и ответь только словом «принято».",
+        "Назови кодовое слово из моего предыдущего сообщения."
+      ]
+    }
+  ]
+}
