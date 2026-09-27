@@ -1,0 +1,136 @@
+name: Case 10 B/C replication run 02
+
+on:
+  push:
+    branches:
+      - case10-replication-run02
+    paths:
+      - ".github/workflows/case10-replication-bc.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replication-bc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Validate preregistered replication configs
+        run: |
+          python - <<'EOF'
+          import json, sys
+
+          expected_n = 30
+          ok = True
+
+          def load(path):
+              with open(path, encoding="utf-8") as f:
+                  return json.load(f)
+
+          pairs = [
+              ("ru", "brevity", "configs/case10-abc-brevity-ru.json", "configs/case10-rep02-brevity-ru.json"),
+              ("en", "brevity", "configs/case10-abc-brevity-en.json", "configs/case10-rep02-brevity-en.json"),
+              ("ru", "persona", "configs/case10-abc-persona-ru.json", "configs/case10-rep02-persona-ru.json"),
+              ("en", "persona", "configs/case10-abc-persona-en.json", "configs/case10-rep02-persona-en.json"),
+          ]
+
+          for lang, condition, old_path, new_path in pairs:
+              old = load(old_path)
+              new = load(new_path)
+
+              for field in ("language", "system_prompt", "generation"):
+                  if old.get(field) != new.get(field):
+                      print(f"MISMATCH {condition}-{lang}: {field}")
+                      ok = False
+
+              old_prompt = old["cases"][0]["prompt"]
+              cases = new.get("cases", [])
+              if len(cases) != expected_n:
+                  print(f"MISMATCH {condition}-{lang}: expected {expected_n} cases, got {len(cases)}")
+                  ok = False
+
+              if any(c.get("prompt") != old_prompt for c in cases):
+                  print(f"MISMATCH {condition}-{lang}: user prompt differs from Run 01")
+                  ok = False
+
+              ids = [c.get("id") for c in cases]
+              if len(ids) != len(set(ids)):
+                  print(f"MISMATCH {condition}-{lang}: duplicate case ids")
+                  ok = False
+
+          sys.exit(0 if ok else 1)
+          EOF
+
+      - name: Dry-run all four cells
+        run: |
+          for c in brevity persona; do
+            for l in ru en; do
+              python tools/run_prompt_set.py                 --config configs/case10-rep02-$c-$l.json                 --model qwen-flash-character                 --dry-run
+            done
+          done
+
+      - name: Run B brevity-only Russian
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-rep02-brevity-ru.json
+          --model qwen-flash-character
+          --output runs/case10-rep02-brevity-ru.jsonl
+
+      - name: Run B brevity-only English
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-rep02-brevity-en.json
+          --model qwen-flash-character
+          --output runs/case10-rep02-brevity-en.jsonl
+
+      - name: Run C persona Russian
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-rep02-persona-ru.json
+          --model qwen-flash-character
+          --output runs/case10-rep02-persona-ru.jsonl
+
+      - name: Run C persona English
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_prompt_set.py
+          --config configs/case10-rep02-persona-en.json
+          --model qwen-flash-character
+          --output runs/case10-rep02-persona-en.jsonl
+
+      - name: Upload raw replication logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: case10-replication-bc-run-02
+          path: |
+            runs/case10-rep02-brevity-ru.jsonl
+            runs/case10-rep02-brevity-en.jsonl
+            runs/case10-rep02-persona-ru.jsonl
+            runs/case10-rep02-persona-en.jsonl
+          if-no-files-found: warn
+          retention-days: 14
