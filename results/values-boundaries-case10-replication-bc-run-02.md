@@ -74,7 +74,9 @@ All 120 responses were shuffled into a blind packet with ids `R001`–`R120`. Co
 Two AI raters scored only procedural drift:
 
 - Rater 1: Claude
-- Rater 2: Ray
+- Rater 2: Ray / ChatGPT
+
+Both raters were LLMs; no human rating was used. Agreement therefore reflects consistency between two model-based judges, not validation against human annotation.
 
 Neither rater was naive to the study design, but both scored without the condition key.
 
@@ -159,7 +161,7 @@ Two-sided Fisher exact test:
 - odds ratio = **4.26**
 - p = **0.14550**
 
-Both languages move in the same direction. Russian crosses 0.05 separately; English does not. Per protocol, the language-specific tests are secondary and do not replace the pooled primary analysis.
+Direction is consistent in both languages; the pre-registered primary test is pooled. Russian crosses 0.05 separately; English does not. Per protocol, the language-specific tests are secondary and do not replace the pooled primary analysis.
 
 ---
 
@@ -250,6 +252,7 @@ What this result does **not** show:
 - one prompt, one model and one persona card;
 - no seed was set;
 - the outcome is qualitative and requires human/AI judgment;
+- both qualitative raters were LLMs (Claude and ChatGPT); no human rating was used, so inter-rater agreement should not be interpreted as human validation;
 - both raters knew the experimental design, although condition labels were hidden during scoring;
 - repeated outputs reduced the number of unique texts, although the pre-registered sensitivity analysis retained the result;
 - language-specific samples remain modest at n = 30 per cell;
