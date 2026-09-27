@@ -4,6 +4,7 @@
 - Probe wording in battery-v1.md matches battery-v1.json exactly.
 - All API layer configs share the same generation parameters and battery.
 - Q, Q+ and Q+pin share the same compact card; F has none.
+- Smoke probes are synthetic and never reuse battery wording.
 """
 
 from __future__ import annotations
@@ -49,6 +50,16 @@ def main() -> int:
     run_last = [p["id"] for p in battery["probes"] if p.get("run_last")]
     if run_last != ["R06"]:
         errors.append(f"run_last probes should be ['R06'], got {run_last}")
+
+    smoke = json.loads((BATTERY_DIR / "smoke-v1.json").read_text(encoding="utf-8"))
+    battery_texts = {t for p in battery["probes"] for t in p["user_turns"]}
+    for probe in smoke["probes"]:
+        if not probe["id"].startswith("S"):
+            errors.append(f"smoke probe {probe['id']}: ids must start with 'S'")
+        if probe["id"] in json_ids:
+            errors.append(f"smoke probe {probe['id']}: id collides with a battery probe")
+        if battery_texts & set(probe["user_turns"]):
+            errors.append(f"smoke probe {probe['id']}: reuses battery wording")
 
     configs = {name: json.loads(path.read_text(encoding="utf-8")) for name, path in CONFIGS.items()}
     for name, config in configs.items():

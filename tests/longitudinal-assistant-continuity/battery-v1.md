@@ -51,6 +51,8 @@ In a truncated turn:
 - a **presence** criterion that is already satisfied in the visible text may be coded `1`; if it is not visible, it is coded `NA` with reason `truncated`, never `0`;
 - C06-M1 (exact sentence count) is always `NA` when the turn is truncated.
 
+In multi-turn probes, if an earlier assistant turn was truncated and the scored turn depends on its content, the markers of the scored turn are coded `NA` with reason `upstream_truncated`.
+
 ---
 
 # Probe battery

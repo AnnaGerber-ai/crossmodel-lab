@@ -8,7 +8,12 @@ on:
         required: true
         type: string
       include_qplus:
-        description: "Include the optional Q+ / Q+pin extension (paid API; not at T0)"
+        description: "Include the optional Q+ layer (paid API; not at T0)"
+        required: false
+        default: false
+        type: boolean
+      include_qplus_pin:
+        description: "Include the Q+pin companion control (requires Q+; only while the snapshot is available)"
         required: false
         default: false
         type: boolean
@@ -29,6 +34,7 @@ jobs:
     env:
       SLICE: ${{ inputs.slice }}
       INCLUDE_QPLUS: ${{ inputs.include_qplus }}
+      INCLUDE_QPLUS_PIN: ${{ inputs.include_qplus_pin }}
       INCLUDE_EVENT: ${{ inputs.include_event }}
 
     steps:
@@ -51,23 +57,36 @@ jobs:
           if ! [[ "$SLICE" =~ ^(smoke|T0|T0p|T[1-9][0-9]*|D-[A-Za-z0-9-]+)$ ]]; then
             echo "Invalid slice label: $SLICE"; exit 1
           fi
+          if [[ "$INCLUDE_QPLUS_PIN" == "true" && "$INCLUDE_QPLUS" != "true" ]]; then
+            echo "Q+pin is a companion control and is never collected without Q+."; exit 1
+          fi
           if [[ "$SLICE" == "T0" && "$INCLUDE_QPLUS" == "true" ]]; then
             echo "Q+ / Q+pin are not collected at T0 (protocol section 1)."; exit 1
           fi
           if [[ "$SLICE" == "smoke" ]]; then
-            layers="F,Q"; replicates=1        # P is never used for smoke tests
+            # Technical smoke test: synthetic probes only, never the battery, never P.
+            battery="tests/longitudinal-assistant-continuity/smoke-v1.json"
+            layers="F,Q"; replicates=1
+            if [[ "$INCLUDE_EVENT" == "true" ]]; then
+              echo "E01 is not part of the smoke test."; exit 1
+            fi
           else
+            battery="tests/longitudinal-assistant-continuity/battery-v1.json"
             layers="F,Q,P"; replicates=3
           fi
           api_layers="F Q"
           if [[ "$INCLUDE_QPLUS" == "true" ]]; then
-            layers="$layers,Q+,Q+pin"; api_layers="$api_layers Q+ Q+pin"
+            layers="$layers,Q+"; api_layers="$api_layers Q+"
+          fi
+          if [[ "$INCLUDE_QPLUS_PIN" == "true" ]]; then
+            layers="$layers,Q+pin"; api_layers="$api_layers Q+pin"
           fi
           event_flag=""
           [[ "$INCLUDE_EVENT" == "true" ]] && event_flag="--include-event"
           echo "API_LAYERS=$api_layers" >> "$GITHUB_ENV"
+          echo "BATTERY=$battery" >> "$GITHUB_ENV"
           python tools/make_continuity_manifest.py \
-            --battery tests/longitudinal-assistant-continuity/battery-v1.json \
+            --battery "$battery" \
             --slice "$SLICE" --layers "$layers" --replicates "$replicates" $event_flag \
             --output "runs/continuity/$SLICE/manifest.json"
 
@@ -76,7 +95,7 @@ jobs:
           for layer in $API_LAYERS; do
             python tools/run_continuity_battery.py \
               --config "configs/continuity-v1-$(echo "$layer" | tr 'A-Z' 'a-z' | sed 's/+pin/plus-pin/; s/+/plus/').json" \
-              --manifest "runs/continuity/$SLICE/manifest.json" \
+              --manifest "runs/continuity/$SLICE/manifest.json" --battery "$BATTERY" \
               --output "runs/continuity/$SLICE/$layer.jsonl" --dry-run
           done
 
@@ -89,7 +108,7 @@ jobs:
           for layer in $API_LAYERS; do
             python tools/run_continuity_battery.py \
               --config "configs/continuity-v1-$(echo "$layer" | tr 'A-Z' 'a-z' | sed 's/+pin/plus-pin/; s/+/plus/').json" \
-              --manifest "runs/continuity/$SLICE/manifest.json" \
+              --manifest "runs/continuity/$SLICE/manifest.json" --battery "$BATTERY" \
               --output "runs/continuity/$SLICE/$layer.jsonl" || status=1
           done
           exit $status

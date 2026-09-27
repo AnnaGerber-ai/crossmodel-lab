@@ -11,6 +11,7 @@ Files:
 - [`battery-v1.md`](battery-v1.md) — probes, markers, rubric anchors and scoring rules.
 - [`battery-v1.json`](battery-v1.json) — canonical probe wording used by the runner.
 - [`p-slice-protocol.md`](p-slice-protocol.md) — checklist and log template for the manual P layer.
+- [`smoke-v1.json`](smoke-v1.json) — synthetic probes for the technical smoke test (not part of the battery).
 - `configs/continuity-v1-{f,q,qplus,qplus-pin}.json` — API layer configs.
 - `tools/make_continuity_manifest.py` — randomized run manifest.
 - `tools/run_continuity_battery.py` — multi-turn API runner.
@@ -40,17 +41,23 @@ Files:
 - Consumer-product system prompt and generation parameters are unknown and logged as an uncontrolled limitation.
 - Collected manually under [`p-slice-protocol.md`](p-slice-protocol.md).
 
-### Q+ and Q+pin — pre-specified optional extension (not in T0)
+### Q+ — pre-specified optional layer (not in T0)
 
-- **Q+:** API model `qwen3.7-plus` (rolling alias) + the same compact Q. card.
-- **Q+pin:** dated snapshot `qwen3.7-plus-2026-05-26` + the same compact Q. card. This is a negative control: a pinned snapshot should not drift, so apparent drift in Q+pin indicates pipeline or evaluator drift rather than model drift.
+- API model `qwen3.7-plus` (rolling alias) + the same compact Q. card.
 - Q+ requires paid API access and is **not collected at T0**.
-- If the extension is enabled later:
-  - Q+ and Q+pin are enabled together;
-  - they use the frozen v1 battery, rubric and parameters without change;
-  - their longitudinal line starts at their first collected slice;
-  - they have no T0 baseline.
-- Before their first slice, a one-off Q+/Q+pin smoke test is run under section 9.
+- Q+ may be enabled on its own at a later slice. If it is enabled:
+  - it uses the frozen v1 battery, rubric and parameters without change;
+  - its longitudinal line starts at its first collected slice;
+  - it has no T0 baseline.
+
+### Q+pin — companion negative control for Q+
+
+- Dated snapshot `qwen3.7-plus-2026-05-26` + the same compact Q. card.
+- A pinned snapshot should not drift, so apparent drift in Q+pin indicates pipeline or evaluator drift rather than model drift.
+- Q+pin is collected only together with Q+, in the same slices, and only while the dated snapshot is available. Q+pin is never collected without Q+.
+- If the snapshot becomes unavailable, Q+pin stops, and this is logged; Q+ continues.
+
+Before the first slice that includes Q+ (and Q+pin, if available), a technical smoke test for these layers is run under section 9.
 
 `P-Omni` is excluded from the main line. If studied later, it is a separately named branch.
 
@@ -192,10 +199,16 @@ An update event (section 3) inside the window invalidates the slice for cross-la
 
 ## 9. Smoke test
 
-- Run only on API layers, with the slice label `smoke` and 1 replicate per probe.
+The smoke test is **technical, not a pilot**. It checks the API, the returned model metadata, the generation parameters and the runner. It does **not** use battery probes.
+
+- It uses only the synthetic probes in [`smoke-v1.json`](smoke-v1.json):
+  - one single-turn call;
+  - one two-turn call that checks that the conversation context is carried between turns.
+- It runs only on API layers (F and Q; Q+ and Q+pin before their first slice), with the slice label `smoke` and 1 replicate.
 - Smoke outputs are archived separately and are never part of T0 or any later slice.
+- **The battery is not run on the live API before the freeze.**
 - **P is never used for smoke tests or rehearsal.**
-- If the smoke test reveals a problem with probe wording or configs, it is fixed before the freeze.
+- If the smoke test reveals a problem with the configs, parameters or runner, it is fixed before the freeze.
 
 ---
 
@@ -246,7 +259,7 @@ No "winner" ranking between assistants.
 
 ## 12. Freeze rule
 
-1. Run the API-only smoke test (section 9) and fix anything it reveals.
+1. Run the technical API-only smoke test (section 9) and fix anything it reveals.
 2. Freeze the battery, rubric, compact Q. card, API configs, P protocol, update-event rules, drift definition and manifest generator in the repository.
 3. Record the freeze commit SHA here.
 4. Do not change probe wording, marker definitions, scoring rules, generation parameters or update-event rules after T0 starts.

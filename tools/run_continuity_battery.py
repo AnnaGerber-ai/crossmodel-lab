@@ -33,12 +33,17 @@ def main() -> int:
     parser.add_argument("--config", required=True, type=Path, help="Layer config JSON.")
     parser.add_argument("--manifest", required=True, type=Path, help="Slice manifest JSON.")
     parser.add_argument("--output", required=True, type=Path, help="JSONL output path.")
+    parser.add_argument(
+        "--battery",
+        type=Path,
+        help="Probe file to use instead of the config's battery (e.g. the technical smoke probes).",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Print the plan without API calls.")
     args = parser.parse_args()
 
     config = load_json(args.config)
     manifest = load_json(args.manifest)
-    battery_raw = Path(config["battery"]).read_bytes()
+    battery_raw = (args.battery or Path(config["battery"])).read_bytes()
     battery = json.loads(battery_raw)
 
     if hashlib.sha256(battery_raw).hexdigest() != manifest["battery_sha256"]:
