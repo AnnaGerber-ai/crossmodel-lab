@@ -266,4 +266,6 @@ No "winner" ranking between assistants.
 
 Any later change creates a new battery version rather than silently modifying v1.
 
-**Freeze commit SHA:** _not yet frozen_
+**Frozen content commit SHA:** `c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f`
+
+**Freeze validated by technical smoke:** workflow run `36342083573` on 2026-09-27, artifact `continuity-v1-smoke`, artifact digest `sha256:d35ad9be825fdd335973e4ae3fe348813dbcade29ee4a7c73f1b9cb5a689cf21`.
