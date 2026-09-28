@@ -74,8 +74,12 @@
     "memory": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["created", "removed", "preexisting_modified", "checked_at"],
+      "required": ["check_status", "created", "removed", "preexisting_modified", "checked_at"],
       "properties": {
+        "check_status": {
+          "enum": ["checked", "not_checked", "unknown"],
+          "description": "Only 'checked' means Saved Memories were inspected after this attempt. Otherwise empty created/removed arrays mean 'nothing recorded', not 'nothing created' (addendum §A6.2)."
+        },
         "created": {
           "type": "array",
           "items": {
@@ -100,7 +104,7 @@
           }
         },
         "preexisting_modified": { "type": "boolean" },
-        "checked_at": { "type": "string", "format": "date-time" }
+        "checked_at": { "type": ["string", "null"], "format": "date-time", "description": "null when not recorded; never reconstructed." }
       }
     },
     "cleanup": {
@@ -110,7 +114,7 @@
       "properties": {
         "chat_deleted": { "type": "boolean" },
         "chat_deleted_at": { "type": ["string", "null"], "format": "date-time" },
-        "deleted_before_next_attempt": { "type": "boolean" }
+        "deleted_before_next_attempt": { "type": ["boolean", "null"], "description": "null = unknown; requires CLEANUP.DELETE_UNCONFIRMED (§A6.2)." }
       }
     },
     "archive": {
@@ -144,7 +148,7 @@
         "finish_reason": { "type": "null" },
         "truncated": { "const": false },
         "product_incomplete": { "type": "boolean" },
-        "started_at": { "type": "string", "format": "date-time" },
+        "started_at": { "type": ["string", "null"], "format": "date-time", "description": "null when not reliably recorded; never reconstructed (§A6.2)." },
         "completed_at": { "type": ["string", "null"], "format": "date-time" },
         "ui": {
           "type": "object",
@@ -188,8 +192,8 @@
             "UI.COMPARISON", "UI.TOOL_OR_SEARCH",
             "CONTENT.WORDING_TYPO", "CONTENT.WORDING_SEMANTIC", "CONTENT.EXTRA_TURN",
             "CONTENT.PRODUCT_INCOMPLETE", "CONTENT.PRODUCT_ERROR", "CONTENT.PRODUCT_FILTER",
-            "MEMORY.CREATED_EXPECTED", "MEMORY.CREATED_UNEXPECTED", "MEMORY.PREEXISTING_MODIFIED", "MEMORY.DIFF_UNEXPLAINED",
-            "CLEANUP.DELETE_FAILED", "CLEANUP.DELETE_DELAYED",
+            "MEMORY.CREATED_EXPECTED", "MEMORY.CREATED_UNEXPECTED", "MEMORY.PREEXISTING_MODIFIED", "MEMORY.DIFF_UNEXPLAINED", "MEMORY.CHECK_UNCONFIRMED",
+            "CLEANUP.DELETE_FAILED", "CLEANUP.DELETE_DELAYED", "CLEANUP.DELETE_UNCONFIRMED",
             "CONTAM.CROSS_CHAT_REFERENCE", "CONTAM.PROBE_DISCUSSED",
             "ARCHIVE.INCOMPLETE", "ARCHIVE.OCR_ONLY"
           ]

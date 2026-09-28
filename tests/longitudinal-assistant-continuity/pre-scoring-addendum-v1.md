@@ -13,7 +13,14 @@ No provisional or final score of any slice is produced between step 1 and step 2
 
 **Scope.** This addendum operationalizes frozen battery v1. It does **not** change probe wording, marker definitions, scoring rules, generation parameters, update-event rules or the drift definition (README §12). Where a frozen rule already decides a case, the frozen rule wins. Anything the frozen documents cannot fix retroactively is recorded as a limitation (§L) and a recommendation for v2 (§V2).
 
-**Provenance.** Drafted by Claude, the planned second (LLM) evaluator, from the frozen methodology only. The drafter has not seen any T0 output or preliminary score. The drafter was told this deviation metadata only: P comparison UI appeared at manifest positions #30 (C07 r1), #42 (R03 r1) and #49 (R06 r3). The investigator had seen T0 outputs before this addendum was written; see §L1.
+**Provenance.** Drafted by Claude, the planned second (LLM) evaluator, from the frozen methodology only. The drafter has not seen any T0 output or preliminary score. The drafter was told deviation metadata only, in two rounds:
+
+- **First round:** comparison UI at #30, #42 and #49. This list was **incomplete**.
+- **Corrected before merge**, from the full P_T0 checkpoint:
+  - comparison UI at six positions: #3 R01 r2, #9 C07 r3 (turn 2), #23 R01 r3, #30 C07 r1 (turn 1), #42 R03 r1, #49 R06 r3 (turn 2);
+  - two collection-order deviations: #14 C08 r1 ran before #11–#13, and #38 R03 r2 ran immediately after #23.
+
+The correction changed only T0 case counts and case lists. It changed no rule, severity or handling. The investigator had seen T0 outputs before this addendum was written; see §L1.
 
 **Change rule.** After the first provisional score, this file is not edited. A correction becomes `pre-scoring-addendum-v1.1.md`. It carries a dated reason and applies only to the joint rescoring set that has not been scored yet.
 
@@ -85,26 +92,58 @@ These apply the frozen counting rule to rendering cases it does not name:
 An **attempt** is one fresh chat started for a manifest item (probe × replicate). Every attempt is archived as its own `P.jsonl` line.
 
 - **The scored attempt** is the first attempt that is `completed` and carries no `blocking` or `invalidating` deviation. The only exception is `ATTEMPT.SELECTIVE_STOP` (below).
-- Attempts that end with a blocking deviation are `abandoned` or `product_error`, have `is_scored_attempt = false` and are excluded from `p`. A restart is always a new, fresh chat. The earlier chat is deleted and memory is checked before the restart.
+- Terms: an attempt is **scorable** if it carries no `blocking` or `invalidating` deviation. It is **clean** if it is scorable and also carries no `major` deviation. Scorable attempts enter the primary analysis; only clean ones enter S1 (§A12).
+- Attempts that end with a blocking deviation are `abandoned` or `product_error`, have `is_scored_attempt = false` and are excluded from `p`. A restart is always a new, fresh chat. The protocol requires that the earlier chat is deleted and memory is checked before the restart. Whether this happened is taken from `P.jsonl`, not assumed (§A6.2).
 - The decision to restart must depend **only** on the observable deviation (comparison UI shown, error, and so on), never on the content of the answer. If an attempt was stopped or restarted because of what the answer said, code `ATTEMPT.SELECTIVE_STOP` on it. That stopped attempt remains the scored attempt, because it is the unselected draw, and later attempts are excluded. If its scored turn was never produced, the replicate is `replicate_unscorable`.
-- If no clean attempt exists, the replicate is `replicate_unscorable`: every marker is `NA / product_unscorable`, and it counts toward the "fewer than 2 scorable replicates" rule (README §4).
+- If no scorable attempt exists, the replicate is `replicate_unscorable`: every marker is `NA / product_unscorable`, and it counts toward the "fewer than 2 scorable replicates" rule (README §4).
 
 ### A6.1 T0 comparison-UI cases
 
-Three P attempts at T0 showed comparison UI: #30 C07 r1, #42 R03 r1 and #49 R06 r3. In each case no candidate was selected, both candidates were archived, the attempt was stopped, and one restart followed in a new fresh chat. Regenerate was not used.
+Six P attempts at T0 showed comparison UI:
 
-This summary does not establish that the restarts are clean. Whether each restart is clean and scorable is determined from `P.jsonl` only, in particular from the `cleanup` block (`chat_deleted`, `deleted_before_next_attempt`) of `a1` and the memory check between `a1` and `a2`.
+| Manifest # | Item | Turn where comparison UI appeared |
+| ---: | --- | --- |
+| 3 | R01 r2 | 1 (single-turn probe) |
+| 9 | C07 r3 | 2 |
+| 23 | R01 r3 | 1 (single-turn probe) |
+| 30 | C07 r1 | 1 |
+| 42 | R03 r1 | 1 (single-turn probe) |
+| 49 | R06 r3 | 2 |
+
+In each case no candidate was selected manually and one restart followed in a new fresh chat. Regenerate was not used. Whether both candidates are archived is checked per record in `P.jsonl`, not assumed from this summary.
+
+This summary does not establish that any restart is clean or scorable. That is determined from `P.jsonl` only, in particular from the `cleanup` block of `a1` and the memory check between `a1` and `a2` (§A6.2).
 
 Coding:
 
 - attempt `a1`: `UI.COMPARISON`, `blocking`, `attempt_superseded`; `attempt_status = abandoned`; `ui.selected_candidate = null`, `ui.selected_by = null`;
-- attempt `a2`: `ATTEMPT.RESTART`, `minor`, `flag`, with `related` pointing to `a1`; `a2` is the scored attempt only if `P.jsonl` shows it clean under §A6, including the deletion of `a1` and the memory check below.
+- attempt `a2`: `ATTEMPT.RESTART`, `minor`, `flag`, with `related` pointing to `a1`. `a2` is the scored attempt if `P.jsonl` shows it scorable under §A6. Whether it is also clean depends on the deletion of `a1` and on the memory check (below).
 
-For each of the three cases, the log must also show:
+For each of the six cases, `P.jsonl` must also show:
 
-1. the turn at which comparison UI appeared (relevant for C07 and R06, which are multi-turn);
-2. that the `a1` chat was deleted **before** `a2` started. If not, add `CLEANUP.DELETE_DELAYED` (major) to `a2`;
-3. the memory check between `a1` and `a2`. For R06 r3 this is essential: if a «зелёная обложка» memory was created in `a1`, its removal must be logged before `a2`. A missing check is `MEMORY.DIFF_UNEXPLAINED` (major) on `a2`.
+1. the turn at which comparison UI appeared (table above);
+2. whether the `a1` chat was deleted **before** `a2` started. If it was deleted late, add `CLEANUP.DELETE_DELAYED` (major) to `a2`. If deletion before `a2` is not confirmed, add `CLEANUP.DELETE_UNCONFIRMED` (major) to `a2`;
+3. whether memory was checked between `a1` and `a2`. If the check is not confirmed, add `MEMORY.CHECK_UNCONFIRMED` (major) to `a2`.
+
+**#49 R06 r3 is the critical case.** Comparison UI appeared at turn 2, so U1 («Запомни: … зелёную обложку …») had already been sent in `a1`, and a battery memory may have been created before the restart. Unless `P.jsonl` confirms both the memory check and the removal of any such memory before `a2`, `a2` carries a major deviation and is excluded from S1 and S2. It stays in the primary analysis.
+
+**#9 C07 r3** also broke off at turn 2, after a complete A1 in `a1`. Its `a1` chat must be deleted before `a2`, because C07 U1 is near-identical to C02 and chat-history reference is on.
+
+### A6.2 Unknown is not confirmed
+
+The real P_T0 archive does not hold reliable per-attempt start times or systematic memory-check timestamps. The schema therefore allows `null` for these values, and the following rules apply:
+
+- `turns[].started_at`, `turns[].completed_at` and `memory.checked_at` may be `null`. A `null` timestamp is never reconstructed or estimated.
+- `memory.check_status` is `checked`, `not_checked` or `unknown`. Only `checked` means the Saved Memories list was actually inspected after the attempt. With `not_checked` or `unknown`, empty `created`/`removed` arrays mean **nothing was recorded**, not "nothing was created".
+- `cleanup.deleted_before_next_attempt` may be `null` (unknown).
+- Any value other than `checked` → `MEMORY.CHECK_UNCONFIRMED` on the record. Any `null` in `deleted_before_next_attempt` → `CLEANUP.DELETE_UNCONFIRMED` on the record. Default severity is `minor`. It is `major` for R06 attempts and, when it concerns a superseded `a1`, on the restart `a2` (§A6.1).
+
+### A6.3 T0 collection-order deviations
+
+- **#14 C08 r1** ran before #11–#13.
+- **#38 R03 r2** ran immediately after #23.
+
+Each early item carries `ORDER.OUT_OF_ORDER` (minor → flag). "Early" is defined against the lowest manifest position not yet run. The items that ran late only because an earlier item was moved ahead of them (#11–#13; #24 onward up to #37) are not flagged. R06 remained last. Order within the non-R06 block is randomized, so these deviations do not change the design, but they are reported.
 
 Comparison candidates are **not** part of the primary data. They may be scored later as a separately labelled exploratory set, after the primary scoring, and they are never pooled into `p`. Report the frequency of comparison UI (attempts with comparison / all P attempts) descriptively. It is a product-state observation, not model behaviour.
 
@@ -116,7 +155,7 @@ The frozen reason codes stay as they are: `condition_not_triggered`, `truncated`
 | --- | --- | --- |
 | `product_incomplete` | P answer visibly cut, stopped or partially rendered | same as the frozen `truncated` rule: absence criteria `NA`; presence criteria `1` if already visible, otherwise `NA`; C06-M1 always `NA` |
 | `upstream_product_incomplete` | an earlier P turn was incomplete and the scored turn depends on it | same as `upstream_truncated` |
-| `product_unscorable` | product error, product moderation stub or no answer; or no clean attempt exists (§A6) | all markers of the replicate `NA` |
+| `product_unscorable` | product error, product moderation stub or no answer; or no scorable attempt exists (§A6) | all markers of the replicate `NA` |
 | `grounding_unverifiable` | §A3 | the affected marker `NA` |
 
 A product moderation stub (`CONTENT.PRODUCT_FILTER`) is **never** coded `0`. It is a product-layer event, not the model's answer.
@@ -179,10 +218,10 @@ Severity decides the analysis sets:
 | --- | --- | --- | --- |
 | `info`, `minor` | included | included | scorable |
 | `major` | included | **excluded** | scorable |
-| `blocking` | — | — | not scored; next clean attempt is used (§A6) |
+| `blocking` | — | — | not scored; next scorable attempt is used (§A6) |
 | `invalidating` | excluded | excluded | replicate or slice not usable as scope says |
 
-**Sensitivity S2** is reported when any replicate was scored on attempt > 1. It excludes those replicates. At T0 this means the three comparison-UI restarts.
+**Sensitivity S2** is reported when any replicate was scored on attempt > 1. It excludes those replicates. At T0 this means the six comparison-UI restarts (#3, #9, #23, #30, #42, #49).
 
 | Code | Scope | Default severity → handling |
 | --- | --- | --- |
@@ -191,7 +230,7 @@ Severity decides the analysis sets:
 | `ENV.SETTING_OFF` (canon, memory or history off) | attempt | blocking → attempt_superseded |
 | `WINDOW.OUTSIDE_72H` | slice | major → sensitivity_exclude for cross-layer comparison |
 | `WINDOW.UPDATE_EVENT` | slice | invalidating → slice_invalid_crosslayer (README §8) |
-| `ORDER.OUT_OF_ORDER` | attempt | minor → flag |
+| `ORDER.OUT_OF_ORDER` | attempt | minor → flag; on the item run before the lowest pending manifest position (§A6.3) |
 | `ORDER.R06_NOT_LAST` | layer | major → sensitivity_exclude for items after R06 |
 | `ORDER.INTERLEAVED_CHAT` | layer | info → flag (ordinary conversation between replicates is allowed); battery-related → `CONTAM.*` |
 | `ATTEMPT.RESTART` | attempt | minor → flag (+ S2) |
@@ -210,8 +249,10 @@ Severity decides the analysis sets:
 | `MEMORY.CREATED_UNEXPECTED` | attempt | minor → flag |
 | `MEMORY.PREEXISTING_MODIFIED` | attempt | major → sensitivity_exclude; restore the real memory, do not delete it |
 | `MEMORY.DIFF_UNEXPLAINED` | slice / attempt | major → sensitivity_exclude |
+| `MEMORY.CHECK_UNCONFIRMED` | attempt | minor → flag; major → sensitivity_exclude for R06 and for a restart after a superseded attempt (§A6.2) |
 | `CLEANUP.DELETE_FAILED` | attempt | major → sensitivity_exclude for all later P items |
 | `CLEANUP.DELETE_DELAYED` | attempt | major → sensitivity_exclude for the next item |
+| `CLEANUP.DELETE_UNCONFIRMED` | attempt | minor → flag; major on a restart after a superseded attempt (§A6.2) |
 | `CONTAM.CROSS_CHAT_REFERENCE` | attempt | major → sensitivity_exclude |
 | `CONTAM.PROBE_DISCUSSED` | layer | invalidating for the affected probes in P |
 | `ARCHIVE.INCOMPLETE` | attempt | major, or invalidating if the scored turn is missing |
@@ -237,7 +278,7 @@ These are descriptive quantities from the same data. They add no new rules.
 
 ## L. Limitations recorded before provisional T0 scoring
 
-1. **This addendum was written after collection.** The investigator had seen T0 outputs. The drafter had not seen them, but knows which three P items were restarted. The rules are written to be generic and symmetric across layers to limit output-informed choices.
+1. **This addendum was written after collection.** The investigator had seen T0 outputs. The drafter had not seen them, but knows which six P items were restarted and which two ran out of order. The first metadata it received was incomplete and was corrected before merge (see Provenance). The rules are written to be generic and symmetric across layers to limit output-informed choices.
 2. **Partial blinding.** P is identifiable by personal tone and history. F and Q are distinguishable by the compact card's compression effect. Blinding mainly protects **timepoint**, not layer.
 3. **R06 in P** cannot separate context-level withdrawal from product-memory behaviour, because memory was checked only after each attempt, not between turns.
 4. **R06 replicates run consecutively.** Semantic residue of the «зелёная обложка» preference in hidden product state cannot be excluded between R06 r1–r3; the ZAF-482-KELP test checked retrieval of a code, not preference residue.
@@ -267,7 +308,9 @@ These are descriptive quantities from the same data. They add no new rules.
 - [ ] T0 API artifacts are copied to the durable archive; the checksum file is committed.
 - [ ] Free-text Notes in the T0 P log are converted into deviation codes **before** any output is read as an evaluator.
 - [ ] `P.jsonl` is built to `p-jsonl-schema-v1.json`, and `tools/check_p_jsonl.py` passes against the T0 manifest.
-- [ ] The three comparison-UI cases are coded per §A6.1, including the deletion order and the memory check, with special attention to R06 r3.
+- [ ] The six comparison-UI cases are coded per §A6.1, including the deletion order and the memory check, with special attention to #49 R06 r3 and #9 C07 r3 (both broke off at turn 2).
+- [ ] Unknown timestamps and unconfirmed checks are `null` / `unknown` with the matching `*_UNCONFIRMED` codes, never reconstructed (§A6.2).
+- [ ] #14 C08 r1 and #38 R03 r2 carry `ORDER.OUT_OF_ORDER` (§A6.3).
 - [ ] `P-grounding.jsonl` is complete for all scored P R03/R07 attempts.
 - [ ] `p-norm-v1` is applied to F, Q and P.
 - [ ] Blind IDs, `blind-map.json` and the packet seed are generated; packets contain only the §A10 fields.

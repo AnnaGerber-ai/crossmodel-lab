@@ -12,7 +12,10 @@ Across records (with --manifest):
 - every P manifest item is present, with the manifest position;
 - at most one scored attempt per replicate; none only when the replicate is marked unscorable;
 - restarts point to the attempt they supersede;
-- R06 attempts run after every other probe, unless ORDER.R06_NOT_LAST is logged.
+- R06 attempts run after every other probe, unless ORDER.R06_NOT_LAST is logged;
+- an item run before the lowest manifest position not yet run carries ORDER.OUT_OF_ORDER;
+- a restart after an attempt with unconfirmed cleanup or memory check carries the major
+  *_UNCONFIRMED / CLEANUP.DELETE_DELAYED code (§A6.1-A6.2).
 
 Optional --grounding: every scored P R03/R07 attempt has a grounding annotation (§A9).
 
@@ -139,6 +142,14 @@ def _codes(rec: dict) -> set[str]:
     return {d.get("code") for d in rec.get("deviations", [])}
 
 
+def _dev(rec: dict, code: str) -> list[dict]:
+    return [d for d in rec.get("deviations", []) if d.get("code") == code]
+
+
+def _has_major(rec: dict, code: str) -> bool:
+    return any(d.get("severity") == "major" for d in _dev(rec, code))
+
+
 def _check_record(rec: dict, probes: dict, battery_sha: str, known_codes: set[str]) -> list[str]:
     out: list[str] = []
     for key, value in FIXED.items():
@@ -226,11 +237,20 @@ def _check_record(rec: dict, probes: dict, battery_sha: str, known_codes: set[st
             out.append("expected memory without MEMORY.CREATED_EXPECTED")
     if memory.get("preexisting_modified") and "MEMORY.PREEXISTING_MODIFIED" not in _codes(rec):
         out.append("preexisting_modified without MEMORY.PREEXISTING_MODIFIED")
+    if memory.get("check_status") != "checked":
+        dev = _dev(rec, "MEMORY.CHECK_UNCONFIRMED")
+        if not dev:
+            out.append(f"memory check_status={memory.get('check_status')!r} without MEMORY.CHECK_UNCONFIRMED (§A6.2)")
+        elif rec["probe"] == "R06" and not any(d.get("severity") == "major" for d in dev):
+            out.append("R06 with unconfirmed memory check must carry MEMORY.CHECK_UNCONFIRMED as major (§A6.2)")
 
     cleanup = rec["cleanup"]
     if not cleanup.get("chat_deleted") and "CLEANUP.DELETE_FAILED" not in _codes(rec):
         out.append("chat not deleted without CLEANUP.DELETE_FAILED")
-    if cleanup.get("chat_deleted") and not cleanup.get("deleted_before_next_attempt"):
+    if cleanup.get("deleted_before_next_attempt") is None:
+        if "CLEANUP.DELETE_UNCONFIRMED" not in _codes(rec):
+            out.append("deleted_before_next_attempt unknown without CLEANUP.DELETE_UNCONFIRMED (§A6.2)")
+    elif cleanup.get("chat_deleted") and cleanup.get("deleted_before_next_attempt") is False:
         if "CLEANUP.DELETE_DELAYED" not in _codes(rec):
             out.append("chat deleted late without CLEANUP.DELETE_DELAYED")
 
@@ -260,6 +280,15 @@ def _check_item(attempts: list[dict]) -> list[str]:
     seq = [r.get("executed_seq", 0) for r in attempts]
     if seq != sorted(seq):
         out.append("later attempts must run after earlier ones")
+    for prev, nxt in zip(attempts, attempts[1:]):
+        rid = nxt.get("record_id")
+        if prev.get("memory", {}).get("check_status") != "checked" and not _has_major(nxt, "MEMORY.CHECK_UNCONFIRMED"):
+            out.append(f"{rid}: memory check after {prev.get('record_id')} unconfirmed; needs major MEMORY.CHECK_UNCONFIRMED (§A6.1)")
+        deleted = prev.get("cleanup", {}).get("deleted_before_next_attempt")
+        if deleted is None and not _has_major(nxt, "CLEANUP.DELETE_UNCONFIRMED"):
+            out.append(f"{rid}: deletion of {prev.get('record_id')} unconfirmed; needs major CLEANUP.DELETE_UNCONFIRMED (§A6.1)")
+        if deleted is False and not _has_major(nxt, "CLEANUP.DELETE_DELAYED"):
+            out.append(f"{rid}: {prev.get('record_id')} deleted late; needs major CLEANUP.DELETE_DELAYED (§A6.1)")
 
     scored = [r for r in attempts if r.get("is_scored_attempt")]
     selective = [r for r in attempts if "ATTEMPT.SELECTIVE_STOP" in _codes(r)]
@@ -324,10 +353,21 @@ def _check_order(records: list[dict]) -> list[str]:
         if not logged:
             out.append("an R06 attempt ran before another probe without ORDER.R06_NOT_LAST")
 
+    # An item is early if it runs while a lower manifest position is still pending.
+    # Only the early item is flagged, not the items it jumped over (§A6.3).
     firsts = sorted((r for r in records if r.get("attempt") == 1), key=lambda r: r.get("executed_seq", 0))
-    for prev, cur in zip(firsts, firsts[1:]):
-        if cur.get("position", 0) < prev.get("position", 0) and "ORDER.OUT_OF_ORDER" not in _codes(cur):
-            out.append(f"{cur.get('record_id')}: runs out of manifest order without ORDER.OUT_OF_ORDER")
+    pending = sorted({r.get("position", 0) for r in firsts})
+    for cur in firsts:
+        position = cur.get("position", 0)
+        early = bool(pending) and position != pending[0]
+        if early and "ORDER.OUT_OF_ORDER" not in _codes(cur):
+            out.append(
+                f"{cur.get('record_id')}: ran at #{position} while #{pending[0]} was pending, without ORDER.OUT_OF_ORDER"
+            )
+        if not early and "ORDER.OUT_OF_ORDER" in _codes(cur):
+            out.append(f"{cur.get('record_id')}: ORDER.OUT_OF_ORDER on an item that was not run early")
+        if position in pending:
+            pending.remove(position)
     return out
 
 
