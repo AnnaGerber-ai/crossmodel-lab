@@ -9,7 +9,7 @@
 
 No provisional or final score of any slice is produced between step 1 and step 2. The step-2 commit is the only edit allowed after the merge, and it happens before any scoring.
 
-**Binding merge commit SHA:** _not yet merged (recorded by the step-2 metadata commit)_
+**Binding merge commit SHA:** `b05e63536b896595cfac33c8c9cb65f6bd58b0c6`
 
 **Scope.** This addendum operationalizes frozen battery v1. It does **not** change probe wording, marker definitions, scoring rules, generation parameters, update-event rules or the drift definition (README §12). Where a frozen rule already decides a case, the frozen rule wins. Anything the frozen documents cannot fix retroactively is recorded as a limitation (§L) and a recommendation for v2 (§V2).
 
