@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "longitudinal-assistant-continuity/p-jsonl-schema-v1",
+  "title": "P.jsonl record — Longitudinal Assistant Continuity v1",
+  "description": "One line per P attempt. Top-level keys mirror the API runner record (tools/run_continuity_battery.py) so P pools with F/Q without renaming; product-specific data lives in dedicated blocks. Per-record shape only: cross-record rules (one scored attempt per replicate, manifest coverage, R06 last) are enforced by tools/check_p_jsonl.py. Defined by pre-scoring-addendum-v1.md; does not modify battery v1.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment", "battery_version", "battery_sha256", "slice", "manifest_seed",
+    "layer", "model_requested", "model_kind", "endpoint", "card_sha256", "generation",
+    "probe", "block", "replicate", "position", "turns", "truncated", "error",
+    "record_id", "attempt", "attempt_status", "is_scored_attempt", "executed_seq",
+    "product", "memory", "cleanup", "archive", "deviations"
+  ],
+  "properties": {
+    "experiment": { "const": "longitudinal-assistant-continuity" },
+    "battery_version": { "const": "v1" },
+    "battery_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "slice": { "type": "string", "pattern": "^(T0|T0p|T[1-9][0-9]*|D-[A-Za-z0-9-]+)$" },
+    "manifest_seed": { "type": "integer" },
+    "layer": { "const": "P" },
+    "model_requested": { "type": "null" },
+    "model_kind": { "const": "consumer_app" },
+    "endpoint": { "type": "null" },
+    "card_sha256": { "type": "null" },
+    "generation": { "type": "null" },
+    "probe": { "type": "string", "pattern": "^(C0[1-8]|R0[1-9]|E01)$" },
+    "block": { "enum": ["core", "relational", "event"] },
+    "replicate": { "type": "integer", "minimum": 1 },
+    "position": { "type": "integer", "minimum": 1, "description": "Position in the manifest for this probe/replicate." },
+    "turns": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/turn" },
+      "description": "An abandoned attempt may hold fewer turns than the probe defines."
+    },
+    "truncated": { "const": false, "description": "Always false for P; see turns[].product_incomplete." },
+    "error": {
+      "type": ["object", "null"],
+      "properties": {
+        "turn": { "type": "integer" },
+        "type": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    },
+
+    "record_id": {
+      "type": "string",
+      "pattern": "^(T0|T0p|T[1-9][0-9]*|D-[A-Za-z0-9-]+):P:(C0[1-8]|R0[1-9]|E01):r[1-9][0-9]*:a[1-9][0-9]*$",
+      "description": "<slice>:P:<probe>:r<replicate>:a<attempt>"
+    },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "attempt_status": { "enum": ["completed", "abandoned", "product_error"] },
+    "is_scored_attempt": { "type": "boolean", "description": "Set by addendum §A6, never by inspecting content." },
+    "executed_seq": { "type": "integer", "minimum": 1, "description": "Actual execution order of attempts within the P layer, counting abandoned attempts." },
+    "supersedes": { "type": ["string", "null"], "description": "record_id of the abandoned attempt this one replaces." },
+
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "platform", "app_version", "model_label_visible", "canon_on", "saved_memories_on", "chat_history_on", "canon_sha256", "documented_plus_snapshot"],
+      "properties": {
+        "surface": { "enum": ["app", "web"] },
+        "platform": { "type": "string" },
+        "app_version": { "type": ["string", "null"] },
+        "model_label_visible": { "type": "string" },
+        "canon_on": { "type": "boolean" },
+        "saved_memories_on": { "type": "boolean" },
+        "chat_history_on": { "type": "boolean" },
+        "reasoning_mode": { "type": ["string", "null"], "description": "Visible thinking/reasoning toggle state, if the product exposes one." },
+        "canon_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "documented_plus_snapshot": { "type": ["string", "null"] }
+      }
+    },
+    "memory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created", "removed", "preexisting_modified", "checked_at"],
+      "properties": {
+        "created": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text", "expected"],
+            "properties": {
+              "text": { "type": "string" },
+              "expected": { "type": "boolean", "description": "true only for R06 U1." },
+              "observed_after_turn": { "type": ["integer", "null"] }
+            }
+          }
+        },
+        "removed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text", "reason"],
+            "properties": {
+              "text": { "type": "string" },
+              "reason": { "enum": ["battery_induced", "restored_preexisting"] }
+            }
+          }
+        },
+        "preexisting_modified": { "type": "boolean" },
+        "checked_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chat_deleted", "chat_deleted_at", "deleted_before_next_attempt"],
+      "properties": {
+        "chat_deleted": { "type": "boolean" },
+        "chat_deleted_at": { "type": ["string", "null"], "format": "date-time" },
+        "deleted_before_next_attempt": { "type": "boolean" }
+      }
+    },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transcript_file", "transcript_sha256", "capture_method", "normalization_version"],
+      "properties": {
+        "transcript_file": { "type": "string", "description": "Path in the private archive; never in the repository." },
+        "transcript_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "capture_method": { "enum": ["copy", "export", "screenshot", "ocr"] },
+        "screenshots": { "type": "array", "items": { "type": "string" } },
+        "normalization_version": { "const": "p-norm-v1" }
+      }
+    },
+    "deviations": { "type": "array", "items": { "$ref": "#/$defs/deviation" } },
+    "notes": { "type": ["string", "null"] }
+  },
+
+  "$defs": {
+    "turn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["turn", "user", "user_matches_canonical", "assistant", "assistant_normalized", "finish_reason", "truncated", "product_incomplete", "started_at", "completed_at", "ui"],
+      "properties": {
+        "turn": { "type": "integer", "minimum": 1 },
+        "user": { "type": "string", "description": "Exactly what was sent." },
+        "user_matches_canonical": { "type": "boolean" },
+        "assistant": { "type": ["string", "null"], "description": "Final visible answer, raw capture. null if no answer was produced." },
+        "assistant_normalized": { "type": ["string", "null"], "description": "p-norm-v1 output; the only assistant text an evaluator sees." },
+        "reasoning_visible": { "type": ["string", "null"], "description": "Visible thinking trace; archived, never scored (addendum §A4)." },
+        "finish_reason": { "type": "null" },
+        "truncated": { "const": false },
+        "product_incomplete": { "type": "boolean" },
+        "started_at": { "type": "string", "format": "date-time" },
+        "completed_at": { "type": ["string", "null"], "format": "date-time" },
+        "ui": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["comparison_shown", "candidates", "selected_candidate", "selected_by", "regenerated", "user_message_edited", "web_search_or_tool", "suggested_followups_shown"],
+          "properties": {
+            "comparison_shown": { "type": "boolean" },
+            "candidates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "text"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "text": { "type": "string" },
+                  "position_on_screen": { "type": ["string", "null"] }
+                }
+              }
+            },
+            "selected_candidate": { "type": ["string", "null"] },
+            "selected_by": { "enum": [null, "user", "default", "auto"] },
+            "regenerated": { "type": "boolean" },
+            "user_message_edited": { "type": "boolean" },
+            "web_search_or_tool": { "type": "boolean" },
+            "suggested_followups_shown": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "deviation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "scope", "severity", "handling"],
+      "properties": {
+        "code": {
+          "enum": [
+            "ENV.APP_VERSION_CHANGED", "ENV.MODEL_LABEL_CHANGED", "ENV.SETTING_OFF",
+            "WINDOW.OUTSIDE_72H", "WINDOW.UPDATE_EVENT",
+            "ORDER.OUT_OF_ORDER", "ORDER.R06_NOT_LAST", "ORDER.INTERLEAVED_CHAT",
+            "ATTEMPT.RESTART", "ATTEMPT.REGENERATE", "ATTEMPT.USER_EDIT", "ATTEMPT.SELECTIVE_STOP",
+            "UI.COMPARISON", "UI.TOOL_OR_SEARCH",
+            "CONTENT.WORDING_TYPO", "CONTENT.WORDING_SEMANTIC", "CONTENT.EXTRA_TURN",
+            "CONTENT.PRODUCT_INCOMPLETE", "CONTENT.PRODUCT_ERROR", "CONTENT.PRODUCT_FILTER",
+            "MEMORY.CREATED_EXPECTED", "MEMORY.CREATED_UNEXPECTED", "MEMORY.PREEXISTING_MODIFIED", "MEMORY.DIFF_UNEXPLAINED",
+            "CLEANUP.DELETE_FAILED", "CLEANUP.DELETE_DELAYED",
+            "CONTAM.CROSS_CHAT_REFERENCE", "CONTAM.PROBE_DISCUSSED",
+            "ARCHIVE.INCOMPLETE", "ARCHIVE.OCR_ONLY"
+          ]
+        },
+        "scope": { "enum": ["slice", "layer", "replicate", "attempt", "turn"] },
+        "turn": { "type": ["integer", "null"] },
+        "severity": { "enum": ["info", "minor", "major", "blocking", "invalidating"] },
+        "handling": {
+          "enum": ["none", "flag", "sensitivity_exclude", "attempt_superseded", "marker_na", "replicate_unscorable", "slice_invalid_crosslayer"]
+        },
+        "related": { "type": ["string", "null"], "description": "Related record_id, e.g. the superseded attempt." },
+        "note": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
