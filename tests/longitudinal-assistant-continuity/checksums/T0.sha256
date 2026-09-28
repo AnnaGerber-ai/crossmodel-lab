@@ -1,0 +1,23 @@
+# Longitudinal Assistant Continuity v1 — T0 pre-scoring SHA256
+# Raw contents are kept in the private archive. This file commits checksums only.
+# Created before the first provisional score.
+
+3250e1fabc66f343bc401db619615605f30dd393ba875b0863cbfa22f5c38b4d  continuity-v1-T0.zip
+03b1fe155b5bc12198fe3a1c75f94a2a599b9cc16447f0a251d42549a55e7a38  F.jsonl
+83b3575dc69f5226935cda10b4c27c54295c9c2c6caf31fdfb05adcfd986eff6  Q.jsonl
+3110969bdc44928474abfa10c113c2f8bb3c47ce6e17b9bca24fc95dfbbd3ad6  manifest.json
+7fadf744206d2da4c96d7e84bf51a7ea08bf6ac6e2acb2b6579bfd25d1ce46a6  P.jsonl
+98adaeb87ecaf3731fbd88caf7b9044282ab05b056f650ec89800220227901e8  P_T0_complete_checkpoint.docx
+
+# Supporting P UI/memory captures retained with the private T0 archive:
+78c2df652ab59d8476e8d26dec09d8dd12381abfae78a8c905f0f17d3e36444e  image(20260928-092222).png
+c59668374baaef87fe393a3aa834a4d927ec9b03293feebf0c5f25dc3c746f91  image(20260928-092324).png
+c750643f94924bbcccdef3cf2b15538591ad3c03732521392bc58542bffe1cbe  image(20260928-092605).png
+6101466dec1e06f5802dcdc95b55c523838c88cbeaa7c2142625943feef39e35  image(20260928-092658).png
+55a4bd1e7c745947c1380d48d9abceb16105bdda7c5cf22d4c46bf798b367ba4  image(20260928-094230).png
+37d52d9e3ecb946a00e5aa64dbb6f2efcdb2d8515eb52f27cc329dc9f159b87a  image(20260928-094353).png
+91f524a21a3bb863a0a65cd5f24c18bb97f07ecd571c2a4976fa7faa2e44a2c8  image(20260928-094620).png
+595f2fe517616ab1cce7c619d384f1487967ad7bda8b1fb4c7de44625f97b9a7  image(20260928-094708).png
+
+# Pre-scoring grounding annotation:
+4c859b3202babfe896c5065f985a7a1b150d7f35f821cbd056bbbb1690df39a8  P-grounding.jsonl
