@@ -9,11 +9,18 @@
   "packet_seed": 7424218627420166877,
   "scores_sha256": "a652e5583a11b433cd13c7d0dd1956000f9fae86de63268f637db00cb0664e78",
   "scores_rows": 459,
-  "score_distribution": {"1": 354, "0": 90, "NA": 15},
-  "na_reasons": {"condition_not_triggered": 15},
+  "score_distribution": {
+    "1": 354,
+    "0": 90,
+    "NA": 15
+  },
+  "na_reasons": {
+    "condition_not_triggered": 15
+  },
   "notes": [
     "Evaluator reported 11 borderline notes.",
     "Known partial identifiability: Q prefix/persona cues and P R03/R07 grounding per addendum A10/L2.",
-    "This metadata sidecar is separate from the score JSONL."
+    "This metadata sidecar is separate from the score JSONL.",
+    "Before joint rescoring, evaluator 2 received a qualitative description of provisional findings and the overall agreement level with Ray; no additional row-level scores were provided."
   ]
 }

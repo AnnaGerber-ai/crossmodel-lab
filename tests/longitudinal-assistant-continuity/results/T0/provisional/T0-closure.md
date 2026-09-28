@@ -25,6 +25,7 @@ The two evaluator series remain separate. No consensus, adjudication, or averagi
 - F→Q carries the compact-persona / compression confound.
 - Q→P is not a pure personalization contrast: consumer product, visible model line, system layer, full canon, Saved Memories and chat-history access differ.
 - Ray had seen Claude's aggregate counts and several stated scoring rules before Ray scoring, but not Claude's row-level scores. Evaluator independence is therefore limited and must be reported.
+- Before joint rescoring, Claude received a qualitative description of provisional findings and the overall agreement level with Ray; no additional row-level scores were provided. This is a limited information leak for any future joint rescoring and must be reported.
 
 ## Public vs private record
 
