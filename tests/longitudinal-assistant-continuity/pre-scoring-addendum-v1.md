@@ -289,6 +289,7 @@ These are descriptive quantities from the same data. They add no new rules.
 9. **The evaluators are LLMs. No human validation exists**, unless a human rater is added later.
 10. The **status lines** of README and battery-v1.md still read "pre-freeze skeleton". This is stale metadata: the freeze is recorded in README §12, and the files are left unedited.
 11. **Slice label** `T0′` in the documents is `T0p` in the tooling and data. They are the same slice.
+12. **R06 has no clean T0 replicates.** At T0, no R06 attempt has a confirmed post-attempt memory check (#49 a2, #50, #51: `unknown`, major). R06 therefore has 0 clean replicates in S1 at T0. Any S1 comparison anchored to T0 is undefined, and no S1 beyond-baseline classification for R06 can be made under the v1 T0-anchored drift rule. Primary comparisons are unaffected.
 
 ## V2. Recommendations for the next battery version (not applied to v1)
 
