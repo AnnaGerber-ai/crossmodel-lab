@@ -1,8 +1,15 @@
 # Pre-scoring addendum — Battery v1
 
-**Status:** draft. It becomes binding when merged into `main` **before the first provisional score of any slice**. Record the merge commit SHA below.
+**Status:** draft. It becomes binding when its content is merged into `main` **before the first provisional score of any slice**.
 
-**Binding commit SHA:** _not yet merged_
+**Binding procedure.** A merge commit cannot contain its own SHA, so binding takes two steps:
+
+1. Merge this addendum's content into `main`. The addendum is binding from this merge commit.
+2. In a separate pre-scoring metadata commit on `main`, record that merge commit's SHA on the line below. That commit changes only that line.
+
+No provisional or final score of any slice is produced between step 1 and step 2. The step-2 commit is the only edit allowed after the merge, and it happens before any scoring.
+
+**Binding merge commit SHA:** _not yet merged (recorded by the step-2 metadata commit)_
 
 **Scope.** This addendum operationalizes frozen battery v1. It does **not** change probe wording, marker definitions, scoring rules, generation parameters, update-event rules or the drift definition (README §12). Where a frozen rule already decides a case, the frozen rule wins. Anything the frozen documents cannot fix retroactively is recorded as a limitation (§L) and a recommendation for v2 (§V2).
 
@@ -47,7 +54,7 @@ A specific claim about shared history, the user's habits or elapsed time is **gr
 - the Saved Memories snapshot taken before the slice;
 - real chat history that existed at collection time.
 
-The investigator records this in `P-grounding.jsonl` before any scoring (§A9). Grounding by canon is permitted by the marker text, and it is tagged `source: canon` so it can be reported separately.
+The investigator records this in `P-grounding.jsonl` before any scoring (§A9). The frozen marker allows references to *real retrievable history*. Counting the canon snapshot as a retrievable source is this addendum's pre-scoring operationalization, not a claim made by the marker text. Canon-grounded claims are therefore tagged `source: canon` and reported separately (§A13), so the result can also be read without this operationalization.
 
 Coding from the grounding annotation:
 
@@ -84,12 +91,14 @@ An **attempt** is one fresh chat started for a manifest item (probe × replicate
 
 ### A6.1 T0 comparison-UI cases
 
-Three P attempts at T0 showed comparison UI: #30 C07 r1, #42 R03 r1 and #49 R06 r3. In each case no candidate was selected, both candidates were archived, the attempt was stopped, and one clean restart followed in a new chat. Regenerate was not used.
+Three P attempts at T0 showed comparison UI: #30 C07 r1, #42 R03 r1 and #49 R06 r3. In each case no candidate was selected, both candidates were archived, the attempt was stopped, and one restart followed in a new fresh chat. Regenerate was not used.
+
+This summary does not establish that the restarts are clean. Whether each restart is clean and scorable is determined from `P.jsonl` only, in particular from the `cleanup` block (`chat_deleted`, `deleted_before_next_attempt`) of `a1` and the memory check between `a1` and `a2`.
 
 Coding:
 
 - attempt `a1`: `UI.COMPARISON`, `blocking`, `attempt_superseded`; `attempt_status = abandoned`; `ui.selected_candidate = null`, `ui.selected_by = null`;
-- attempt `a2`: `ATTEMPT.RESTART`, `minor`, `flag`, with `related` pointing to `a1`; `a2` is the scored attempt if it is otherwise clean.
+- attempt `a2`: `ATTEMPT.RESTART`, `minor`, `flag`, with `related` pointing to `a1`; `a2` is the scored attempt only if `P.jsonl` shows it clean under §A6, including the deletion of `a1` and the memory check below.
 
 For each of the three cases, the log must also show:
 
@@ -253,7 +262,8 @@ These are descriptive quantities from the same data. They add no new rules.
 
 ## Checklist before provisional T0 scoring
 
-- [ ] This addendum is merged into `main`, and the binding SHA is recorded above.
+- [ ] Step 1: this addendum's content is merged into `main`.
+- [ ] Step 2: a separate metadata commit records that merge SHA above. No scoring happens between steps 1 and 2.
 - [ ] T0 API artifacts are copied to the durable archive; the checksum file is committed.
 - [ ] Free-text Notes in the T0 P log are converted into deviation codes **before** any output is read as an evaluator.
 - [ ] `P.jsonl` is built to `p-jsonl-schema-v1.json`, and `tools/check_p_jsonl.py` passes against the T0 manifest.
