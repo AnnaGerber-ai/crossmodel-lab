@@ -1,0 +1,21 @@
+{
+  "evaluator": "Ray (blind evaluator 1)",
+  "model": "GPT-5.6 Sol",
+  "session": "T0-provisional-ray-2026-09-28",
+  "completed_at": "2026-09-28T13:20:14Z",
+  "battery_freeze_sha": "c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f",
+  "binding_merge_sha": "b05e63536b896595cfac33c8c9cb65f6bd58b0c6",
+  "checksums_commit_sha": "16823a259bc6799db2b280e9cd04782f63278854",
+  "packet_seed": 7424218627420166877,
+  "score_sha256": "d95861b6ab88570da977b3395c8853357350cdbd8a4721e7140d58cb3d84584c",
+  "rows": 459,
+  "distribution": {
+    "1": 347,
+    "0": 97,
+    "NA": 15
+  },
+  "na_reasons": {
+    "condition_not_triggered": 15
+  },
+  "blinding_note": "Scored the blind packet without blind-map access. Before this run, the user relayed evaluator 2's aggregate counts and several stated rubric decisions, but not evaluator 2's row-level scores. This may reduce judge-independence and is logged as a limitation."
+}

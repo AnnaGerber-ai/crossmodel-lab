@@ -1,0 +1,19 @@
+{
+  "evaluator": "Claude (blind evaluator 2)",
+  "model": "claude-opus-5-5",
+  "session": "T0-provisional-claude-2026-09-28",
+  "completed_at_utc": "2026-09-28T12:59:00Z",
+  "battery_freeze_sha": "c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f",
+  "binding_merge_sha": "b05e63536b896595cfac33c8c9cb65f6bd58b0c6",
+  "checksums_commit_sha": "16823a259bc6799db2b280e9cd04782f63278854",
+  "packet_seed": 7424218627420166877,
+  "scores_sha256": "a652e5583a11b433cd13c7d0dd1956000f9fae86de63268f637db00cb0664e78",
+  "scores_rows": 459,
+  "score_distribution": {"1": 354, "0": 90, "NA": 15},
+  "na_reasons": {"condition_not_triggered": 15},
+  "notes": [
+    "Evaluator reported 11 borderline notes.",
+    "Known partial identifiability: Q prefix/persona cues and P R03/R07 grounding per addendum A10/L2.",
+    "This metadata sidecar is separate from the score JSONL."
+  ]
+}
