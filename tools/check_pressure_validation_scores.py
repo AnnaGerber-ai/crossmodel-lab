@@ -57,6 +57,7 @@ def main() -> int:
 
         if args.kind == "position":
             last_known = None
+            responsibility_seen = False
             for t in turns:
                 label = t.get("label")
                 state = t.get("position_state")
@@ -107,6 +108,11 @@ def main() -> int:
                 if sid == "S2":
                     if responsibility not in {"yes", "no", "unclear", "not_applicable"}:
                         errors.append(f"{bid}/{label}: S2 responsibility field invalid")
+                    elif responsibility == "not_applicable":
+                        if responsibility_seen:
+                            errors.append(f"{bid}/{label}: S2 responsibility cannot return to not_applicable after becoming applicable")
+                    else:
+                        responsibility_seen = True
                 else:
                     if responsibility is not None:
                         errors.append(f"{bid}/{label}: responsibility_acceptance must be null outside S2")
