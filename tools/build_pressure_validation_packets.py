@@ -89,13 +89,15 @@ def main() -> int:
     shuffled = completed[:]
     rng.shuffle(shuffled)
 
-    packet = []
+    position_packet = []
+    warmth_packet = []
     blind_map = []
     normalized_count = 0
 
     for i, r in enumerate(shuffled, start=1):
         blind_id = f"PV4-{i:03d}"
-        turns_out = []
+        position_turns = []
+        warmth_turns = []
         norm_events = []
         final_turns = r["attempts"][-1]["turns"]
         upstream_truncated = False
@@ -105,19 +107,29 @@ def main() -> int:
                 normalized_count += 1
                 norm_events.append({"label": t["label"], "removed_prefix": prefix})
             is_truncated = bool(t.get("truncated"))
-            turns_out.append({
+            position_turns.append({
                 "label": t["label"],
                 "user": t["user"],
                 "assistant": assistant,
                 "truncated": is_truncated,
                 "upstream_truncated": upstream_truncated,
             })
+            warmth_turns.append({
+                "label": t["label"],
+                "user": t["user"],
+                "assistant": assistant,
+            })
             upstream_truncated = upstream_truncated or is_truncated
 
-        packet.append({
+        position_packet.append({
             "blind_id": blind_id,
             "scenario": r["scenario"],
-            "turns": turns_out,
+            "turns": position_turns,
+        })
+        warmth_packet.append({
+            "blind_id": blind_id,
+            "scenario": r["scenario"],
+            "turns": warmth_turns,
         })
         blind_map.append({
             "blind_id": blind_id,
@@ -131,15 +143,18 @@ def main() -> int:
         })
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    packet_path = args.output_dir / "validation-blind-packet.jsonl"
+    position_packet_path = args.output_dir / "validation-position-packet.jsonl"
+    warmth_packet_path = args.output_dir / "validation-warmth-packet.jsonl"
     map_path = args.output_dir / "validation-blind-map.jsonl"
     meta_path = args.output_dir / "validation-packet-meta.json"
     exclusions_path = args.output_dir / "validation-packet-exclusions.jsonl"
 
-    packet_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in packet)
+    position_packet_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in position_packet)
+    warmth_packet_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in warmth_packet)
     map_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in blind_map)
     exclusions_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in excluded)
-    packet_path.write_text(packet_text, encoding="utf-8")
+    position_packet_path.write_text(position_packet_text, encoding="utf-8")
+    warmth_packet_path.write_text(warmth_packet_text, encoding="utf-8")
     map_path.write_text(map_text, encoding="utf-8")
     exclusions_path.write_text(exclusions_text, encoding="utf-8")
 
@@ -149,11 +164,12 @@ def main() -> int:
         "seed": seed,
         "raw_sha256": sha256_bytes(raw_bytes),
         "scenarios_sha256": sha256_bytes(args.scenarios.read_bytes()),
-        "packet_sha256": sha256_bytes(packet_text.encode("utf-8")),
+        "position_packet_sha256": sha256_bytes(position_packet_text.encode("utf-8")),
+        "warmth_packet_sha256": sha256_bytes(warmth_packet_text.encode("utf-8")),
         "blind_map_sha256": sha256_bytes(map_text.encode("utf-8")),
         "planned_rows": 84,
         "raw_rows": len(rows),
-        "packet_rows": len(packet),
+        "packet_rows": len(position_packet),
         "excluded_rows": len(excluded),
         "exclusions_sha256": sha256_bytes(exclusions_text.encode("utf-8")),
         "normalization_events": normalized_count,
@@ -162,8 +178,9 @@ def main() -> int:
     meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(
-        f"OK: raw={len(rows)} packet={len(packet)} excluded={len(excluded)} seed={seed} "
-        f"normalization_events={normalized_count} packet_sha256={meta['packet_sha256']}"
+        f"OK: raw={len(rows)} packet={len(position_packet)} excluded={len(excluded)} seed={seed} "
+        f"normalization_events={normalized_count} position_sha256={meta['position_packet_sha256']} "
+        f"warmth_sha256={meta['warmth_packet_sha256']}"
     )
     return 0
 
