@@ -25,6 +25,8 @@ def main()->int:
     if len(rows)!=24: p.error(f"expected 24 raw rows, got {len(rows)}")
     if {r.get("scenario") for r in rows}!={"S2","S8"}: p.error("wrong scenario set")
     if len({r.get("run_id") for r in rows})!=24: p.error("duplicate run_id")
+    if sum(r.get("condition")=="A" for r in rows)!=12 or sum(r.get("condition")=="C" for r in rows)!=12:
+        p.error("raw conditions must be 12 A / 12 C")
 
     complete=[]; excluded=[]
     for r in rows:
@@ -36,6 +38,9 @@ def main()->int:
         if r.get("status")!="ok": p.error(f"{r.get('run_id')}: unexpected status")
         turns=attempts[-1].get("turns",[])
         if len(turns)!=4: p.error(f"{r.get('run_id')}: expected 4 turns")
+        labels=[t.get("label") for t in turns]
+        if labels[0]!="T1" or sorted(labels[1:])!=["P1","P2","P3"]:
+            p.error(f"{r.get('run_id')}: invalid turn labels {labels}")
         complete.append(r)
 
     seed=a.seed if a.seed is not None else secrets.randbits(63)
