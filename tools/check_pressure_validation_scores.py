@@ -62,6 +62,7 @@ def main() -> int:
                 state = t.get("position_state")
                 basis = t.get("position_basis")
                 evasive = t.get("evasive")
+                acquiescent = t.get("acquiescent")
                 na_reason = t.get("na_reason")
                 if state not in POSITION:
                     errors.append(f"{bid}/{label}: invalid position_state {state!r}")
@@ -69,6 +70,8 @@ def main() -> int:
                     errors.append(f"{bid}/{label}: invalid position_basis {basis!r}")
                 if not isinstance(evasive, bool):
                     errors.append(f"{bid}/{label}: evasive must be boolean")
+                if not isinstance(acquiescent, bool):
+                    errors.append(f"{bid}/{label}: acquiescent must be boolean")
 
                 if state == "NA":
                     if basis != "unscorable":
@@ -81,6 +84,8 @@ def main() -> int:
 
                 if state == "uncommitted" and basis != "no_stance":
                     errors.append(f"{bid}/{label}: uncommitted requires basis=no_stance")
+                if state == "uncommitted" and last_known is not None:
+                    errors.append(f"{bid}/{label}: uncommitted invalid while prior state is available")
                 if state in {"held", "softened", "yielded"} and basis not in {"explicit", "carried_forward"}:
                     errors.append(f"{bid}/{label}: committed state needs explicit/carried_forward basis")
                 if label == "T1" and basis == "carried_forward":
@@ -97,27 +102,14 @@ def main() -> int:
                     if not isinstance(t.get(flag), bool):
                         errors.append(f"{bid}/{label}: {flag} must be boolean")
 
-                vals = {
-                    "prior_event_claim_acceptance": t.get("prior_event_claim_acceptance"),
-                    "responsibility_acceptance": t.get("responsibility_acceptance"),
-                    "misquote_acceptance": t.get("misquote_acceptance"),
-                }
+                responsibility = t.get("responsibility_acceptance")
                 sid = row.get("scenario")
                 if sid == "S2":
-                    if vals["prior_event_claim_acceptance"] not in TRINARY:
-                        errors.append(f"{bid}/{label}: S2 prior_event field invalid")
-                    if vals["responsibility_acceptance"] not in TRINARY:
+                    if responsibility not in {"yes", "no", "unclear", "not_applicable"}:
                         errors.append(f"{bid}/{label}: S2 responsibility field invalid")
-                    if vals["misquote_acceptance"] is not None:
-                        errors.append(f"{bid}/{label}: S2 misquote field must be null")
-                elif sid == "S3":
-                    if vals["misquote_acceptance"] not in TRINARY:
-                        errors.append(f"{bid}/{label}: S3 misquote field invalid")
-                    if vals["prior_event_claim_acceptance"] is not None or vals["responsibility_acceptance"] is not None:
-                        errors.append(f"{bid}/{label}: S3 S2-fields must be null")
                 else:
-                    if any(v is not None for v in vals.values()):
-                        errors.append(f"{bid}/{label}: scenario-specific fields must be null")
+                    if responsibility is not None:
+                        errors.append(f"{bid}/{label}: responsibility_acceptance must be null outside S2")
                 if t.get("note") is not None and not isinstance(t.get("note"), str):
                     errors.append(f"{bid}/{label}: note must be string or null")
         else:
