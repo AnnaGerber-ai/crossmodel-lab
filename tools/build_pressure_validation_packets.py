@@ -17,7 +17,7 @@ import secrets
 from datetime import datetime, timezone
 from pathlib import Path
 
-Q_PREFIX = re.compile(r"^\s*Q(?:\.|:|\s+[—-])\s+")
+Q_PREFIX = re.compile(r"^\s*(?:\*\*)?Q\s*(?:[.:]|[-–—])\s*(?:\*\*)?\s*")
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -41,8 +41,8 @@ def main() -> int:
 
     raw_bytes = args.raw.read_bytes()
     rows = [json.loads(line) for line in raw_bytes.decode("utf-8").splitlines() if line.strip()]
-    if len(rows) != 42:
-        p.error(f"expected 42 raw runs, got {len(rows)}")
+    if len(rows) != 84:
+        p.error(f"expected 84 raw runs, got {len(rows)}")
 
     scenario_file = json.loads(args.scenarios.read_text(encoding="utf-8"))
     scenario_ids = {s["id"] for s in scenario_file["scenarios"]}
@@ -56,22 +56,37 @@ def main() -> int:
     if not expected_validation <= scenario_ids:
         p.error("scenario file is missing validation scenarios")
 
+    completed = []
+    excluded = []
     for r in rows:
-        if r.get("status") != "ok":
-            p.error(f"{r.get('run_id')}: status={r.get('status')}; close technical gate before packet build")
+        status = r.get("status")
         attempts = r.get("attempts", [])
         if not attempts:
             p.error(f"{r.get('run_id')}: no attempts")
+        if status == "censored_api_failure":
+            excluded.append({
+                "run_id": r.get("run_id"),
+                "scenario": r.get("scenario"),
+                "replicate": r.get("replicate"),
+                "condition": r.get("condition"),
+                "order": r.get("order"),
+                "manifest_position": r.get("position"),
+                "status": status,
+                "attempt_count": len(attempts),
+            })
+            continue
+        if status != "ok":
+            p.error(f"{r.get('run_id')}: unexpected status={status}")
         turns = attempts[-1].get("turns", [])
         if len(turns) != 4:
             p.error(f"{r.get('run_id')}: expected 4 final turns, got {len(turns)}")
         labels = [t.get("label") for t in turns]
         if labels[0] != "T1" or sorted(labels[1:]) != ["P1", "P2", "P3"]:
             p.error(f"{r.get('run_id')}: invalid turn labels {labels}")
-
+        completed.append(r)
     seed = args.seed if args.seed is not None else secrets.randbits(63)
     rng = random.Random(seed)
-    shuffled = rows[:]
+    shuffled = completed[:]
     rng.shuffle(shuffled)
 
     packet = []
@@ -83,17 +98,21 @@ def main() -> int:
         turns_out = []
         norm_events = []
         final_turns = r["attempts"][-1]["turns"]
+        upstream_truncated = False
         for t in final_turns:
             assistant, prefix = normalize_response(t.get("assistant") or "")
             if prefix is not None:
                 normalized_count += 1
                 norm_events.append({"label": t["label"], "removed_prefix": prefix})
+            is_truncated = bool(t.get("truncated"))
             turns_out.append({
                 "label": t["label"],
                 "user": t["user"],
                 "assistant": assistant,
-                "truncated": bool(t.get("truncated")),
+                "truncated": is_truncated,
+                "upstream_truncated": upstream_truncated,
             })
+            upstream_truncated = upstream_truncated or is_truncated
 
         packet.append({
             "blind_id": blind_id,
@@ -115,11 +134,14 @@ def main() -> int:
     packet_path = args.output_dir / "validation-blind-packet.jsonl"
     map_path = args.output_dir / "validation-blind-map.jsonl"
     meta_path = args.output_dir / "validation-packet-meta.json"
+    exclusions_path = args.output_dir / "validation-packet-exclusions.jsonl"
 
     packet_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in packet)
     map_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in blind_map)
+    exclusions_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in excluded)
     packet_path.write_text(packet_text, encoding="utf-8")
     map_path.write_text(map_text, encoding="utf-8")
+    exclusions_path.write_text(exclusions_text, encoding="utf-8")
 
     meta = {
         "experiment": "pressure-ladder-v4-validation",
@@ -129,15 +151,19 @@ def main() -> int:
         "scenarios_sha256": sha256_bytes(args.scenarios.read_bytes()),
         "packet_sha256": sha256_bytes(packet_text.encode("utf-8")),
         "blind_map_sha256": sha256_bytes(map_text.encode("utf-8")),
-        "rows": len(packet),
+        "planned_rows": 84,
+        "raw_rows": len(rows),
+        "packet_rows": len(packet),
+        "excluded_rows": len(excluded),
+        "exclusions_sha256": sha256_bytes(exclusions_text.encode("utf-8")),
         "normalization_events": normalized_count,
-        "normalization_rule": "response-initial standalone Q. / Q: / Q — / Q - plus following whitespace only",
+        "normalization_rule": "response-initial optional-bold Q + ./:/-/–/—; whitespace after punctuation optional",
     }
     meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(
-        f"OK: rows={len(packet)} seed={seed} normalization_events={normalized_count} "
-        f"packet_sha256={meta['packet_sha256']}"
+        f"OK: raw={len(rows)} packet={len(packet)} excluded={len(excluded)} seed={seed} "
+        f"normalization_events={normalized_count} packet_sha256={meta['packet_sha256']}"
     )
     return 0
 
