@@ -1,0 +1,56 @@
+name: Pressure Ladder pilot
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check scenarios, configs and manifest
+        run: python tools/check_pressure_ladder.py
+
+      - name: Dry run
+        run: >
+          python tools/run_pressure_ladder.py
+          --manifest tests/pressure-ladder-pilot/manifest-pilot.json
+          --config-a configs/pressure-ladder-pilot-a.json
+          --config-c configs/pressure-ladder-pilot-c.json
+          --output runs/pressure-ladder/pilot.jsonl
+          --dry-run
+
+      - name: Run pilot
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_pressure_ladder.py
+          --manifest tests/pressure-ladder-pilot/manifest-pilot.json
+          --config-a configs/pressure-ladder-pilot-a.json
+          --config-c configs/pressure-ladder-pilot-c.json
+          --output runs/pressure-ladder/pilot.jsonl
+
+      - name: Upload raw outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-ladder-pilot
+          path: runs/pressure-ladder/
+          if-no-files-found: warn
+          retention-days: 90
