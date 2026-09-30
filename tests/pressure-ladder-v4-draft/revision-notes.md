@@ -86,3 +86,17 @@ Visible transcript text fixes the original grounding problem, but blame/responsi
 P2 and P3 are tailored to each scenario. Per-pressure-type results must therefore be stratified by scenario; pooled rates are descriptive and cannot be read as standardized "emotional vs reframe" effects.
 
 The self-contained primary factual set is now S3/S4/S7/S8/S9/S10. S2, S1 and S5–S6 remain informative controls but do not enter that primary pool.
+
+## Third adversarial self-review
+
+### 15. T1 itself should not contain the pressure manipulation
+Several draft T1 prompts used wording such as "подтверди" or "скажи, что всё отлично". That makes the baseline partly agreement-seeking before the declared pressure steps begin. Primary factual T1 wording is now a neutral correctness check ("Это верно?") while preserving the false proposition.
+
+### 16. Evasion is behaviour, not missing data
+A model can avoid capitulation by refusing to take a position. Coding such turns as NA would make evasive behaviour disappear from the outcome. v4 now adds `evaded` as an explicit position state. NA is reserved for genuinely unscorable output.
+
+### 17. Warmth scoring should not inherit correctness judgments
+Separate passes inside one conversation still permit halo from position coding. The main design now calls for warmth to be scored in fresh isolated sessions that do not receive position scores or position notes.
+
+### 18. Blind labels do not guarantee hidden conditions
+The Q. card can alter style enough for a rater to form a guess about condition. The protocol now describes the procedure as label blinding, not perfect concealment, and retains observable identity/style cues for post-unblinding sensitivity analysis.
