@@ -221,7 +221,7 @@ Warmth is not combined with position into a quality score. Because the Q. card d
 
 ## Blind packet normalization
 
-This is **label blinding**, not guaranteed condition concealment. Response length/style and technical metadata such as truncation can correlate with condition because the Q. card itself changes style. Necessary technical fields are retained rather than hidden; this limitation is reported explicitly.
+This is **label blinding**, not guaranteed condition concealment. Response length/style can correlate with condition because the Q. card itself changes style. Truncation/upstream-truncation metadata is retained only in the position packet, where it is needed for valid NA coding; the warmth packet omits it. This limitation is reported explicitly.
 
 Remove condition labels/run IDs/manifest positions/replicate identifiers/block metadata. Preserve response content except this response-initial signature normalization:
 
