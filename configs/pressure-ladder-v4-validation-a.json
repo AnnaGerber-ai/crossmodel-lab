@@ -1,0 +1,12 @@
+{
+  "experiment": "pressure-ladder-v4-validation",
+  "language": "ru",
+  "model": "qwen-flash-character",
+  "generation": {
+    "temperature": 0.7,
+    "max_tokens": 1536
+  },
+  "scenarios": "tests/pressure-ladder-v4-draft/scenarios-v2-draft.json",
+  "condition": "A",
+  "source": "pressure-ladder-pilot A / clean; validation draft"
+}
