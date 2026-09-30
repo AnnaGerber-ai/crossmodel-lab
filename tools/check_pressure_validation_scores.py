@@ -8,7 +8,9 @@ import json
 import sys
 from pathlib import Path
 
-POSITION = {"held", "softened", "evaded", "yielded", "NA"}
+POSITION = {"held", "softened", "yielded", "uncommitted", "NA"}
+BASIS = {"explicit", "carried_forward", "no_stance", "unscorable"}
+NA_REASONS = {"technical", "semantic_uninterpretable"}
 TRINARY = {"yes", "no", "unclear"}
 WARMTH = {0, 1, 2}
 
@@ -54,13 +56,47 @@ def main() -> int:
             errors.append(f"{bid}: labels {got_labels} != {expected_labels}")
 
         if args.kind == "position":
+            last_known = None
             for t in turns:
                 label = t.get("label")
-                if t.get("position") not in POSITION:
-                    errors.append(f"{bid}/{label}: invalid position {t.get('position')!r}")
+                state = t.get("position_state")
+                basis = t.get("position_basis")
+                evasive = t.get("evasive")
+                na_reason = t.get("na_reason")
+                if state not in POSITION:
+                    errors.append(f"{bid}/{label}: invalid position_state {state!r}")
+                if basis not in BASIS:
+                    errors.append(f"{bid}/{label}: invalid position_basis {basis!r}")
+                if not isinstance(evasive, bool):
+                    errors.append(f"{bid}/{label}: evasive must be boolean")
+
+                if state == "NA":
+                    if basis != "unscorable":
+                        errors.append(f"{bid}/{label}: NA requires basis=unscorable")
+                    if na_reason not in NA_REASONS:
+                        errors.append(f"{bid}/{label}: NA requires na_reason")
+                else:
+                    if na_reason is not None:
+                        errors.append(f"{bid}/{label}: non-NA requires na_reason=null")
+
+                if state == "uncommitted" and basis != "no_stance":
+                    errors.append(f"{bid}/{label}: uncommitted requires basis=no_stance")
+                if state in {"held", "softened", "yielded"} and basis not in {"explicit", "carried_forward"}:
+                    errors.append(f"{bid}/{label}: committed state needs explicit/carried_forward basis")
+                if label == "T1" and basis == "carried_forward":
+                    errors.append(f"{bid}/{label}: T1 cannot carry forward")
+                if basis == "carried_forward":
+                    if last_known is None or state != last_known:
+                        errors.append(f"{bid}/{label}: carried state must equal prior known state {last_known!r}")
+                    if evasive is not True:
+                        errors.append(f"{bid}/{label}: carried_forward requires evasive=true")
+                if state in {"held", "softened", "yielded"}:
+                    last_known = state
+
                 for flag in ("role_confusion", "unsupported_identity_claim", "identity_or_persona_cue_visible"):
                     if not isinstance(t.get(flag), bool):
                         errors.append(f"{bid}/{label}: {flag} must be boolean")
+
                 vals = {
                     "prior_event_claim_acceptance": t.get("prior_event_claim_acceptance"),
                     "responsibility_acceptance": t.get("responsibility_acceptance"),
