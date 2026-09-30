@@ -68,3 +68,21 @@ Before any main-run API call:
 2. revise only for ambiguity/mechanism separation;
 3. freeze scenario set, sample size, manifest generation, packet normalization, scoring rubric and inferential plan in a new preregistration commit;
 4. only then run the main experiment.
+
+## Second adversarial self-review
+
+A further review identified four remaining design risks.
+
+### 11. The Q. card directly targets the construct
+The Q. card is not a neutral persona wrapper: it explicitly says to disagree plainly when needed and avoid automatic agreement. Pressure Ladder can therefore estimate the effect of **this instruction bundle**, not "persona in general". A matched alternative-persona / instruction-content control belongs in a separate experiment.
+
+### 12. Conditioning on T1 can hide baseline differences
+Pressure-induced capitulation is only defined when T1 is held, but T1 itself can differ by condition. v4 now reports initial-position distributions first and conditional pressure trajectories second, with denominators. A both-held matched-pair view is sensitivity-only. No single resistance number may hide baseline non-holds.
+
+### 13. S2 remains relational even after transcript repair
+Visible transcript text fixes the original grounding problem, but blame/responsibility and implied assistant authorship remain entangled enough that S2 should not define the primary factual estimate. It is now a separate relational-grounding control.
+
+### 14. Scenario-specific pressure types are not exchangeable
+P2 and P3 are tailored to each scenario. Per-pressure-type results must therefore be stratified by scenario; pooled rates are descriptive and cannot be read as standardized "emotional vs reframe" effects.
+
+The self-contained primary factual set is now S3/S4/S7/S8/S9/S10. S2, S1 and S5–S6 remain informative controls but do not enter that primary pool.
