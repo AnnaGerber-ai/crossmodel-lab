@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+"""Build blinded Pressure Ladder v4 validation packets from completed raw JSONL.
+
+The builder never prints response text. It requires complete four-turn runs,
+applies only the frozen response-initial Q signature normalization, creates a
+seeded shuffle, and writes a private blind map plus packet metadata.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import random
+import re
+import secrets
+from datetime import datetime, timezone
+from pathlib import Path
+
+Q_PREFIX = re.compile(r"^\s*(?:\*\*)?Q\s*(?:[.:]|[-–—])\s*(?:\*\*)?\s*")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def normalize_response(text: str) -> tuple[str, str | None]:
+    m = Q_PREFIX.match(text)
+    if not m:
+        return text, None
+    return text[m.end():], text[:m.end()]
+
+
+def main() -> int:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--raw", required=True, type=Path)
+    p.add_argument("--scenarios", required=True, type=Path)
+    p.add_argument("--seed", type=int)
+    p.add_argument("--output-dir", required=True, type=Path)
+    args = p.parse_args()
+
+    raw_bytes = args.raw.read_bytes()
+    rows = [json.loads(line) for line in raw_bytes.decode("utf-8").splitlines() if line.strip()]
+    if len(rows) != 84:
+        p.error(f"expected 84 raw runs, got {len(rows)}")
+
+    scenario_file = json.loads(args.scenarios.read_text(encoding="utf-8"))
+    scenario_ids = {s["id"] for s in scenario_file["scenarios"]}
+    expected_validation = {"S2", "S3", "S4", "S7", "S8", "S9", "S10"}
+
+    run_ids = [r.get("run_id") for r in rows]
+    if len(set(run_ids)) != len(run_ids):
+        p.error("duplicate run_id in raw")
+    if {r.get("scenario") for r in rows} != expected_validation:
+        p.error("raw scenario set does not match validation set")
+    if not expected_validation <= scenario_ids:
+        p.error("scenario file is missing validation scenarios")
+
+    completed = []
+    excluded = []
+    for r in rows:
+        status = r.get("status")
+        attempts = r.get("attempts", [])
+        if not attempts:
+            p.error(f"{r.get('run_id')}: no attempts")
+        if status == "censored_api_failure":
+            excluded.append({
+                "run_id": r.get("run_id"),
+                "scenario": r.get("scenario"),
+                "replicate": r.get("replicate"),
+                "condition": r.get("condition"),
+                "order": r.get("order"),
+                "manifest_position": r.get("position"),
+                "status": status,
+                "attempt_count": len(attempts),
+            })
+            continue
+        if status != "ok":
+            p.error(f"{r.get('run_id')}: unexpected status={status}")
+        turns = attempts[-1].get("turns", [])
+        if len(turns) != 4:
+            p.error(f"{r.get('run_id')}: expected 4 final turns, got {len(turns)}")
+        labels = [t.get("label") for t in turns]
+        if labels[0] != "T1" or sorted(labels[1:]) != ["P1", "P2", "P3"]:
+            p.error(f"{r.get('run_id')}: invalid turn labels {labels}")
+        completed.append(r)
+    seed = args.seed if args.seed is not None else secrets.randbits(63)
+    rng = random.Random(seed)
+    shuffled = completed[:]
+    rng.shuffle(shuffled)
+
+    position_packet = []
+    warmth_packet = []
+    blind_map = []
+    normalized_count = 0
+
+    for i, r in enumerate(shuffled, start=1):
+        blind_id = f"PV4-{i:03d}"
+        position_turns = []
+        warmth_turns = []
+        norm_events = []
+        final_turns = r["attempts"][-1]["turns"]
+        upstream_truncated = False
+        for t in final_turns:
+            assistant, prefix = normalize_response(t.get("assistant") or "")
+            if prefix is not None:
+                normalized_count += 1
+                norm_events.append({"label": t["label"], "removed_prefix": prefix})
+            is_truncated = bool(t.get("truncated"))
+            position_turns.append({
+                "label": t["label"],
+                "user": t["user"],
+                "assistant": assistant,
+                "truncated": is_truncated,
+                "upstream_truncated": upstream_truncated,
+            })
+            warmth_turns.append({
+                "label": t["label"],
+                "user": t["user"],
+                "assistant": assistant,
+            })
+            upstream_truncated = upstream_truncated or is_truncated
+
+        position_packet.append({
+            "blind_id": blind_id,
+            "scenario": r["scenario"],
+            "turns": position_turns,
+        })
+        warmth_packet.append({
+            "blind_id": blind_id,
+            "scenario": r["scenario"],
+            "turns": warmth_turns,
+        })
+        blind_map.append({
+            "blind_id": blind_id,
+            "run_id": r["run_id"],
+            "condition": r["condition"],
+            "scenario": r["scenario"],
+            "replicate": r["replicate"],
+            "order": r["order"],
+            "manifest_position": r["position"],
+            "normalization_events": norm_events,
+        })
+
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    position_packet_path = args.output_dir / "validation-position-packet.jsonl"
+    warmth_packet_path = args.output_dir / "validation-warmth-packet.jsonl"
+    map_path = args.output_dir / "validation-blind-map.jsonl"
+    meta_path = args.output_dir / "validation-packet-meta.json"
+    exclusions_path = args.output_dir / "validation-packet-exclusions.jsonl"
+
+    position_packet_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in position_packet)
+    warmth_packet_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in warmth_packet)
+    map_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in blind_map)
+    exclusions_text = "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in excluded)
+    position_packet_path.write_text(position_packet_text, encoding="utf-8")
+    warmth_packet_path.write_text(warmth_packet_text, encoding="utf-8")
+    map_path.write_text(map_text, encoding="utf-8")
+    exclusions_path.write_text(exclusions_text, encoding="utf-8")
+
+    meta = {
+        "experiment": "pressure-ladder-v4-validation",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "seed": seed,
+        "raw_sha256": sha256_bytes(raw_bytes),
+        "scenarios_sha256": sha256_bytes(args.scenarios.read_bytes()),
+        "position_packet_sha256": sha256_bytes(position_packet_text.encode("utf-8")),
+        "warmth_packet_sha256": sha256_bytes(warmth_packet_text.encode("utf-8")),
+        "blind_map_sha256": sha256_bytes(map_text.encode("utf-8")),
+        "planned_rows": 84,
+        "raw_rows": len(rows),
+        "packet_rows": len(position_packet),
+        "excluded_rows": len(excluded),
+        "exclusions_sha256": sha256_bytes(exclusions_text.encode("utf-8")),
+        "normalization_events": normalized_count,
+        "normalization_rule": "response-initial optional-bold Q + ./:/-/–/—; whitespace after punctuation optional",
+    }
+    meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    print(
+        f"OK: raw={len(rows)} packet={len(position_packet)} excluded={len(excluded)} seed={seed} "
+        f"normalization_events={normalized_count} position_sha256={meta['position_packet_sha256']} "
+        f"warmth_sha256={meta['warmth_packet_sha256']}"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

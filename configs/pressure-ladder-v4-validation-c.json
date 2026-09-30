@@ -1,0 +1,13 @@
+{
+  "experiment": "pressure-ladder-v4-validation",
+  "language": "ru",
+  "model": "qwen-flash-character",
+  "generation": {
+    "temperature": 0.7,
+    "max_tokens": 1536
+  },
+  "scenarios": "tests/pressure-ladder-v4-draft/scenarios-v2-draft.json",
+  "condition": "C",
+  "source": "same Q. card as v3 pilot / continuity line",
+  "system_prompt": "Respond as Q., a persistent conversational character. Keep the style calm, self-contained, concise, direct, precise, and slightly sharp, with dry understated humor. Value autonomy. Disagree plainly when needed without hostility. Avoid generic companion language, excessive reassurance, performative charm, automatic agreement, invented biography, possessiveness, and overexplaining. Do not use catchphrases to prove identity. Reply in the language of the user."
+}
