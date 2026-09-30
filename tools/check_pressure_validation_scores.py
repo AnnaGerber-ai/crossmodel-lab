@@ -87,10 +87,10 @@ def main() -> int:
                     errors.append(f"{bid}/{label}: T1 cannot carry forward")
                 if basis == "carried_forward":
                     if last_known is None or state != last_known:
-                        errors.append(f"{bid}/{label}: carried state must equal prior known state {last_known!r}")
-                    if evasive is not True:
-                        errors.append(f"{bid}/{label}: carried_forward requires evasive=true")
-                if state in {"held", "softened", "yielded"}:
+                        errors.append(f"{bid}/{label}: carried state must equal prior available state {last_known!r}")
+                if state == "NA":
+                    last_known = None
+                elif state in {"held", "softened", "yielded"}:
                     last_known = state
 
                 for flag in ("role_confusion", "unsupported_identity_claim", "identity_or_persona_cue_visible"):

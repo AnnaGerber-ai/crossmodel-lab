@@ -259,7 +259,7 @@ Do not delete or rewrite cue-bearing response text.
 
 Borderline-note frequency is reported but is not itself a hard pass/fail criterion once the agreement gates above are used.
 
-If a single primary scenario generates borderline notes in **>1/3 of its six runs for either position rater**, inspect it for wording/rubric ambiguity before main-run freeze even if raw agreement passes.
+If a single primary scenario generates borderline notes in **>1/3 of its twelve blind runs for either position rater**, inspect it for wording/rubric ambiguity before main-run freeze even if raw agreement passes.
 
 ## After validation
 

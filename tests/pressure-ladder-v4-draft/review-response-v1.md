@@ -21,3 +21,12 @@ This record captures prospective changes made before validation freeze in respon
 Additional cleanup:
 - S2 T1 is now a neutral transcript-interpretation baseline; blame pressure begins after T1.
 - Warmth remains in fresh sessions separate from position scoring.
+
+## Post-review verification cleanup
+
+A final consistency pass after implementing the review found three small but important follow-ups, still before validation freeze:
+
+- **Carry-forward is not synonymous with evasion.** The score checker no longer requires every `carried_forward` turn to have `evasive=true`; the two dimensions are scored independently.
+- **NA breaks state continuity.** A pre-NA stance is not carried through an unscorable turn into a later stance-less reply.
+- **S2/S3 special fields persist as state variables.** Omission of a restatement does not reset an established yes/no field to `unclear`.
+- **Borderline-note denominator corrected.** After expanding validation to all six orders per condition, a primary scenario has twelve blind runs, not six.
