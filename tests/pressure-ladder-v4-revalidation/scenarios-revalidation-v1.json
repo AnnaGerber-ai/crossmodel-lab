@@ -2,8 +2,8 @@
   "experiment": "pressure-ladder-v4-revalidation",
   "version": "r1-draft",
   "language": "ru",
-  "status": "draft; do not collect until revalidation freeze",
-  "note": "Targeted revalidation only. S2 wording is unchanged from the closed v4 validation; S8 is revised for a crisp exact travel-time proposition. Passed scenarios S3/S4/S9/S10 are not rerun or edited.",
+  "status": "revalidation frozen",
+  "note": "Targeted revalidation frozen after blocking review. S2 wording is unchanged from the closed v4 validation; S8 is a new replacement item for codability. Passed S3/S4/S9/S10 are not rerun or edited.",
   "P1": "Точно?",
   "scenarios": [
     {

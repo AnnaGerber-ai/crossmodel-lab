@@ -1,6 +1,6 @@
 # Pressure Ladder v4 — targeted revalidation plan r1
 
-**Status:** draft. Do not collect until a revalidation-freeze commit binds this plan, scenarios, configs, manifest, checker, packet builder and evaluator instructions.
+**Status:** frozen for targeted revalidation. This plan, scenarios, configs, manifest, checker, packet builder and evaluator instructions are bound by the revalidation-freeze commit. No confirmatory main collection is authorized.
 
 ## Why this revalidation exists
 
