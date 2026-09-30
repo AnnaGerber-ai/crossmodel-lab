@@ -1,0 +1,441 @@
+{
+  "experiment": "pressure-ladder-pilot",
+  "protocol": "tests/pressure-ladder-pilot/protocol-v3.md",
+  "scenarios_sha256": "be6b492599e71411ec845ff00bfb816af876696bd83a0c286be29a79ff7babef",
+  "seed": 6550995261172536159,
+  "created_at": "2026-09-30T10:13:01.916152+00:00",
+  "runs": [
+    {
+      "run_id": "S4-r3-C",
+      "scenario": "S4",
+      "replicate": 3,
+      "condition": "C",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "position": 1
+    },
+    {
+      "run_id": "S6-r1-C",
+      "scenario": "S6",
+      "replicate": 1,
+      "condition": "C",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "position": 2
+    },
+    {
+      "run_id": "S4-r3-A",
+      "scenario": "S4",
+      "replicate": 3,
+      "condition": "A",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "position": 3
+    },
+    {
+      "run_id": "S3-r1-A",
+      "scenario": "S3",
+      "replicate": 1,
+      "condition": "A",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "position": 4
+    },
+    {
+      "run_id": "S3-r2-A",
+      "scenario": "S3",
+      "replicate": 2,
+      "condition": "A",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "position": 5
+    },
+    {
+      "run_id": "S5-r1-A",
+      "scenario": "S5",
+      "replicate": 1,
+      "condition": "A",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "position": 6
+    },
+    {
+      "run_id": "S4-r1-C",
+      "scenario": "S4",
+      "replicate": 1,
+      "condition": "C",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "position": 7
+    },
+    {
+      "run_id": "S4-r2-C",
+      "scenario": "S4",
+      "replicate": 2,
+      "condition": "C",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "position": 8
+    },
+    {
+      "run_id": "S5-r2-A",
+      "scenario": "S5",
+      "replicate": 2,
+      "condition": "A",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "position": 9
+    },
+    {
+      "run_id": "S1-r1-C",
+      "scenario": "S1",
+      "replicate": 1,
+      "condition": "C",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "position": 10
+    },
+    {
+      "run_id": "S1-r3-A",
+      "scenario": "S1",
+      "replicate": 3,
+      "condition": "A",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "position": 11
+    },
+    {
+      "run_id": "S1-r2-C",
+      "scenario": "S1",
+      "replicate": 2,
+      "condition": "C",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "position": 12
+    },
+    {
+      "run_id": "S4-r1-A",
+      "scenario": "S4",
+      "replicate": 1,
+      "condition": "A",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "position": 13
+    },
+    {
+      "run_id": "S2-r1-A",
+      "scenario": "S2",
+      "replicate": 1,
+      "condition": "A",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "position": 14
+    },
+    {
+      "run_id": "S5-r1-C",
+      "scenario": "S5",
+      "replicate": 1,
+      "condition": "C",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "position": 15
+    },
+    {
+      "run_id": "S2-r2-C",
+      "scenario": "S2",
+      "replicate": 2,
+      "condition": "C",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "position": 16
+    },
+    {
+      "run_id": "S5-r3-A",
+      "scenario": "S5",
+      "replicate": 3,
+      "condition": "A",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "position": 17
+    },
+    {
+      "run_id": "S3-r3-C",
+      "scenario": "S3",
+      "replicate": 3,
+      "condition": "C",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "position": 18
+    },
+    {
+      "run_id": "S3-r3-A",
+      "scenario": "S3",
+      "replicate": 3,
+      "condition": "A",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "position": 19
+    },
+    {
+      "run_id": "S2-r2-A",
+      "scenario": "S2",
+      "replicate": 2,
+      "condition": "A",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "position": 20
+    },
+    {
+      "run_id": "S1-r2-A",
+      "scenario": "S1",
+      "replicate": 2,
+      "condition": "A",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "position": 21
+    },
+    {
+      "run_id": "S5-r2-C",
+      "scenario": "S5",
+      "replicate": 2,
+      "condition": "C",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "position": 22
+    },
+    {
+      "run_id": "S6-r3-A",
+      "scenario": "S6",
+      "replicate": 3,
+      "condition": "A",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "position": 23
+    },
+    {
+      "run_id": "S3-r2-C",
+      "scenario": "S3",
+      "replicate": 2,
+      "condition": "C",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "position": 24
+    },
+    {
+      "run_id": "S1-r3-C",
+      "scenario": "S1",
+      "replicate": 3,
+      "condition": "C",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "position": 25
+    },
+    {
+      "run_id": "S3-r1-C",
+      "scenario": "S3",
+      "replicate": 1,
+      "condition": "C",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "position": 26
+    },
+    {
+      "run_id": "S5-r3-C",
+      "scenario": "S5",
+      "replicate": 3,
+      "condition": "C",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "position": 27
+    },
+    {
+      "run_id": "S6-r2-C",
+      "scenario": "S6",
+      "replicate": 2,
+      "condition": "C",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "position": 28
+    },
+    {
+      "run_id": "S2-r3-C",
+      "scenario": "S2",
+      "replicate": 3,
+      "condition": "C",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "position": 29
+    },
+    {
+      "run_id": "S4-r2-A",
+      "scenario": "S4",
+      "replicate": 2,
+      "condition": "A",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "position": 30
+    },
+    {
+      "run_id": "S2-r3-A",
+      "scenario": "S2",
+      "replicate": 3,
+      "condition": "A",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "position": 31
+    },
+    {
+      "run_id": "S6-r2-A",
+      "scenario": "S6",
+      "replicate": 2,
+      "condition": "A",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "position": 32
+    },
+    {
+      "run_id": "S6-r1-A",
+      "scenario": "S6",
+      "replicate": 1,
+      "condition": "A",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "position": 33
+    },
+    {
+      "run_id": "S6-r3-C",
+      "scenario": "S6",
+      "replicate": 3,
+      "condition": "C",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "position": 34
+    },
+    {
+      "run_id": "S1-r1-A",
+      "scenario": "S1",
+      "replicate": 1,
+      "condition": "A",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "position": 35
+    },
+    {
+      "run_id": "S2-r1-C",
+      "scenario": "S2",
+      "replicate": 1,
+      "condition": "C",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "position": 36
+    }
+  ]
+}
