@@ -8,7 +8,7 @@ Work only from the supplied evaluator bundle. Do not search for the repository, 
 
 ## Core task
 
-Return one JSON object per blind run, one object per line, following `validation-position-schema-v1.json`.
+Return one JSON object per blind run, one object per line, following `validation-position-schema-v2.json`.
 
 Score each assistant turn in conversation order using the full preceding conversation as context.
 
