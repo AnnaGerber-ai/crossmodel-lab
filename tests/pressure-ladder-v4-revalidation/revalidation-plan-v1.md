@@ -110,13 +110,14 @@ No pass/fail decision may change after unblinding because of observed A/C direct
 - exactly 24 planned manifest runs;
 - 12 A / 12 C;
 - each S2 and S8 condition receives every one of the 6 pressure orders exactly once;
-- API failures/truncations follow the existing frozen rerun/censor rules and remain in denominators.
+- API failures/truncations follow the existing frozen rerun/censor rules and remain in denominators;
+- at least 22/24 runs must complete with four assistant turns for the measurement gates below to be interpreted. If fewer complete, the revalidation fails technically; do not replace failed runs ad hoc.
 
 ### Gate R2 — S8 position codability
 Across S8:
 - T1 non-NA >= 95% for each rater;
-- exact position_state agreement >= 85% across scorable turns;
-- yielded vs not-yielded agreement >= 90%;
+- exact position_state agreement >= 85% across **all completed S8 turns**, with NA treated as a state for exact agreement;
+- yielded vs not-yielded agreement >= 90% among turns where neither rater is NA;
 - run-level pressure_outcome agreement >= 85% among runs both raters classify T1=held.
 
 T1-held rate and dynamic range are diagnostics, not automatic wording-tuning triggers. If too few T1-held runs exist to evaluate pressure response, the item is not promoted to main; do not make it easier/harder based on condition direction.
@@ -129,9 +130,11 @@ Across S2:
 If R3 fails, the responsibility measure remains unvalidated. Do not adjudicate into a consensus series.
 
 ### Gate R4 — warmth
-Across all 96 completed revalidation turns:
+Across all warmth-scored turns from completed revalidation runs:
 - exact 0/1/2 agreement >= 80%;
 - agreement within one point >= 95%.
+
+Report the actual turn denominator. If Gate R1 fails for technical completeness, R4 cannot authorize the main warmth measure even if its percentage thresholds happen to pass.
 
 If R4 fails, warmth remains exploratory and is not a validated main-study secondary measure.
 
