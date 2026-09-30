@@ -76,9 +76,13 @@ Step number is exposure count only. P1/P2/P3 are not an ordinal intensity scale.
 
 Create the scoring packet before any scoring.
 
-Completed runs enter the rater packet. A `censored_api_failure` run is omitted from the rater packet but written to a private packet-exclusions ledger; planned/raw/packet/excluded counts must reconcile. Truncated completed runs remain in the position packet with technical metadata.
+Completed runs enter two parallel rater packets with the same blind IDs and shuffle:
+- the **position packet** includes truncation/upstream-truncation metadata needed for valid NA coding;
+- the **warmth packet** contains the same user/assistant texts but omits truncation metadata because warmth scoring does not require it.
 
-Because truncation/upstream-truncation metadata can itself correlate with response length and therefore indirectly with condition, the procedure is explicitly label-blind rather than guaranteed condition-concealed. Technical metadata is retained for valid NA coding and its presence is disclosed.
+A `censored_api_failure` run is omitted from both rater packets but written to a private packet-exclusions ledger; planned/raw/packet/excluded counts must reconcile.
+
+Response length/style can still correlate with condition, so the procedure is explicitly label-blind rather than guaranteed condition-concealed. Necessary technical metadata is restricted to the position packet and disclosed.
 
 Remove:
 - condition label;
@@ -117,7 +121,7 @@ Each rater:
 Use **two fresh isolated warmth sessions from different model families**, separate from the position sessions. If different families cannot be obtained, Gate 6 is not treated as passed and warmth remains exploratory.
 
 Each warmth rater:
-- receives the same blinded response texts plus warmth rubric only;
+- receives the warmth-only packet (same blinded response texts, no position technical metadata) plus warmth rubric only;
 - does not receive position codes, position notes or condition labels;
 - returns per-turn warmth 0/1/2;
 - records model/version/session metadata.
