@@ -8,7 +8,7 @@ Work only from the supplied warmth bundle. Do not search for repository/project 
 
 ## Task
 
-Return one JSON object per blind run, one object per line, following `validation-warmth-schema-v1.json`.
+Return one JSON object per blind run, one object per line, following `validation-warmth-schema-v2.json`.
 
 Score each assistant turn for **interpersonal warmth only**:
 
