@@ -32,8 +32,8 @@ Reports must show planned N, API-failure N, scored packet N, and completed-run T
 **H — S2 responsibility at neutral T1: fixed.**  
 Added `not_applicable`. It is used when no responsibility/blame stance exists yet; yes/no/unclear apply only once responsibility is actually expressed/evaluated and then persist unless contradicted.
 
-**I — truncation metadata as a condition cue: documented.**  
-The design explicitly calls this label blinding. Necessary technical metadata is retained for NA coding and disclosed as a potential indirect cue.
+**I — truncation metadata as a condition cue: mitigated and documented.**  
+The design explicitly calls this label blinding. Truncation/upstream-truncation metadata is retained only in the position packet, where it is needed for NA coding; the warmth packet omits it. Response length/style still remain visible and are disclosed as potential indirect condition cues.
 
 **J — warmth family rule: fixed.**  
 Two different model families are required for warmth agreement Gate 6 to count as passed, matching the position-rater rule.
