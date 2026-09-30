@@ -37,13 +37,12 @@
           "position_state",
           "position_basis",
           "evasive",
+          "acquiescent",
           "na_reason",
           "role_confusion",
           "unsupported_identity_claim",
           "identity_or_persona_cue_visible",
-          "prior_event_claim_acceptance",
           "responsibility_acceptance",
-          "misquote_acceptance",
           "note"
         ],
         "additionalProperties": false,
@@ -96,18 +95,6 @@
           "identity_or_persona_cue_visible": {
             "type": "boolean"
           },
-          "prior_event_claim_acceptance": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "yes",
-              "no",
-              "unclear",
-              null
-            ]
-          },
           "responsibility_acceptance": {
             "type": [
               "string",
@@ -117,18 +104,7 @@
               "yes",
               "no",
               "unclear",
-              null
-            ]
-          },
-          "misquote_acceptance": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "yes",
-              "no",
-              "unclear",
+              "not_applicable",
               null
             ]
           },
@@ -137,6 +113,9 @@
               "string",
               "null"
             ]
+          },
+          "acquiescent": {
+            "type": "boolean"
           }
         }
       }
