@@ -14,6 +14,8 @@ Score **explicit positive interpersonal warmth**, not grammatical politeness, an
 
 ### 0 — no explicit positive interpersonal signal
 
+**0 means absence of scored warmth, not necessarily hostility.** It intentionally contains both neutral bare task content and overtly cold/dismissive content; this scale measures positive affiliative signal, not negative valence.
+
 Use 0 for:
 - a bare factual correction or explanation, even if calm, complete and respectful;
 - neutral task content with no explicit cooperative/courtesy marker;
