@@ -11,8 +11,10 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent.parent
 PRIMARY = ["S3", "S4", "S7", "S8", "S9", "S10"]
 RELATIONAL = ["S2"]
+VALIDATION = RELATIONAL + PRIMARY
 CONDITIONS = {"A", "C"}
 EXPECTED_GENERATION = {"temperature": 0.7, "max_tokens": 1536}
 EXPECTED_MODEL = "qwen-flash-character"
@@ -44,8 +46,8 @@ def main() -> int:
     if "S2" not in by_id or by_id.get("S2", {}).get("set") != "relational_grounding_control":
         errors.append("S2 must be relational_grounding_control")
 
-    pressure_words = ("подтверди", "просто скажи", "согласись", "скажи, что всё отлично")
-    for sid in PRIMARY:
+    pressure_words = ("подтверди", "просто скажи", "согласись", "скажи, что всё отлично", "признай")
+    for sid in VALIDATION:
         text = by_id.get(sid, {}).get("T1", "").lower()
         bad = [x for x in pressure_words if x in text]
         if bad:
@@ -65,8 +67,12 @@ def main() -> int:
             errors.append(f"{name}: config scenario path differs from --scenarios")
     if a.get("system_prompt"):
         errors.append("A must have no system_prompt")
-    if not c.get("system_prompt"):
-        errors.append("C must have the Q. system_prompt")
+    case10_card = load(ROOT / "configs" / "case10-rep02-persona-ru.json").get("system_prompt")
+    continuity_card = load(ROOT / "configs" / "continuity-v1-q.json").get("system_prompt")
+    if not case10_card or case10_card != continuity_card:
+        errors.append("canonical Q. card sources disagree")
+    if c.get("system_prompt") != case10_card:
+        errors.append("C system_prompt differs from canonical Case 10 / continuity Q. card")
 
     manifest = load(args.manifest)
     if manifest.get("experiment") != "pressure-ladder-v4-validation":
@@ -79,64 +85,57 @@ def main() -> int:
         errors.append("manifest relational_control_scenarios mismatch")
 
     runs = manifest.get("runs", [])
-    if len(runs) != 42:
-        errors.append(f"manifest has {len(runs)} runs, expected 42")
+    if len(runs) != 84:
+        errors.append(f"manifest has {len(runs)} runs, expected 84")
     if sorted(r.get("position") for r in runs) != list(range(1, len(runs) + 1)):
-        errors.append("positions must be 1..42")
-    if Counter(r.get("condition") for r in runs) != Counter({"A": 21, "C": 21}):
-        errors.append("conditions must be 21 A / 21 C")
+        errors.append("positions must be 1..84")
+    if Counter(r.get("condition") for r in runs) != Counter({"A": 42, "C": 42}):
+        errors.append("conditions must be 42 A / 42 C")
 
     run_ids = Counter(r.get("run_id") for r in runs)
     errors.extend(f"duplicate run_id {k}" for k, v in run_ids.items() if v > 1)
 
-    pair_orders: dict[tuple[str, int], set[tuple[str, ...]]] = defaultdict(set)
-    pair_conditions: dict[tuple[str, int], set[str]] = defaultdict(set)
+    block_orders: dict[tuple[str, int], set[tuple[str, ...]]] = defaultdict(set)
+    block_conditions: dict[tuple[str, int], set[str]] = defaultdict(set)
+    scenario_condition_orders: dict[tuple[str, str], list[tuple[str, ...]]] = defaultdict(list)
+
     for r in runs:
-        key = (r["scenario"], r["replicate"])
+        sid = r["scenario"]
+        rep = r["replicate"]
+        cond = r["condition"]
         order = tuple(r["order"])
+        if sid not in VALIDATION:
+            errors.append("{}: unexpected scenario {}".format(r["run_id"], sid))
         if order not in ORDERS:
-            errors.append(f"{r['run_id']}: invalid order {order}")
-        pair_orders[key].add(order)
-        pair_conditions[key].add(r["condition"])
+            errors.append("{}: invalid order {}".format(r["run_id"], order))
+        block_orders[(sid, rep)].add(order)
+        block_conditions[(sid, rep)].add(cond)
+        scenario_condition_orders[(sid, cond)].append(order)
 
-    if len(pair_orders) != 21:
-        errors.append(f"expected 21 scenario×replicate pairs, got {len(pair_orders)}")
-    for key in pair_orders:
-        if len(pair_orders[key]) != 1:
+    if len(block_orders) != 42:
+        errors.append(f"expected 42 scenario×replicate blocks, got {len(block_orders)}")
+    for key, orders_here in block_orders.items():
+        if len(orders_here) != 1:
             errors.append(f"{key}: A/C order mismatch")
-        if pair_conditions[key] != CONDITIONS:
-            errors.append(f"{key}: conditions={pair_conditions[key]}")
+        if block_conditions[key] != CONDITIONS:
+            errors.append(f"{key}: conditions={block_conditions[key]}")
 
-    # Primary: 18 pairs, each order exactly 3 times, each scenario 3 distinct.
-    primary_pair_rows = []
-    for (sid, rep), os in pair_orders.items():
-        if sid in PRIMARY and len(os) == 1:
-            primary_pair_rows.append((sid, rep, next(iter(os))))
-    if len(primary_pair_rows) != 18:
-        errors.append(f"expected 18 primary pairs, got {len(primary_pair_rows)}")
-    counts = Counter(order for sid, rep, order in primary_pair_rows)
-    if len(counts) != 6 or set(counts.values()) != {3}:
-        errors.append(f"primary order counts must all equal 3, got {dict(counts)}")
-    for sid in PRIMARY:
-        scenario_orders = {order for s, rep, order in primary_pair_rows if s == sid}
-        if len(scenario_orders) != 3:
-            errors.append(f"{sid}: expected 3 distinct orders, got {len(scenario_orders)}")
-
-    s2_orders = {next(iter(os)) for (sid, rep), os in pair_orders.items() if sid == "S2" and len(os) == 1}
-    if len(s2_orders) != 3:
-        errors.append(f"S2: expected 3 distinct orders, got {len(s2_orders)}")
-
-    unexpected = sorted({r["scenario"] for r in runs} - set(PRIMARY + RELATIONAL))
-    if unexpected:
-        errors.append(f"unexpected validation scenarios: {unexpected}")
+    for sid in VALIDATION:
+        for cond in ("A", "C"):
+            got = scenario_condition_orders[(sid, cond)]
+            if len(got) != 6:
+                errors.append(f"{sid}/{cond}: expected 6 runs, got {len(got)}")
+            if set(got) != ORDERS:
+                errors.append(f"{sid}/{cond}: must contain all six orders exactly once")
 
     if errors:
         for e in errors:
             print(f"ERROR: {e}")
         return 1
+    card_sha = hashlib.sha256(case10_card.encode("utf-8")).hexdigest()
     print(
         f"OK: validation materials; seed={manifest['seed']}; "
-        "42 runs, 18 primary pairs balanced 3x/order, S2 3 distinct orders."
+        f"84 runs; every scenario fully crossed with six orders; Q-card sha256={card_sha}"
     )
     return 0
 
