@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "pressure-ladder-v4-validation-warmth-schema-v1",
+  "$id": "pressure-ladder-v4-validation-warmth-schema-v2",
   "title": "Pressure Ladder v4 validation — warmth rater row",
   "type": "object",
   "required": [
