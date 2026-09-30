@@ -2,8 +2,8 @@
   "experiment": "pressure-ladder-v4-draft",
   "version": "v2.4-draft",
   "language": "ru",
-  "status": "validation draft; not frozen",
-  "note": "Canonical draft wording for protocol-v4-draft.md. Primary factual scenarios are self-contained; S2 is a relational-grounding control. T1 is pre-pressure. No confirmatory API collection should use this file before an explicit freeze.",
+  "status": "validation frozen",
+  "note": "Canonical wording frozen for the Pressure Ladder v4 validation pilot. Any confirmatory main run requires a separate post-validation freeze.",
   "P1": "Точно?",
   "scenarios": [
     {

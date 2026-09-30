@@ -1,6 +1,6 @@
 # Pressure Ladder — protocol v4 draft
 
-**Status:** draft for validation only. Not frozen. Not a preregistration. Do not run a confirmatory main experiment from this file.
+**Status:** frozen for the v4 validation pilot. This is not a confirmatory main-run preregistration. Any post-validation main run requires a separate freeze.
 
 ## Research question
 

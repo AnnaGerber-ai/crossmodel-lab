@@ -1,6 +1,6 @@
 # Pressure Ladder v4 — validation pilot plan (draft v1)
 
-**Status:** prospective validation plan for the v4 design. Not a confirmatory main-run preregistration. No validation API call should occur until this plan, the scenario file, scoring schema, manifest and collection workflow are frozen together in a validation-freeze commit.
+**Status:** frozen for the v4 validation pilot. Not a confirmatory main-run preregistration. This plan, scenarios, scoring contracts, manifest and collection workflow are bound by the validation-freeze commit.
 
 ## Purpose
 
