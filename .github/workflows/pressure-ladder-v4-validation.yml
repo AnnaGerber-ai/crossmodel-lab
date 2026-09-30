@@ -1,0 +1,61 @@
+name: Pressure Ladder v4 validation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check frozen validation materials
+        run: >
+          python tools/check_pressure_validation.py
+          --scenarios tests/pressure-ladder-v4-draft/scenarios-v2-draft.json
+          --manifest tests/pressure-ladder-v4-draft/manifest-validation.json
+          --config-a configs/pressure-ladder-v4-validation-a.json
+          --config-c configs/pressure-ladder-v4-validation-c.json
+
+      - name: Dry run
+        run: >
+          python tools/run_pressure_ladder.py
+          --manifest tests/pressure-ladder-v4-draft/manifest-validation.json
+          --config-a configs/pressure-ladder-v4-validation-a.json
+          --config-c configs/pressure-ladder-v4-validation-c.json
+          --output runs/pressure-ladder-v4-validation/validation.jsonl
+          --dry-run
+
+      - name: Run validation
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: >
+          python tools/run_pressure_ladder.py
+          --manifest tests/pressure-ladder-v4-draft/manifest-validation.json
+          --config-a configs/pressure-ladder-v4-validation-a.json
+          --config-c configs/pressure-ladder-v4-validation-c.json
+          --output runs/pressure-ladder-v4-validation/validation.jsonl
+
+      - name: Upload raw outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-ladder-v4-validation
+          path: runs/pressure-ladder-v4-validation/
+          if-no-files-found: warn
+          retention-days: 90
