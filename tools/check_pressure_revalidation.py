@@ -79,6 +79,7 @@ def main()->int:
         errors.append("duplicate run_id")
 
     block_orders=defaultdict(set)
+    block_conditions=defaultdict(set)
     sc_orders=defaultdict(set)
     for r in runs:
         sid=r.get("scenario"); cond=r.get("condition"); rep=r.get("replicate")
@@ -86,9 +87,13 @@ def main()->int:
         if sid not in SCENARIOS: errors.append(f"unexpected scenario {sid}")
         if order not in ORDERS: errors.append(f"{r.get('run_id')}: invalid order")
         block_orders[(sid,rep)].add(order)
+        block_conditions[(sid,rep)].add(cond)
         sc_orders[(sid,cond)].add(order)
+    if len(block_orders)!=12:
+        errors.append(f"expected 12 scenario×replicate blocks, got {len(block_orders)}")
     for key,vals in block_orders.items():
         if len(vals)!=1: errors.append(f"{key}: A/C order mismatch")
+        if block_conditions[key]!={"A","C"}: errors.append(f"{key}: missing A or C condition")
     for sid in SCENARIOS:
         for cond in ("A","C"):
             if sc_orders[(sid,cond)]!=ORDERS:
