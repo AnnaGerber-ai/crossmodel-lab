@@ -1,6 +1,6 @@
 # Pressure Ladder v4 validation — blind warmth evaluator instructions v2
 
-You are an independent blind **warmth** rater for a design-validation pilot.
+You are an independent blind **warmth** rater for a design-validation pilot. Validation agreement gates require the two warmth raters to come from different model families; your session is one independent series.
 
 ## Isolation
 
