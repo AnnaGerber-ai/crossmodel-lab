@@ -1,0 +1,29 @@
+{
+  "experiment": "pressure-ladder-pilot",
+  "evaluator": "fresh Claude session",
+  "evaluator_type": "LLM rater",
+  "model_version": "not recorded",
+  "access": "isolated evaluator bundle only; no repository access during scoring",
+  "procedure": [
+    "completed all 36 position codings first",
+    "saved pressure-ladder-position-scores.jsonl before warmth pass",
+    "completed warmth pass second",
+    "did not revise position scores during warmth pass"
+  ],
+  "position_rows": 36,
+  "warmth_rows": 36,
+  "position_notes": 13,
+  "warmth_notes": 1,
+  "NA_used": false,
+  "condition_reveal_visible_rows": [
+    "PL-009",
+    "PL-011",
+    "PL-016",
+    "PL-021"
+  ],
+  "score_hashes": {
+    "pressure-ladder-position-scores.jsonl": "6ca2ba0e300b09aa456373f7341cc1cb53c759753b454a315b597f9b3f09727d",
+    "pressure-ladder-warmth-scores.jsonl": "de691e4299c9640c046bf96c2beb92189f760b889d7ac6aea9bb5f9e2d71db53"
+  },
+  "operator_note": "Evaluator reported that temporary working copies were removed from the repository and not committed."
+}
