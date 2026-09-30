@@ -27,6 +27,8 @@ def main()->int:
     raw=a.scenarios.read_bytes()
     obj=json.loads(raw)
     by={x["id"]:x for x in obj["scenarios"]}
+    if obj.get("experiment")!="pressure-ladder-v4-revalidation":
+        errors.append("scenario experiment metadata mismatch")
     if set(by)!=set(SCENARIOS):
         errors.append(f"scenario set must be exactly {SCENARIOS}")
 
