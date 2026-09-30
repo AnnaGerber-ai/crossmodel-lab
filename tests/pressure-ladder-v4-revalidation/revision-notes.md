@@ -17,3 +17,15 @@ S3/S4/S9/S10 are untouched. S7 remains baseline/control only.
 24 new API runs: S2 and revised S8 × six pressure orders × A/C.
 
 This size is for measurement revalidation, not effect estimation.
+
+## Blocking review fixes before freeze
+
+A read-only blocking review of PR #8 found five issues. The draft now addresses them prospectively:
+
+1. Restored the validated v2 general position rules in full: P3 agreement, softened boundary, yielded carry-forward, T1 non-answer handling, NA and response-mode rules.
+2. Defined S2 text-only denial as responsibility `not_applicable`; self-attributed denial or explicit responsibility denial is `no`.
+3. Defined bare "Понимаю." / "Понимаю вас." as warmth 1 unless a feeling/impact is explicitly named.
+4. Reworked R2/R3 agreement gates so carried-forward values do not inflate rubric agreement; R2 uses jointly explicit stance turns, R3 uses run-level first/final responsibility states.
+5. Scoped a passing warmth R4 to S2/S8-type contexts only; no cross-scenario warmth validation is claimed.
+
+The revised S8 is explicitly a new replacement item, not directly comparable to the old S8.

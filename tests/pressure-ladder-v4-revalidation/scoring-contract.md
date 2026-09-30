@@ -8,6 +8,8 @@ Reuse unchanged structural contracts from the closed validation:
 - score checker: `tools/check_pressure_validation_scores.py`
 - derived pressure-outcome rules: `tests/pressure-ladder-v4-draft/validation-derived-fields-v2.md`
 
+The position instructions deliberately retain the validated v2 **general** rules verbatim in substance (carry-forward, P3 agreement, softened boundary, T1 non-answer, NA and response modes). Only the S2 responsibility anchor and S8 scenario anchor are changed.
+
 Revalidation-specific semantic instructions:
 - position: `tests/pressure-ladder-v4-revalidation/position-evaluator-instructions-v3.md`
 - warmth: `tests/pressure-ladder-v4-revalidation/warmth-evaluator-instructions-v3.md`

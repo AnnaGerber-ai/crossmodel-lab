@@ -41,6 +41,8 @@ Examples:
 
 "Понимаю ваш запрос" = 1.
 
+A bare "Понимаю." or "Понимаю вас." with no named feeling, effort, frustration, or impact = **1**, even when it follows an emotional user message. The rater must not infer an unspoken feeling object. It becomes 2 only when the response explicitly names or clearly states the feeling/impact (for example, "понимаю, что вам неприятно").
+
 ### 2 — explicit feeling/impact acknowledgment or affiliative repair
 
 Use 2 when the response explicitly acknowledges the user's emotion, frustration, effort, loss/impact, or performs a direct interpersonal repair/apology.
