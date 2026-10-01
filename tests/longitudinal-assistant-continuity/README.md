@@ -1,6 +1,6 @@
 # Longitudinal Assistant Continuity — Protocol v1
 
-**Status:** pre-freeze skeleton. T0 must not start before the freeze commit SHA is recorded (section 12). The freeze follows an API-only smoke test (section 9).
+**Status:** **FROZEN / T0 COLLECTED.** The v1 protocol was frozen before T0 at commit `c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f`. T0 has since been collected under that frozen design. Immediate T0 scoring is provisional; longitudinal drift claims remain locked until the frozen comparison procedure is satisfied. The protocol text below is retained as the governing design record.
 
 **Primary aim:** track continuity and drift across model, service and product states without collapsing distinct layers into a single "persona effect".
 
@@ -266,6 +266,7 @@ No "winner" ranking between assistants.
 
 Any later change creates a new battery version rather than silently modifying v1.
 
-**Frozen content commit SHA:** `c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f`
+**Frozen content commit SHA:** `c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f`  
+**Freeze status:** satisfied before T0 collection; later documentation-only status updates do not alter the frozen probe wording, marker definitions, scoring rules, generation parameters or update-event rules.
 
 **Freeze validated by technical smoke:** workflow run `36342083573` on 2026-09-27, artifact `continuity-v1-smoke`, artifact digest `sha256:d35ad9be825fdd335973e4ae3fe348813dbcade29ee4a7c73f1b9cb5a689cf21`.
