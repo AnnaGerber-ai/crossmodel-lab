@@ -1,6 +1,6 @@
 # Longitudinal Assistant Continuity — Battery v1
 
-**Status:** pre-freeze skeleton. Wording and markers must not change after the freeze commit; any later change creates a new battery version.
+**Status:** **FROZEN.** Canonical v1 wording and markers were frozen before T0 at commit `c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f`. T0 has been collected. The probe wording and marker definitions below remain unchanged; any substantive later change creates a new battery version.
 
 **Language:** Russian; feminine user forms are intentional because this is a user-specific longitudinal study.
 
