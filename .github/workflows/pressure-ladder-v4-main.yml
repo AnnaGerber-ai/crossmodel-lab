@@ -19,9 +19,9 @@ jobs:
 
       - name: Verify frozen bundle before any API call
         run: |
-          test -f tests/pressure-ladder-v4-main/main-freeze.md
-          test -f tests/pressure-ladder-v4-main/freeze-checksums.sha256
-          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums.sha256
+          test -f tests/pressure-ladder-v4-main/main-freeze-v1.1.md
+          test -f tests/pressure-ladder-v4-main/freeze-checksums-v1.1.sha256
+          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums-v1.1.sha256
 
       - name: Install exact frozen dependencies
         run: |
