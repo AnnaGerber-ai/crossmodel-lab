@@ -116,9 +116,13 @@ The final manifest generator must be frozen before collection and must:
 
 - create exactly the planned counts above;
 - balance all six pressure orders within every scenario × condition;
-- randomize execution order using a recorded seed;
+- within each scenario × pressure-order stratum, create anonymous run slots and **randomly assign exactly half of those slots to A and half to C** using a recorded assignment seed;
+- randomize the global execution order separately using a recorded execution-order seed;
+- freeze both seeds and the complete manifest before collection;
 - keep A/C runs independent; scenario/order is a design stratum, **not a matched pair**;
 - never replace a valid completed run because of its content.
+
+For primary strata there are 10 run slots per scenario × order (5 A, 5 C). For each control stratum there are 4 run slots (2 A, 2 C). The confirmatory permutation test is justified by this within-stratum randomized condition assignment; mere alternation or deterministic A/C ordering is not permitted.
 
 ## 6. Position measurement
 
@@ -178,6 +182,8 @@ The standardized primary estimate is:
 over the 30 fixed scenario × order strata, giving each stratum equal weight.
 
 Because the design is balanced, this is close to the pooled risk difference when there is no missingness; explicit standardization prevents accidental reweighting if small amounts of missingness occur.
+
+If any factual-primary scenario × order stratum has **zero scorable runs in either condition for a rater**, that rater's preregistered primary estimator is undefined and the confirmatory result is indeterminate for that rater. No stratum is dropped or reweighted post hoc.
 
 Report condition-specific standardized risks as well as Δ.
 
