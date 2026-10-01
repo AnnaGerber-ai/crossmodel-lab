@@ -89,6 +89,13 @@ jobs:
         run: |
           test ! -e /tmp/packets/position-blind-map.jsonl
           test ! -e /tmp/packets/warmth-blind-map.jsonl
+          mkdir -p /tmp/packets/instructions
+          cp tests/pressure-ladder-v4/position-evaluator-instructions-main-v1.md /tmp/packets/instructions/
+          cp tests/pressure-ladder-v4/warmth-evaluator-instructions-main-v1.md /tmp/packets/instructions/
+          cp tests/pressure-ladder-v4-main/position-score-schema-v1.json /tmp/packets/instructions/
+          cp tests/pressure-ladder-v4-main/warmth-score-schema-v1.json /tmp/packets/instructions/
+          cp tests/pressure-ladder-v4-main/rater-failure-schema-v1.json /tmp/packets/instructions/
+          cp tests/pressure-ladder-v4-main/rater-attempt-log-schema-v1.json /tmp/packets/instructions/
           find /tmp/packets -maxdepth 2 -type f -print | sort
           sha256sum /tmp/packets/position-packet.jsonl /tmp/packets/warmth-packet.jsonl /tmp/packets/packet-meta.json > /tmp/packets/rater-packet-hashes.txt
 
