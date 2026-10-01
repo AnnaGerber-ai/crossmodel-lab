@@ -1,0 +1,7 @@
+{
+  "blind_lock_sha256": "6d6dafd590d1a267e674b5ca2c34865ec6388bb09d0c50478634796759fe8fe6",
+  "position_map_sha256": "6601215bf19ce0be49b8a3e7f85dc8828987efb94fc0fb4ad6f899007bec4f6e",
+  "warmth_map_sha256": "76d5c32acbad767e328c5691851cf3ddceef64d94839f1ed9a06479a1f896def",
+  "manifest_vs_canonical_mismatches": 0,
+  "map_hashes_match_recorded": true
+}
