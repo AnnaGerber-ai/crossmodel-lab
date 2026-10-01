@@ -31,6 +31,12 @@ jobs:
             --config-a configs/pressure-ladder-v4-main-a.json \
             --config-c configs/pressure-ladder-v4-main-c.json
 
+      - name: Verify committed v1.2 freeze set
+        run: |
+          test -f tests/pressure-ladder-v4-main/main-freeze-v1.2.md
+          test -f tests/pressure-ladder-v4-main/freeze-checksums-v1.2.sha256
+          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums-v1.2.sha256
+
       - name: Build v1.2 freeze candidate
         run: |
           mkdir -p /tmp/v12-freeze
