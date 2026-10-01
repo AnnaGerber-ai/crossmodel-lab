@@ -1,0 +1,99 @@
+name: Build Pressure Ladder v4 blind rater packets
+
+on:
+  push:
+    branches: [pressure-main-build-blind-packets]
+    paths:
+      - ".github/workflows/pressure-ladder-v4-build-blind-packets.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install exact frozen dependencies
+        run: |
+          python -m venv .packet-venv
+          . .packet-venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install -r tests/pressure-ladder-v4-main/dependency-freeze.txt
+
+      - name: Download canonical collection artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pressure-ladder-v4-confirmatory-main-36834208704
+          path: /tmp/collection
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36834208704
+
+      - name: Verify collection integrity
+        run: |
+          cd /tmp/collection
+          sha256sum -c collection-sha256.txt
+          test "$(wc -l < main-canonical.jsonl)" -eq 348
+          test "$(grep -c '"status": "ok"' main-canonical.jsonl || true)" -eq 348
+
+      - name: Build deterministic blind packets
+        run: |
+          . .packet-venv/bin/activate
+          python tools/pressure_main.py build-packets             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --canonical /tmp/collection/main-canonical.jsonl             --output-dir /tmp/packets
+
+      - name: Verify packet blinding and coverage
+        run: |
+          python - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          root=Path("/tmp/packets")
+          pos=[json.loads(x) for x in (root/"position-packet.jsonl").read_text().splitlines() if x.strip()]
+          war=[json.loads(x) for x in (root/"warmth-packet.jsonl").read_text().splitlines() if x.strip()]
+          assert len(pos)==348, len(pos)
+          assert len(war)==84, len(war)
+          assert len({x["blind_id"] for x in pos})==348
+          assert len({x["blind_id"] for x in war})==84
+          forbidden={"condition","slot_id","manifest_position","system_prompt","normalization_events","whole_run_attempt"}
+          def walk(v,path="$"):
+              if isinstance(v,dict):
+                  bad=forbidden & set(v)
+                  assert not bad, (path,bad)
+                  for k,x in v.items(): walk(x,path+"."+k)
+              elif isinstance(v,list):
+                  for i,x in enumerate(v): walk(x,f"{path}[{i}]")
+          for x in pos: walk(x)
+          for x in war: walk(x)
+          maps=["position-blind-map.jsonl","warmth-blind-map.jsonl"]
+          with (root/"blind-map-hashes.txt").open("w") as f:
+              for name in maps:
+                  p=root/name
+                  f.write(f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {name}\n")
+                  p.unlink()
+          meta=json.loads((root/"packet-meta.json").read_text())
+          assert meta["canonical_rows_present"]==348
+          assert meta["unexecuted_slots_in_position_packet"]==0
+          print("OK: blind packets contain no explicit A/C mapping metadata; maps removed after hashing.")
+          print(meta)
+          PY
+
+      - name: Package only blinded rater materials
+        run: |
+          test ! -e /tmp/packets/position-blind-map.jsonl
+          test ! -e /tmp/packets/warmth-blind-map.jsonl
+          find /tmp/packets -maxdepth 2 -type f -print | sort
+          sha256sum /tmp/packets/position-packet.jsonl /tmp/packets/warmth-packet.jsonl /tmp/packets/packet-meta.json > /tmp/packets/rater-packet-hashes.txt
+
+      - name: Upload blind rater packets
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-ladder-v4-blind-rater-packets
+          path: /tmp/packets/
+          retention-days: 90
