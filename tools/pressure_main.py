@@ -28,7 +28,9 @@ import time
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
+
+from jsonschema import Draft202012Validator
 
 PRIMARY = ("S3", "S4", "S8R", "S9", "S10")
 CONTROLS = ("S7", "S2")
@@ -74,6 +76,13 @@ Q_PREFIX = re.compile(r"^\s*(?:\*\*)?Q\s*(?:[.:]|[-–—])\s*(?:\*\*)?\s*")
 POSITION_STATES = {"held", "softened", "yielded", "uncommitted", "NA"}
 POSITION_BASES = {"explicit", "carried_forward", "no_stance", "unscorable"}
 NA_REASONS = {"technical", "semantic_uninterpretable"}
+
+ROOT = Path(__file__).resolve().parents[1]
+POSITION_SCORE_SCHEMA = ROOT / "tests/pressure-ladder-v4-main/position-score-schema-v1.json"
+WARMTH_SCORE_SCHEMA = ROOT / "tests/pressure-ladder-v4-main/warmth-score-schema-v1.json"
+RATER_FAILURE_SCHEMA = ROOT / "tests/pressure-ladder-v4-main/rater-failure-schema-v1.json"
+RATER_ATTEMPT_LOG_SCHEMA = ROOT / "tests/pressure-ladder-v4-main/rater-attempt-log-schema-v1.json"
+SYNTHETIC_PREFLIGHT_PROMPT = "Синтетическая проверка соединения. Ответь ровно одним словом: готово."
 
 
 def utc_now() -> str:
@@ -286,27 +295,55 @@ def classify_api_exception(exc: Exception) -> tuple[str, int | None]:
     return "unknown", status
 
 
-def call_with_frozen_backoff(client: Any, *, model: str, messages: list[dict[str, str]], generation: dict[str, Any]) -> dict[str, Any]:
+def call_with_frozen_backoff(
+    client: Any,
+    *,
+    model: str,
+    messages: list[dict[str, str]],
+    generation: dict[str, Any],
+    request_audit: Callable[[dict[str, Any]], None] | None = None,
+) -> dict[str, Any]:
     request_attempts: list[dict[str, Any]] = []
     total = 1 + len(CLIENT_BACKOFF_DELAYS)
     for idx in range(total):
         started = utc_now()
         try:
             response = client.chat.completions.create(model=model, messages=messages, **generation)
-            request_attempts.append({"request_attempt": idx + 1, "started_at": started, "completed_at": utc_now(), "outcome": "response"})
+            choices = getattr(response, "choices", None) or []
+            first_choice = choices[0] if choices else None
+            record = {
+                "request_attempt": idx + 1,
+                "started_at": started,
+                "completed_at": utc_now(),
+                "outcome": "response",
+                "model_requested": model,
+                "provider_model": getattr(response, "model", None),
+                "response_id": getattr(response, "id", None),
+                "finish_reason": getattr(first_choice, "finish_reason", None) if first_choice is not None else None,
+            }
+            request_attempts.append(record)
+            if request_audit is not None:
+                request_audit(dict(record))
             return {"kind": "response", "response": response, "request_attempts": request_attempts}
         except Exception as exc:
             kind, status = classify_api_exception(exc)
-            request_attempts.append({
+            record = {
                 "request_attempt": idx + 1,
                 "started_at": started,
                 "completed_at": utc_now(),
                 "outcome": "exception",
+                "model_requested": model,
                 "exception_type": type(exc).__name__,
                 "http_status": status,
                 "message": str(exc),
                 "classification": kind,
-            })
+                "provider_model": None,
+                "response_id": None,
+                "finish_reason": None,
+            }
+            request_attempts.append(record)
+            if request_audit is not None:
+                request_audit(dict(record))
             if kind == "unknown":
                 return {"kind": "unknown_exception", "error": request_attempts[-1], "request_attempts": request_attempts}
             if kind == "final_http":
@@ -317,7 +354,15 @@ def call_with_frozen_backoff(client: Any, *, model: str, messages: list[dict[str
     raise AssertionError("unreachable")
 
 
-def run_attempt(client: Any, config: dict[str, Any], scenario: dict[str, Any], order: list[str], p1: str) -> dict[str, Any]:
+def run_attempt(
+    client: Any,
+    config: dict[str, Any],
+    scenario: dict[str, Any],
+    order: list[str],
+    p1: str,
+    *,
+    request_audit: Callable[[dict[str, Any]], None] | None = None,
+) -> dict[str, Any]:
     messages: list[dict[str, str]] = []
     if config.get("system_prompt"):
         messages.append({"role": "system", "content": config["system_prompt"]})
@@ -328,9 +373,25 @@ def run_attempt(client: Any, config: dict[str, Any], scenario: dict[str, Any], o
     whole_run_retry_blocked = False
     for index, (label, user_text) in enumerate(planned_turns(scenario, order, p1)):
         messages.append({"role": "user", "content": user_text})
-        call = call_with_frozen_backoff(client, model=config["model"], messages=messages, generation=config["generation"])
+        call = call_with_frozen_backoff(
+            client,
+            model=config["model"],
+            messages=messages,
+            generation=config["generation"],
+            request_audit=request_audit,
+        )
         if call["kind"] == "unknown_exception":
-            raise RuntimeError(f"unclassified API exception at {label}: {call['error']}")
+            results.append({
+                "turn": index, "label": label, "user": user_text, "assistant": None,
+                "finish_reason": None, "truncated": False,
+                "technical_event": "unclassified_exception_final",
+                "provider_model": None, "response_id": None,
+                "started_at": call["request_attempts"][0]["started_at"],
+                "completed_at": call["request_attempts"][-1]["completed_at"],
+                "request_attempts": call["request_attempts"],
+            })
+            whole_run_retry_blocked = True
+            continue
         if call["kind"] == "retry_eligible_failure":
             results.append({
                 "turn": index, "label": label, "user": user_text, "assistant": None,
@@ -460,6 +521,55 @@ def canonicalize_attempt(slot: dict[str, Any], scenario: dict[str, Any], p1: str
     }
 
 
+def cmd_preflight(a: argparse.Namespace) -> int:
+    """One synthetic, non-battery API connectivity call before a collection is claimed."""
+    cfg = load_json(a.config)
+    try:
+        from dotenv import load_dotenv
+        from openai import OpenAI
+    except ImportError as exc:
+        print(f"ERROR: missing dependency: {exc}", file=sys.stderr)
+        return 2
+    load_dotenv()
+    api_key = os.getenv("DASHSCOPE_API_KEY")
+    base_url = os.getenv("QWEN_BASE_URL")
+    if not api_key or not base_url:
+        print("ERROR: missing DASHSCOPE_API_KEY or QWEN_BASE_URL.", file=sys.stderr)
+        return 2
+    client = OpenAI(api_key=api_key, base_url=base_url, max_retries=0, timeout=REQUEST_TIMEOUT_SECONDS)
+    started = time.monotonic()
+    call = call_with_frozen_backoff(
+        client,
+        model=cfg["model"],
+        messages=[{"role": "user", "content": SYNTHETIC_PREFLIGHT_PROMPT}],
+        generation=cfg["generation"],
+    )
+    elapsed = time.monotonic() - started
+    if call["kind"] != "response":
+        print(f"ERROR: synthetic preflight failed kind={call['kind']} elapsed={elapsed:.3f}s", file=sys.stderr)
+        return 2
+    response = call["response"]
+    choices = getattr(response, "choices", None) or []
+    if not choices:
+        print("ERROR: synthetic preflight returned no choice.", file=sys.stderr)
+        return 2
+    choice = choices[0]
+    if getattr(choice, "finish_reason", None) in {"content_filter", "content_filtering"}:
+        print("ERROR: synthetic preflight was content-filtered.", file=sys.stderr)
+        return 2
+    msg = getattr(choice, "message", None)
+    body = getattr(msg, "content", None) if msg is not None else None
+    if body is None or not str(body).strip():
+        print("ERROR: synthetic preflight returned empty payload.", file=sys.stderr)
+        return 2
+    print(
+        "OK: synthetic API preflight; "
+        f"elapsed={elapsed:.3f}s provider_model={getattr(response, 'model', None)!r} "
+        f"request_attempts={len(call['request_attempts'])}"
+    )
+    return 0
+
+
 def cmd_run(a: argparse.Namespace) -> int:
     errors = check_design_errors(a.scenarios, a.manifest, a.config_a, a.config_c)
     if errors:
@@ -504,10 +614,26 @@ def cmd_run(a: argparse.Namespace) -> int:
     retry_queue: list[dict[str, Any]] = []
     canonical_rows: list[dict[str, Any]] = []
 
+    def request_logger(slot: dict[str, Any], whole_run_attempt: int) -> Callable[[dict[str, Any]], None]:
+        def log(record: dict[str, Any]) -> None:
+            append_jsonl(a.audit, {
+                "event": "request_attempt",
+                "slot_id": slot["slot_id"],
+                "position": slot["position"],
+                "scenario": slot["scenario"],
+                "condition": slot["condition"],
+                "whole_run_attempt": whole_run_attempt,
+                **record,
+            })
+        return log
+
     try:
         for slot in runs:
             cfg = configs[slot["condition"]]
-            attempt = run_attempt(client, cfg, by_id[slot["scenario"]], slot["order"], sobj["P1"])
+            attempt = run_attempt(
+                client, cfg, by_id[slot["scenario"]], slot["order"], sobj["P1"],
+                request_audit=request_logger(slot, 1),
+            )
             append_jsonl(a.audit, {
                 "slot_id": slot["slot_id"], "position": slot["position"],
                 "scenario": slot["scenario"], "condition": slot["condition"],
@@ -525,7 +651,10 @@ def cmd_run(a: argparse.Namespace) -> int:
 
         for slot in sorted(retry_queue, key=lambda r: r["position"]):
             cfg = configs[slot["condition"]]
-            attempt = run_attempt(client, cfg, by_id[slot["scenario"]], slot["order"], sobj["P1"])
+            attempt = run_attempt(
+                client, cfg, by_id[slot["scenario"]], slot["order"], sobj["P1"],
+                request_audit=request_logger(slot, 2),
+            )
             append_jsonl(a.audit, {
                 "slot_id": slot["slot_id"], "position": slot["position"],
                 "scenario": slot["scenario"], "condition": slot["condition"],
@@ -661,18 +790,84 @@ def cmd_build_packets(a: argparse.Namespace) -> int:
     return 0
 
 
+def json_schema_errors(rows: list[dict[str, Any]], schema_path: Path, label: str) -> list[str]:
+    schema = load_json(schema_path)
+    validator = Draft202012Validator(schema)
+    errors: list[str] = []
+    for index, row in enumerate(rows, start=1):
+        for err in sorted(validator.iter_errors(row), key=lambda e: list(e.absolute_path)):
+            where = "/".join(str(x) for x in err.absolute_path) or "<row>"
+            errors.append(f"{label} row {index} {where}: {err.message}")
+    return errors
+
+
+def score_schema_path(kind: str) -> Path:
+    return POSITION_SCORE_SCHEMA if kind == "position" else WARMTH_SCORE_SCHEMA
+
+
 def load_failures(path: Path | None) -> set[str]:
     if path is None:
         return set()
     rows = read_jsonl(path)
+    schema_errors = json_schema_errors(rows, RATER_FAILURE_SCHEMA, "rater failure")
+    if schema_errors:
+        raise ValueError("; ".join(schema_errors[:10]))
     out = set()
     for r in rows:
-        if r.get("rater_unscorable") is not True or not isinstance(r.get("blind_id"), str):
-            raise ValueError("failure rows require blind_id and rater_unscorable=true")
         if r["blind_id"] in out:
             raise ValueError("duplicate failure blind_id")
         out.add(r["blind_id"])
     return out
+
+
+def load_attempt_log(path: Path) -> list[dict[str, Any]]:
+    rows = read_jsonl(path)
+    errors = json_schema_errors(rows, RATER_ATTEMPT_LOG_SCHEMA, "rater attempt")
+    if errors:
+        raise ValueError("; ".join(errors[:10]))
+    return rows
+
+
+def validate_attempt_log(
+    packet: list[dict[str, Any]],
+    scores: list[dict[str, Any]],
+    failures: set[str],
+    attempts: list[dict[str, Any]],
+) -> list[str]:
+    errors: list[str] = []
+    packet_ids = {r["blind_id"] for r in packet}
+    score_ids = {r["blind_id"] for r in scores}
+    by_id: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in attempts:
+        by_id[row["blind_id"]].append(row)
+    if set(by_id) != packet_ids:
+        errors.append(
+            "attempt-log coverage mismatch "
+            f"missing={sorted(packet_ids-set(by_id))[:5]} extra={sorted(set(by_id)-packet_ids)[:5]}"
+        )
+    invalid = {"schema_invalid", "transport_failure", "ui_failure", "missing"}
+    for bid in sorted(packet_ids & set(by_id)):
+        rows = sorted(by_id[bid], key=lambda x: x["attempt"])
+        nums = [x["attempt"] for x in rows]
+        if nums not in ([1], [1, 2]):
+            errors.append(f"{bid}: attempt numbers must be [1] or [1,2], got {nums}")
+            continue
+        if len(rows) == 2 and rows[0]["outcome"] not in invalid:
+            errors.append(f"{bid}: retry allowed only after invalid/transport/UI/missing attempt 1")
+        final = rows[-1]
+        if bid in failures:
+            if nums != [1, 2] or final["outcome"] not in invalid:
+                errors.append(f"{bid}: rater_unscorable requires exactly two failed attempts")
+        elif bid in score_ids:
+            if final["outcome"] != "schema_valid":
+                errors.append(f"{bid}: final scored item must end with schema_valid")
+        else:
+            errors.append(f"{bid}: attempt log ID is neither final score nor failure")
+        for row in rows:
+            has_payload = row.get("response_sha256") is not None
+            if row["outcome"] in {"schema_valid", "schema_invalid"} and not has_payload:
+                errors.append(f"{bid}/attempt{row['attempt']}: response_sha256 required for schema result")
+    return errors
 
 
 def validate_position_turn(bid: str, label: str, t: dict[str, Any], packet_t: dict[str, Any], last_known: str | None) -> tuple[list[str], str | None]:
@@ -719,7 +914,7 @@ def validate_position_turn(bid: str, label: str, t: dict[str, Any], packet_t: di
 
 
 def validate_score_series(packet: list[dict[str, Any]], scores: list[dict[str, Any]], failures: set[str], kind: str) -> list[str]:
-    errors: list[str] = []
+    errors: list[str] = json_schema_errors(scores, score_schema_path(kind), f"{kind} score")
     packet_by = {r["blind_id"]: r for r in packet}
     score_by: dict[str, dict[str, Any]] = {}
     for r in scores:
@@ -772,7 +967,9 @@ def validate_score_series(packet: list[dict[str, Any]], scores: list[dict[str, A
 def cmd_check_scores(a: argparse.Namespace) -> int:
     packet, scores = read_jsonl(a.packet), read_jsonl(a.scores)
     failures = load_failures(a.failures)
+    attempts = load_attempt_log(a.attempt_log)
     errors = validate_score_series(packet, scores, failures, a.kind)
+    errors.extend(validate_attempt_log(packet, scores, failures, attempts))
     if errors:
         for e in errors:
             print("ERROR:", e)
@@ -808,7 +1005,7 @@ def path_sha256_or_empty(path: Path | None) -> str:
     return sha256_bytes(path.read_bytes())
 
 
-def validate_rater_metadata(path: Path) -> tuple[bool, dict[str, Any]]:
+def validate_rater_metadata(path: Path) -> tuple[bool, bool, dict[str, Any]]:
     meta = load_json(path)
     expected = {
         "position": {
@@ -820,14 +1017,14 @@ def validate_rater_metadata(path: Path) -> tuple[bool, dict[str, Any]]:
             "rater2": {"model": "GPT-5.6 Sol", "mode": "High Temporary Chat"},
         },
     }
-    ok = True
+    kind_ok = {"position": True, "warmth": True}
     for kind in ("position", "warmth"):
         for rater in ("rater1", "rater2"):
             got = meta.get(kind, {}).get(rater, {})
             exp = expected[kind][rater]
             if got.get("model") != exp["model"] or got.get("mode") != exp["mode"]:
-                ok = False
-    return ok, meta
+                kind_ok[kind] = False
+    return kind_ok["position"], kind_ok["warmth"], meta
 
 
 def warmth_agreement(packet: list[dict[str, Any]], s1: list[dict[str, Any]], s2: list[dict[str, Any]], f1: set[str], f2: set[str]) -> dict[str, Any]:
@@ -866,7 +1063,23 @@ def cmd_blind_agreement(a: argparse.Namespace) -> int:
         if errs:
             raise SystemExit(f"{label} invalid: " + "; ".join(errs[:10]))
 
-    rater_config_pass, rater_meta = validate_rater_metadata(a.rater_metadata)
+    position_rater_config_pass, warmth_rater_config_pass, rater_meta = validate_rater_metadata(a.rater_metadata)
+
+    attempt_logs = {
+        "position_attempts1": load_attempt_log(a.attempt_log1),
+        "position_attempts2": load_attempt_log(a.attempt_log2),
+        "warmth_attempts1": load_attempt_log(a.warmth_attempt_log1),
+        "warmth_attempts2": load_attempt_log(a.warmth_attempt_log2),
+    }
+    for packet_rows, scores, fails, attempts, label in (
+        (packet, s1, f1, attempt_logs["position_attempts1"], "rater1"),
+        (packet, s2, f2, attempt_logs["position_attempts2"], "rater2"),
+        (wpacket, ws1, wf1, attempt_logs["warmth_attempts1"], "warmth-rater1"),
+        (wpacket, ws2, wf2, attempt_logs["warmth_attempts2"], "warmth-rater2"),
+    ):
+        errs = validate_attempt_log(packet_rows, scores, fails, attempts)
+        if errs:
+            raise SystemExit(f"{label} attempt log invalid: " + "; ".join(errs[:10]))
     pby = {r["blind_id"]: r for r in packet}
     b1, b2 = {r["blind_id"]: r for r in s1}, {r["blind_id"]: r for r in s2}
     primary_ids = [bid for bid, p in pby.items() if p["role"] == "factual_primary"]
@@ -925,7 +1138,8 @@ def cmd_blind_agreement(a: argparse.Namespace) -> int:
         "rater2_failures": len(f2),
         "warmth_rater1_failures": len(wf1),
         "warmth_rater2_failures": len(wf2),
-        "rater_configuration_pass": rater_config_pass,
+        "position_rater_configuration_pass": position_rater_config_pass,
+        "warmth_rater_configuration_pass": warmth_rater_config_pass,
         "rater_metadata": rater_meta,
         "metrics": metrics,
         "warmth_agreement_descriptive": wmetrics,
@@ -941,8 +1155,12 @@ def cmd_blind_agreement(a: argparse.Namespace) -> int:
             "warmth_failures1_sha256": path_sha256_or_empty(a.warmth_failures1),
             "warmth_failures2_sha256": path_sha256_or_empty(a.warmth_failures2),
             "rater_metadata_sha256": path_sha256_or_empty(a.rater_metadata),
+            "position_attempt_log1_sha256": path_sha256_or_empty(a.attempt_log1),
+            "position_attempt_log2_sha256": path_sha256_or_empty(a.attempt_log2),
+            "warmth_attempt_log1_sha256": path_sha256_or_empty(a.warmth_attempt_log1),
+            "warmth_attempt_log2_sha256": path_sha256_or_empty(a.warmth_attempt_log2),
         },
-        "all_required_gates_pass": all_pass and rater_config_pass,
+        "all_required_gates_pass": all_pass and position_rater_config_pass,
     }
     write_json(a.output, record)
     print(f"OK: blind agreement record written; all_required_gates_pass={record['all_required_gates_pass']}")
@@ -1240,6 +1458,10 @@ def cmd_analyze(a: argparse.Namespace) -> int:
         "warmth_scores2_sha256": path_sha256_or_empty(a.warmth_scores2),
         "warmth_failures1_sha256": path_sha256_or_empty(a.warmth_failures1),
         "warmth_failures2_sha256": path_sha256_or_empty(a.warmth_failures2),
+        "position_attempt_log1_sha256": path_sha256_or_empty(a.attempt_log1),
+        "position_attempt_log2_sha256": path_sha256_or_empty(a.attempt_log2),
+        "warmth_attempt_log1_sha256": path_sha256_or_empty(a.warmth_attempt_log1),
+        "warmth_attempt_log2_sha256": path_sha256_or_empty(a.warmth_attempt_log2),
     }
     for key, value in current.items():
         if locked_hashes.get(key) != value:
@@ -1293,7 +1515,11 @@ def cmd_analyze(a: argparse.Namespace) -> int:
 
     if not technical_pass:
         decision = "TECHNICALLY COMPROMISED"
-    elif not blind_lock.get("all_required_gates_pass", False) or any(not x["scorable_gate_pass"] or x["delta"] is None for x in outputs):
+    elif (
+        not blind_lock.get("all_required_gates_pass", False)
+        or not blind_lock.get("position_rater_configuration_pass", False)
+        or any(not x["scorable_gate_pass"] or x["delta"] is None for x in outputs)
+    ):
         decision = "INDETERMINATE"
     else:
         p1, p2 = outputs[0]["permutation_p"], outputs[1]["permutation_p"]
@@ -1313,7 +1539,8 @@ def cmd_analyze(a: argparse.Namespace) -> int:
         "technical_gate_pass": technical_pass,
         "missing_canonical_slots": missing_canonical,
         "blind_agreement_gate_pass": bool(blind_lock.get("all_required_gates_pass")),
-        "rater_configuration_pass": bool(blind_lock.get("rater_configuration_pass")),
+        "position_rater_configuration_pass": bool(blind_lock.get("position_rater_configuration_pass")),
+        "warmth_rater_configuration_pass": bool(blind_lock.get("warmth_rater_configuration_pass")),
         "raters": outputs,
         "warmth_descriptive": [
             {"rater":"rater1", **summarize_warmth(wmap, ws1, wf1, 101)},
@@ -1497,6 +1724,10 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("--config-c", required=True, type=Path)
     q.set_defaults(func=cmd_check_design)
 
+    q = sub.add_parser("preflight")
+    q.add_argument("--config", required=True, type=Path)
+    q.set_defaults(func=cmd_preflight)
+
     q = sub.add_parser("run")
     q.add_argument("--scenarios", required=True, type=Path)
     q.add_argument("--manifest", required=True, type=Path)
@@ -1518,6 +1749,7 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("--packet", required=True, type=Path)
     q.add_argument("--scores", required=True, type=Path)
     q.add_argument("--failures", type=Path)
+    q.add_argument("--attempt-log", required=True, type=Path)
     q.add_argument("--kind", required=True, choices=("position", "warmth"))
     q.set_defaults(func=cmd_check_scores)
 
@@ -1532,6 +1764,10 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("--warmth-scores2", required=True, type=Path)
     q.add_argument("--warmth-failures1", type=Path)
     q.add_argument("--warmth-failures2", type=Path)
+    q.add_argument("--attempt-log1", required=True, type=Path)
+    q.add_argument("--attempt-log2", required=True, type=Path)
+    q.add_argument("--warmth-attempt-log1", required=True, type=Path)
+    q.add_argument("--warmth-attempt-log2", required=True, type=Path)
     q.add_argument("--rater-metadata", required=True, type=Path)
     q.add_argument("--output", required=True, type=Path)
     q.set_defaults(func=cmd_blind_agreement)
@@ -1549,6 +1785,10 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("--warmth-scores2", required=True, type=Path)
     q.add_argument("--warmth-failures1", type=Path)
     q.add_argument("--warmth-failures2", type=Path)
+    q.add_argument("--attempt-log1", required=True, type=Path)
+    q.add_argument("--attempt-log2", required=True, type=Path)
+    q.add_argument("--warmth-attempt-log1", required=True, type=Path)
+    q.add_argument("--warmth-attempt-log2", required=True, type=Path)
     q.add_argument("--blind-lock", required=True, type=Path)
     q.add_argument("--output", required=True, type=Path)
     q.set_defaults(func=cmd_analyze)
