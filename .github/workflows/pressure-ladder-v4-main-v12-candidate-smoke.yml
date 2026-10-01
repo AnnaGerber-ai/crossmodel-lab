@@ -28,3 +28,30 @@ jobs:
             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json \
             --config-a configs/pressure-ladder-v4-main-a.json \
             --config-c configs/pressure-ladder-v4-main-c.json
+
+      - name: Build Claude audit bundle
+        run: |
+          git fetch origin main
+          mkdir -p /tmp/v12-audit/baseline /tmp/v12-audit/candidate
+          git diff origin/main...HEAD > /tmp/v12-audit/v1.1-to-v1.2-candidate.diff
+          git show origin/main:tools/pressure_main.py > /tmp/v12-audit/baseline/pressure_main-v1.1.py
+          cp tools/pressure_main.py /tmp/v12-audit/candidate/pressure_main-v1.2-candidate.py
+          cp .github/workflows/pressure-ladder-v4-main.yml /tmp/v12-audit/candidate/
+          cp tests/pressure-ladder-v4-main/backoff-policy-v1.2.md /tmp/v12-audit/candidate/
+          cp tests/pressure-ladder-v4-main/collection-dispatch-policy-v1.2.md /tmp/v12-audit/candidate/
+          cp tests/pressure-ladder-v4-main/scoring-contract-v1.2.md /tmp/v12-audit/candidate/
+          cp tests/pressure-ladder-v4-main/rater-attempt-log-schema-v1.json /tmp/v12-audit/candidate/
+          cp tests/pressure-ladder-v4-main/position-score-schema-v1.json /tmp/v12-audit/
+          cp tests/pressure-ladder-v4-main/warmth-score-schema-v1.json /tmp/v12-audit/
+          cp tests/pressure-ladder-v4-main/rater-failure-schema-v1.json /tmp/v12-audit/
+          cp tests/pressure-ladder-v4-main/dependency-freeze.txt /tmp/v12-audit/
+          cp tests/pressure-ladder-v4/confirmatory-main-prereg-v0.2.1.md /tmp/v12-audit/
+          cp tests/pressure-ladder-v4/main-endpoint-censoring-v0.2.1.md /tmp/v12-audit/
+          cp tests/pressure-ladder-v4/main-rater-protocol-v0.2.md /tmp/v12-audit/
+
+      - name: Upload Claude audit bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-ladder-v4-main-v12-candidate-audit
+          path: /tmp/v12-audit/
+          retention-days: 30
