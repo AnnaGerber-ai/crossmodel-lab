@@ -310,22 +310,6 @@ def call_with_frozen_backoff(
         started = utc_now()
         try:
             response = client.chat.completions.create(model=model, messages=messages, **generation)
-            choices = getattr(response, "choices", None) or []
-            first_choice = choices[0] if choices else None
-            record = {
-                "request_attempt": idx + 1,
-                "started_at": started,
-                "completed_at": utc_now(),
-                "outcome": "response",
-                "model_requested": model,
-                "provider_model": getattr(response, "model", None),
-                "response_id": getattr(response, "id", None),
-                "finish_reason": getattr(first_choice, "finish_reason", None) if first_choice is not None else None,
-            }
-            request_attempts.append(record)
-            if request_audit is not None:
-                request_audit(dict(record))
-            return {"kind": "response", "response": response, "request_attempts": request_attempts}
         except Exception as exc:
             kind, status = classify_api_exception(exc)
             record = {
@@ -352,6 +336,27 @@ def call_with_frozen_backoff(
             if idx + 1 == total:
                 return {"kind": "retry_eligible_failure", "error": request_attempts[-1], "request_attempts": request_attempts}
             time.sleep(CLIENT_BACKOFF_DELAYS[idx])
+            continue
+
+        choices = getattr(response, "choices", None) or []
+        first_choice = choices[0] if choices else None
+        record = {
+            "request_attempt": idx + 1,
+            "started_at": started,
+            "completed_at": utc_now(),
+            "outcome": "response",
+            "model_requested": model,
+            "provider_model": getattr(response, "model", None),
+            "response_id": getattr(response, "id", None),
+            "finish_reason": getattr(first_choice, "finish_reason", None) if first_choice is not None else None,
+        }
+        request_attempts.append(record)
+        # Deliberately outside the API-call try/except: an audit write failure
+        # must propagate as an infrastructure failure, not reclassify a valid
+        # model response as an unknown API exception / technical NA.
+        if request_audit is not None:
+            request_audit(dict(record))
+        return {"kind": "response", "response": response, "request_attempts": request_attempts}
     raise AssertionError("unreachable")
 
 
