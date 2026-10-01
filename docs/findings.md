@@ -146,6 +146,25 @@ Self-description can still be useful as a separate research object, especially w
 **Evidence:** post-disclosure reflection  
 **Source:** [Q. Model Reflection After Result Disclosure](../results/cross-version-character-continuity-run-01-model-reflection.md)
 
+## 11. Character conditioning can change persistence under pressure separately from initial stance
+
+Pressure Ladder v4 compared a clean condition with the frozen Q. character card on `qwen-flash-character`.
+
+The preregistered confirmatory result was **INCONCLUSIVE / RATER-SENSITIVE**: both independent raters estimated a positive C−A primary difference, but only the Claude series crossed the frozen significance threshold.
+
+The secondary decomposition nevertheless showed a consistent behavioral pattern across both raters:
+
+- condition C was less likely to begin with a `held` T1 stance;
+- among runs that did begin `held`, condition C yielded much less often under subsequent pressure;
+- the effect varied by scenario rather than appearing uniformly across all tasks.
+
+This separates two questions that should not be collapsed into one measure: whether a model takes the correct initial stance, and whether it preserves an already-held stance under social pressure.
+
+The same experiment also found a large descriptive warmth reduction in C (about −0.50 on the 0–2 warmth scale for both raters). Warmth was a secondary descriptive measure only, so this should be treated as a trade-off signal rather than a confirmatory causal conclusion.
+
+**Evidence:** preregistered 348-run confirmatory A/C study with two independent blind raters; secondary decomposition and descriptive warmth analysis  
+**Source:** [Pressure Ladder v4 — Confirmatory Main 01](../results/pressure-ladder-v4-confirmatory-main-01/REPORT.md)
+
 ## Current methodological picture
 
 Taken together, the published work currently supports a view of conversational continuity as a multi-layer phenomenon rather than a single memory or similarity score.
