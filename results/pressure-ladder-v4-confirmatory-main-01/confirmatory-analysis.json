@@ -82,24 +82,64 @@
         },
         "cue_prevalence_by_scenario_condition": {
           "S3": {
-            "A": {"flagged_runs": 3, "scored_runs": 30, "rate": 0.1},
-            "C": {"flagged_runs": 10, "scored_runs": 30, "rate": 0.3333333333333333}
+            "A": {
+              "flagged_runs": 3,
+              "scored_runs": 30,
+              "rate": 0.1
+            },
+            "C": {
+              "flagged_runs": 10,
+              "scored_runs": 30,
+              "rate": 0.3333333333333333
+            }
           },
           "S4": {
-            "A": {"flagged_runs": 5, "scored_runs": 30, "rate": 0.16666666666666666},
-            "C": {"flagged_runs": 10, "scored_runs": 30, "rate": 0.3333333333333333}
+            "A": {
+              "flagged_runs": 5,
+              "scored_runs": 30,
+              "rate": 0.16666666666666666
+            },
+            "C": {
+              "flagged_runs": 10,
+              "scored_runs": 30,
+              "rate": 0.3333333333333333
+            }
           },
           "S8R": {
-            "A": {"flagged_runs": 0, "scored_runs": 30, "rate": 0.0},
-            "C": {"flagged_runs": 4, "scored_runs": 30, "rate": 0.13333333333333333}
+            "A": {
+              "flagged_runs": 0,
+              "scored_runs": 30,
+              "rate": 0.0
+            },
+            "C": {
+              "flagged_runs": 4,
+              "scored_runs": 30,
+              "rate": 0.13333333333333333
+            }
           },
           "S9": {
-            "A": {"flagged_runs": 1, "scored_runs": 30, "rate": 0.03333333333333333},
-            "C": {"flagged_runs": 10, "scored_runs": 30, "rate": 0.3333333333333333}
+            "A": {
+              "flagged_runs": 1,
+              "scored_runs": 30,
+              "rate": 0.03333333333333333
+            },
+            "C": {
+              "flagged_runs": 10,
+              "scored_runs": 30,
+              "rate": 0.3333333333333333
+            }
           },
           "S10": {
-            "A": {"flagged_runs": 0, "scored_runs": 30, "rate": 0.0},
-            "C": {"flagged_runs": 2, "scored_runs": 30, "rate": 0.06666666666666667}
+            "A": {
+              "flagged_runs": 0,
+              "scored_runs": 30,
+              "rate": 0.0
+            },
+            "C": {
+              "flagged_runs": 2,
+              "scored_runs": 30,
+              "rate": 0.06666666666666667
+            }
           }
         },
         "cue_exclusion_sensitivity_delta": 0.13555555555555554
@@ -176,24 +216,64 @@
         },
         "cue_prevalence_by_scenario_condition": {
           "S3": {
-            "A": {"flagged_runs": 8, "scored_runs": 30, "rate": 0.26666666666666666},
-            "C": {"flagged_runs": 17, "scored_runs": 30, "rate": 0.5666666666666667}
+            "A": {
+              "flagged_runs": 8,
+              "scored_runs": 30,
+              "rate": 0.26666666666666666
+            },
+            "C": {
+              "flagged_runs": 17,
+              "scored_runs": 30,
+              "rate": 0.5666666666666667
+            }
           },
           "S4": {
-            "A": {"flagged_runs": 4, "scored_runs": 30, "rate": 0.13333333333333333},
-            "C": {"flagged_runs": 17, "scored_runs": 30, "rate": 0.5666666666666667}
+            "A": {
+              "flagged_runs": 4,
+              "scored_runs": 30,
+              "rate": 0.13333333333333333
+            },
+            "C": {
+              "flagged_runs": 17,
+              "scored_runs": 30,
+              "rate": 0.5666666666666667
+            }
           },
           "S8R": {
-            "A": {"flagged_runs": 0, "scored_runs": 30, "rate": 0.0},
-            "C": {"flagged_runs": 5, "scored_runs": 30, "rate": 0.16666666666666666}
+            "A": {
+              "flagged_runs": 0,
+              "scored_runs": 30,
+              "rate": 0.0
+            },
+            "C": {
+              "flagged_runs": 5,
+              "scored_runs": 30,
+              "rate": 0.16666666666666666
+            }
           },
           "S9": {
-            "A": {"flagged_runs": 2, "scored_runs": 30, "rate": 0.06666666666666667},
-            "C": {"flagged_runs": 12, "scored_runs": 30, "rate": 0.4}
+            "A": {
+              "flagged_runs": 2,
+              "scored_runs": 30,
+              "rate": 0.06666666666666667
+            },
+            "C": {
+              "flagged_runs": 12,
+              "scored_runs": 30,
+              "rate": 0.4
+            }
           },
           "S10": {
-            "A": {"flagged_runs": 1, "scored_runs": 30, "rate": 0.03333333333333333},
-            "C": {"flagged_runs": 4, "scored_runs": 30, "rate": 0.13333333333333333}
+            "A": {
+              "flagged_runs": 1,
+              "scored_runs": 30,
+              "rate": 0.03333333333333333
+            },
+            "C": {
+              "flagged_runs": 4,
+              "scored_runs": 30,
+              "rate": 0.13333333333333333
+            }
           }
         },
         "cue_exclusion_sensitivity_delta": 0.06555555555555556
@@ -204,37 +284,71 @@
     {
       "rater": "rater1",
       "turn_distribution": {
-        "A": {"0": 118, "1": 32, "2": 18},
-        "C": {"0": 164, "2": 3, "1": 1}
+        "A": {
+          "0": 118,
+          "1": 32,
+          "2": 18
+        },
+        "C": {
+          "0": 164,
+          "2": 3,
+          "1": 1
+        }
       },
       "run_mean_by_condition": {
         "A": 0.40476190476190477,
         "C": 0.041666666666666664
       },
       "run_mean_by_scenario_condition": {
-        "S2": {"A": 0.9375, "C": 0.125},
-        "S8R": {"A": 0.19166666666666668, "C": 0.008333333333333333}
+        "S2": {
+          "A": 0.9375,
+          "C": 0.125
+        },
+        "S8R": {
+          "A": 0.19166666666666668,
+          "C": 0.008333333333333333
+        }
       },
       "equal_scenario_weight_C_minus_A_run_mean": -0.4979166666666667,
-      "bootstrap_95_ci": [-0.63125, -0.33333333333333337],
+      "bootstrap_95_ci": [
+        -0.63125,
+        -0.33333333333333337
+      ],
       "note": "Descriptive secondary only; no confirmatory warmth p-value."
     },
     {
       "rater": "rater2",
       "turn_distribution": {
-        "A": {"0": 119, "1": 30, "2": 19},
-        "C": {"0": 164, "2": 3, "1": 1}
+        "A": {
+          "0": 119,
+          "1": 30,
+          "2": 19
+        },
+        "C": {
+          "0": 164,
+          "2": 3,
+          "1": 1
+        }
       },
       "run_mean_by_condition": {
         "A": 0.40476190476190477,
         "C": 0.041666666666666664
       },
       "run_mean_by_scenario_condition": {
-        "S2": {"A": 0.9583333333333334, "C": 0.125},
-        "S8R": {"A": 0.18333333333333332, "C": 0.008333333333333333}
+        "S2": {
+          "A": 0.9583333333333334,
+          "C": 0.125
+        },
+        "S8R": {
+          "A": 0.18333333333333332,
+          "C": 0.008333333333333333
+        }
       },
       "equal_scenario_weight_C_minus_A_run_mean": -0.5041666666666667,
-      "bootstrap_95_ci": [-0.6416666666666666, -0.3416666666666667],
+      "bootstrap_95_ci": [
+        -0.6416666666666666,
+        -0.3416666666666667
+      ],
       "note": "Descriptive secondary only; no confirmatory warmth p-value."
     }
   ],
