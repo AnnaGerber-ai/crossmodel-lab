@@ -40,7 +40,8 @@ jobs:
       - name: Verify collection integrity
         run: |
           cd /tmp/collection
-          sha256sum -c collection-sha256.txt
+          echo "31274fd4a62d7295cee879a1b01903d793e2fc71e259d8eccf4be696576b0cd3  main-audit.jsonl" | sha256sum -c -
+          echo "1a5c1bce814e6d9621e0bd3806b699219918df20f8cd6150eac2511e7abd3317  main-canonical.jsonl" | sha256sum -c -
           test "$(wc -l < main-canonical.jsonl)" -eq 348
           test "$(grep -c '"status": "ok"' main-canonical.jsonl || true)" -eq 348
 
