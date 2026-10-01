@@ -25,6 +25,7 @@ import re
 import statistics
 import sys
 import time
+import tempfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -1619,6 +1620,56 @@ def cmd_smoke(_: argparse.Namespace) -> int:
     e3 = E("x"); e3.status_code = 400
     assert classify_api_exception(e3)[0] == "final_http"
 
+    # Frozen JSON Schemas are part of score validity, not just procedural checks.
+    schema_valid = synthetic_position_row("schema-x", ["held", "held", "held", "held"])
+    assert not json_schema_errors([schema_valid], POSITION_SCORE_SCHEMA, "position score")
+    schema_missing = json.loads(json.dumps(schema_valid))
+    del schema_missing["row_note"]
+    assert json_schema_errors([schema_missing], POSITION_SCORE_SCHEMA, "position score")
+    schema_extra = json.loads(json.dumps(schema_valid))
+    schema_extra["unexpected"] = True
+    assert json_schema_errors([schema_extra], POSITION_SCORE_SCHEMA, "position score")
+
+    # Attempt-log process: one valid attempt is fine; exhausted failure requires two.
+    attempt_packet = [{
+        "blind_id": "schema-x", "scenario": "S3", "role": "factual_primary",
+        "turns": [{"label": x, "assistant": "ok", "technical_event": None, "truncated": False}
+                  for x in ("T1", "P1", "P2", "P3")],
+    }]
+    payload_hash = "0" * 64
+    assert not validate_attempt_log(
+        attempt_packet, [schema_valid], set(),
+        [{"blind_id":"schema-x","attempt":1,"outcome":"schema_valid","response_sha256":payload_hash,"note":None}],
+    )
+    assert validate_attempt_log(
+        attempt_packet, [], {"schema-x"},
+        [{"blind_id":"schema-x","attempt":1,"outcome":"schema_invalid","response_sha256":payload_hash,"note":None}],
+    )
+    assert not validate_attempt_log(
+        attempt_packet, [], {"schema-x"},
+        [
+            {"blind_id":"schema-x","attempt":1,"outcome":"schema_invalid","response_sha256":payload_hash,"note":None},
+            {"blind_id":"schema-x","attempt":2,"outcome":"transport_failure","response_sha256":None,"note":None},
+        ],
+    )
+
+    # Position and warmth rater configuration are separate gates.
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "rater-meta.json"
+        meta = {
+            "position": {
+                "rater1":{"model":"Claude Opus 5.5","mode":"incognito"},
+                "rater2":{"model":"GPT-5.6 Sol","mode":"High Temporary Chat"},
+            },
+            "warmth": {
+                "rater1":{"model":"WRONG","mode":"incognito"},
+                "rater2":{"model":"GPT-5.6 Sol","mode":"High Temporary Chat"},
+            },
+        }
+        write_json(p, meta)
+        pos_ok, warmth_ok, _ = validate_rater_metadata(p)
+        assert pos_ok is True and warmth_ok is False
+
     # A final content-filter/empty event is never re-sampled by a later
     # whole-run retry. The run may proceed, but a later exhausted transport
     # failure becomes canonical technical missingness rather than retrying T1.
@@ -1662,6 +1713,31 @@ def cmd_smoke(_: argparse.Namespace) -> int:
         assert fake.chat.completions.calls == 4
         assert attempt["turns"][0]["technical_event"] == "content_filter"
         assert attempt["turns"][1]["technical_event"] == "retry_eligible_api_failure"
+
+        # Unclassified API/client exception is a final technical event, never a terminal study stop.
+        unknown = E("odd-client-error")
+        fake_unknown=_Client([unknown, _response("ok"), _response("ok"), _response("ok")])
+        attempt_unknown=run_attempt(
+            fake_unknown,
+            {"model":"fake","generation":{}},
+            {"T1":"t1","P2":"p2","P3":"p3"},
+            ["P1","P2","P3"],
+            "p1",
+        )
+        assert attempt_unknown["whole_run_retry_eligible"] is False
+        assert attempt_unknown["turns"][0]["technical_event"] == "unclassified_exception_final"
+        assert fake_unknown.chat.completions.calls == 4
+
+        # Request-attempt callback is immediate and sees each actual API attempt.
+        audit_records=[]
+        fake_audit=_Client([_response("ok")])
+        call_with_frozen_backoff(
+            fake_audit, model="fake", messages=[{"role":"user","content":"synthetic"}],
+            generation={}, request_audit=lambda row: audit_records.append(row),
+        )
+        assert len(audit_records) == 1
+        assert audit_records[0]["model_requested"] == "fake"
+        assert audit_records[0]["response_id"] == "fake-id"
 
         fake2=_Client([_response("", "stop"), _response("ok"), _response("ok"), _response("ok")])
         attempt2=run_attempt(
