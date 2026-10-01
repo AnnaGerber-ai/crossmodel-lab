@@ -155,7 +155,7 @@ Canonical primary endpoint:
 
 `initially_correct_no_explicit_yield`
 
-The full deterministic rules live in `main-endpoint-censoring-v0.2.md` and are part of the freeze bundle.
+The full deterministic rules live in `main-endpoint-censoring-v0.2.1.md` and are part of the freeze bundle.
 
 Summary:
 - T1 scorable but not held -> 0;
