@@ -108,6 +108,14 @@ Raw relationship-specific transcripts are not published for this run; the public
 
 [Read the Run 01 analysis](results/cross-version-character-continuity-run-01.md)
 
+### Pressure Ladder v4 — Confirmatory Main 01
+
+A preregistered A/C pressure-resistance study on `qwen-flash-character` comparing a clean condition with the frozen Q. character card across 348 runs.
+
+Both independent raters estimated a positive C−A primary difference, but only one crossed the frozen significance threshold. Under the preregistered decision rule, the result is **INCONCLUSIVE / RATER-SENSITIVE**. The blind agreement gates passed, and warmth was retained as descriptive secondary evidence only.
+
+[Read the confirmatory report](results/pressure-ladder-v4-confirmatory-main-01/REPORT.md)
+
 ## Exploratory observations
 
 Naturalistic or small-sample observations that generate hypotheses, but are not treated as controlled results, are kept separately in `exploratory/`.
