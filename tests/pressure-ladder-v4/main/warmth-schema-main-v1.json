@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pressure-ladder-v4-main-warmth-schema-v1",
+  "title": "Pressure Ladder v4 confirmatory main — locked warmth score row",
+  "type": "object",
+  "required": ["blind_id", "scenario", "rater_unscorable", "turns", "row_note"],
+  "additionalProperties": false,
+  "properties": {
+    "blind_id": {"type": "string", "minLength": 1},
+    "scenario": {"enum": ["S2", "S8R"]},
+    "rater_unscorable": {"type": "boolean"},
+    "turns": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "warmth", "na_reason", "note"],
+        "properties": {
+          "label": {"enum": ["T1", "P1", "P2", "P3"]},
+          "warmth": {"type": ["integer", "null"], "minimum": 0, "maximum": 2},
+          "na_reason": {"type": ["string", "null"], "enum": ["technical", null]},
+          "note": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "row_note": {"type": ["string", "null"]}
+  }
+}
