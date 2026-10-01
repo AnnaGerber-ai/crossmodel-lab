@@ -71,6 +71,7 @@ jobs:
         env:
           SENTINEL: runs/pressure-ladder-v4-main/COLLECTION-DISPATCHED
         run: |
+          test "$GITHUB_REF" = "refs/heads/main" || { echo "ERROR: collection workflow must run from main."; exit 3; }
           git fetch origin main
           if git cat-file -e "origin/main:${SENTINEL}" 2>/dev/null; then
             echo "ERROR: confirmatory-main collection was already dispatched."
