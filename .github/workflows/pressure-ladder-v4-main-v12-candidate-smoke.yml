@@ -31,6 +31,86 @@ jobs:
             --config-a configs/pressure-ladder-v4-main-a.json \
             --config-c configs/pressure-ladder-v4-main-c.json
 
+      - name: Build v1.2 freeze candidate
+        run: |
+          mkdir -p /tmp/v12-freeze
+          cat > /tmp/v12-freeze/normative-files.txt <<'EOF'
+          tests/pressure-ladder-v4/confirmatory-main-prereg-v0.2.1.md
+          tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json
+          tests/pressure-ladder-v4/main-endpoint-censoring-v0.2.1.md
+          tests/pressure-ladder-v4/main-rater-protocol-v0.2.md
+          tests/pressure-ladder-v4/position-evaluator-instructions-main-v1.md
+          tests/pressure-ladder-v4/warmth-evaluator-instructions-main-v1.md
+          tests/pressure-ladder-v4-main/backoff-policy-v1.2.md
+          tests/pressure-ladder-v4-main/collection-dispatch-policy-v1.2.md
+          tests/pressure-ladder-v4-main/scoring-contract-v1.2.md
+          tests/pressure-ladder-v4-main/position-score-schema-v1.json
+          tests/pressure-ladder-v4-main/warmth-score-schema-v1.json
+          tests/pressure-ladder-v4-main/rater-failure-schema-v1.json
+          tests/pressure-ladder-v4-main/rater-attempt-log-schema-v1.json
+          tests/pressure-ladder-v4-main/rater-metadata-template.json
+          tests/pressure-ladder-v4-main/implementation-freeze-checklist.md
+          tests/pressure-ladder-v4-main/manifest-main-v1.json
+          tests/pressure-ladder-v4-main/dependency-freeze.txt
+          configs/pressure-ladder-v4-main-a.json
+          configs/pressure-ladder-v4-main-c.json
+          tools/pressure_main.py
+          .github/workflows/pressure-ladder-v4-main.yml
+          EOF
+          xargs sha256sum < /tmp/v12-freeze/normative-files.txt > /tmp/v12-freeze/freeze-checksums-v1.2.sha256
+          sha256sum -c /tmp/v12-freeze/freeze-checksums-v1.2.sha256
+          MANIFEST_SHA=$(sha256sum tests/pressure-ladder-v4-main/manifest-main-v1.json | awk '{print $1}')
+          RUNNER_SHA=$(sha256sum tools/pressure_main.py | awk '{print $1}')
+          BACKOFF_SHA=$(sha256sum tests/pressure-ladder-v4-main/backoff-policy-v1.2.md | awk '{print $1}')
+          WORKFLOW_SHA=$(sha256sum .github/workflows/pressure-ladder-v4-main.yml | awk '{print $1}')
+          cat > /tmp/v12-freeze/main-freeze-v1.2.md <<EOF
+          # Pressure Ladder v4 — confirmatory main implementation freeze v1.2
+
+          **Status:** **FROZEN / COLLECTION AUTHORIZED UNDER v1.2 ONLY after this freeze artifact is merged to main.**
+
+          This implementation freeze supersedes v1 and v1.1 before confirmatory-main collection. No confirmatory-main data were collected under earlier implementation freezes. The reviewed study design is unchanged.
+
+          External code↔protocol audit verdict before this freeze: **V1.2 IMPLEMENTATION AUDIT PASSED**.
+
+          - Prospective implementation head: `\${GITHUB_SHA}`
+          - Planned runs: **348** = 300 factual-primary + 48 controls
+          - Conditions: **174 A / 174 C**
+          - Manifest SHA-256: `\${MANIFEST_SHA}`
+          - Runner SHA-256: `\${RUNNER_SHA}`
+          - Backoff policy v1.2 SHA-256: `\${BACKOFF_SHA}`
+          - Collection workflow SHA-256: `\${WORKFLOW_SHA}`
+          - Full normative checksums: `tests/pressure-ladder-v4-main/freeze-checksums-v1.2.sha256`
+
+          Design authority remains:
+          - `tests/pressure-ladder-v4/confirmatory-main-prereg-v0.2.1.md`
+          - `tests/pressure-ladder-v4/main-endpoint-censoring-v0.2.1.md`
+          - `tests/pressure-ladder-v4/main-rater-protocol-v0.2.md`
+
+          Implementation authority v1.2 includes:
+          - `tools/pressure_main.py`
+          - `tests/pressure-ladder-v4-main/backoff-policy-v1.2.md`
+          - `tests/pressure-ladder-v4-main/collection-dispatch-policy-v1.2.md`
+          - `tests/pressure-ladder-v4-main/scoring-contract-v1.2.md`
+          - `tests/pressure-ladder-v4-main/rater-attempt-log-schema-v1.json`
+          - `tests/pressure-ladder-v4-main/dependency-freeze.txt`
+          - `.github/workflows/pressure-ladder-v4-main.yml`
+
+          `backoff-policy-v1.2.md` supersedes v1.1. `scoring-contract-v1.2.md` supersedes v1. Historical v1/v1.1 files are retained for provenance only and do not authorize collection.
+
+          The live workflow must verify every v1.2 checksum before any API call. It also requires a non-battery API preflight, then atomically claims the single authorized collection dispatch on `main` by committing `runs/pressure-ladder-v4-main/COLLECTION-DISPATCHED`. A claimed collection is terminal if stopped; no resume/top-up/replacement is permitted.
+
+          The freeze record itself is an audit/index record and is not part of the normative checksum set. The freeze commit is the Git commit that first places this record and `freeze-checksums-v1.2.sha256` on `main`.
+
+          Any substantive later modification to a normative v1.2 file requires a new prospective implementation freeze.
+          EOF
+
+      - name: Upload v1.2 freeze candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-ladder-v4-main-v12-freeze-candidate
+          path: /tmp/v12-freeze/
+          retention-days: 30
+
       - name: Build Claude audit bundle
         run: |
           git fetch origin main
