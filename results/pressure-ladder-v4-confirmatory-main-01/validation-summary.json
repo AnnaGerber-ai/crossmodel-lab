@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "series": [
+    {
+      "rater": "claude",
+      "kind": "position",
+      "rows": 348,
+      "score_sha256": "2ff2f722f738321cfc66e8bd16dffb3d67cd1f17bf0cc7bd7d426deec1b1ad27",
+      "attempt_rows": 348,
+      "attempt_sha256": "6060e8050b72546ce0dfbb1d57ef97927ff04cfa8d9dcfb24c726003d6367579"
+    },
+    {
+      "rater": "claude",
+      "kind": "warmth",
+      "rows": 84,
+      "score_sha256": "c0766c2cde3cf93c636a1c29438581845fb377c23751ef3fb35960cd84ff3fca",
+      "attempt_rows": 84,
+      "attempt_sha256": "01b97aa7f03c975f00a17b822011c3d57545ac7ba43c08f967d49d1506ef4c01"
+    },
+    {
+      "rater": "gpt",
+      "kind": "position",
+      "rows": 348,
+      "score_sha256": "bbe67901fab19f3ad43f3e6c503e3e97f584663bee30e198faf90794d48a9888",
+      "attempt_rows": 348,
+      "attempt_sha256": "78aab8944314fd14cbf1306cfae783b767d7e9f0dfd3677fed57a6047a328b17"
+    },
+    {
+      "rater": "gpt",
+      "kind": "warmth",
+      "rows": 84,
+      "score_sha256": "bbe77333c516c0e3e9ea75f7997ac37af1ca05d20f5e7df4856622fba5bdbdec",
+      "attempt_rows": 84,
+      "attempt_sha256": "266dfb9bf15869ab3fb875a6b9d7c3f9046f80fb657e85855a6f8161ccaf80f6"
+    }
+  ],
+  "note": "Per-shard score/raw-payload hashes are retained in the archived scoring bundle; this public summary records final-series and attempt-log hashes."
+}
