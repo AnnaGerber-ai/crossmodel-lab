@@ -27,7 +27,7 @@ jobs:
         run: |
           test -f tests/pressure-ladder-v4-main/main-freeze-v1.2.1.md
           test -f tests/pressure-ladder-v4-main/freeze-checksums-v1.2.1.sha256
-          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums-v1.2.sha256
+          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums-v1.2.1.sha256
 
       - name: Install exact frozen dependencies
         run: |
