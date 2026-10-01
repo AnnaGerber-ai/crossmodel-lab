@@ -3,8 +3,12 @@ name: Pressure Ladder v4 confirmatory main
 on:
   workflow_dispatch:
 
+concurrency:
+  group: pressure-ladder-v4-confirmatory-main
+  cancel-in-progress: false
+
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   main:
@@ -12,16 +16,18 @@ jobs:
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      - name: Verify frozen bundle before any API call
+      - name: Verify frozen v1.2 bundle before any API call
         run: |
-          test -f tests/pressure-ladder-v4-main/main-freeze-v1.1.md
-          test -f tests/pressure-ladder-v4-main/freeze-checksums-v1.1.sha256
-          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums-v1.1.sha256
+          test -f tests/pressure-ladder-v4-main/main-freeze-v1.2.md
+          test -f tests/pressure-ladder-v4-main/freeze-checksums-v1.2.sha256
+          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums-v1.2.sha256
 
       - name: Install exact frozen dependencies
         run: |
@@ -35,12 +41,57 @@ jobs:
           . .main-venv/bin/activate
           python -m py_compile tools/pressure_main.py
           python tools/pressure_main.py smoke
-          python tools/pressure_main.py check-design             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json
+          python tools/pressure_main.py check-design \
+            --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json \
+            --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json \
+            --config-a configs/pressure-ladder-v4-main-a.json \
+            --config-c configs/pressure-ladder-v4-main-c.json
 
       - name: Dry run
         run: |
           . .main-venv/bin/activate
-          python tools/pressure_main.py run             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json             --audit /tmp/main-audit.jsonl             --canonical /tmp/main-canonical.jsonl             --dry-run
+          python tools/pressure_main.py run \
+            --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json \
+            --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json \
+            --config-a configs/pressure-ladder-v4-main-a.json \
+            --config-c configs/pressure-ladder-v4-main-c.json \
+            --audit /tmp/main-audit.jsonl \
+            --canonical /tmp/main-canonical.jsonl \
+            --dry-run
+
+      - name: Synthetic API preflight
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: |
+          . .main-venv/bin/activate
+          python tools/pressure_main.py preflight --config configs/pressure-ladder-v4-main-a.json
+
+      - name: Claim the one authorized collection dispatch
+        env:
+          SENTINEL: runs/pressure-ladder-v4-main/COLLECTION-DISPATCHED
+        run: |
+          test "$GITHUB_REF" = "refs/heads/main" || { echo "ERROR: collection workflow must run from main."; exit 3; }
+          git fetch origin main
+          if git cat-file -e "origin/main:${SENTINEL}" 2>/dev/null; then
+            echo "ERROR: confirmatory-main collection was already dispatched."
+            git show "origin/main:${SENTINEL}" || true
+            exit 3
+          fi
+          mkdir -p "$(dirname "${SENTINEL}")"
+          {
+            echo "experiment=pressure-ladder-v4-confirmatory-main"
+            echo "implementation_freeze=v1.2"
+            echo "github_run_id=${GITHUB_RUN_ID}"
+            echo "github_run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "workflow_commit=${GITHUB_SHA}"
+            echo "claimed_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } > "${SENTINEL}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${SENTINEL}"
+          git commit -m "audit: claim confirmatory-main collection dispatch v1.2"
+          git push origin HEAD:main
 
       - name: Run confirmatory main
         env:
@@ -48,13 +99,33 @@ jobs:
           QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
         run: |
           . .main-venv/bin/activate
-          python tools/pressure_main.py run             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json             --audit runs/pressure-ladder-v4-main/main-audit.jsonl             --canonical runs/pressure-ladder-v4-main/main-canonical.jsonl
+          python tools/pressure_main.py run \
+            --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json \
+            --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json \
+            --config-a configs/pressure-ladder-v4-main-a.json \
+            --config-c configs/pressure-ladder-v4-main-c.json \
+            --audit runs/pressure-ladder-v4-main/main-audit.jsonl \
+            --canonical runs/pressure-ladder-v4-main/main-canonical.jsonl
+
+      - name: Hash collection outputs
+        if: always()
+        run: |
+          mkdir -p runs/pressure-ladder-v4-main
+          {
+            python --version
+            echo "github_run_id=${GITHUB_RUN_ID}"
+            echo "github_run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "workflow_commit=${GITHUB_SHA}"
+          } > runs/pressure-ladder-v4-main/execution-environment.txt
+          for f in runs/pressure-ladder-v4-main/main-audit.jsonl runs/pressure-ladder-v4-main/main-canonical.jsonl; do
+            if [ -f "$f" ]; then sha256sum "$f"; fi
+          done | tee runs/pressure-ladder-v4-main/collection-sha256.txt
 
       - name: Upload raw collection artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pressure-ladder-v4-confirmatory-main
+          name: pressure-ladder-v4-confirmatory-main-${{ github.run_id }}
           path: runs/pressure-ladder-v4-main/
           if-no-files-found: warn
           retention-days: 90
