@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pressure-ladder-v4-main-rater-attempt-log-schema-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["blind_id", "attempt", "outcome", "response_sha256", "note"],
+  "properties": {
+    "blind_id": {"type": "string", "minLength": 1},
+    "attempt": {"type": "integer", "minimum": 1, "maximum": 2},
+    "outcome": {
+      "enum": ["schema_valid", "schema_invalid", "transport_failure", "ui_failure", "missing"]
+    },
+    "response_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "note": {"type": ["string", "null"]}
+  }
+}
