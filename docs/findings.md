@@ -175,6 +175,8 @@ The most useful distinctions so far are:
 - non-use vs. deletion capability;
 - language vs. translation;
 - personalization vs. underlying decision;
+- initial stance vs. post-answer persistence under pressure;
+- resistance to pressure vs. affiliative warmth;
 - structural state tracking vs. factual recall;
 - canon anchors vs. behavioral continuity;
 - core continuity vs. version expression vs. context state;
