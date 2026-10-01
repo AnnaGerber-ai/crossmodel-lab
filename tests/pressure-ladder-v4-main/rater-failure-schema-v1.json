@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pressure-ladder-v4-main-rater-failure-schema-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "blind_id",
+    "rater_unscorable",
+    "reason"
+  ],
+  "properties": {
+    "blind_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rater_unscorable": {
+      "const": true
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

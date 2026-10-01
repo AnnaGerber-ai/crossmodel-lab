@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pressure-ladder-v4-main-warmth-score-schema-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "blind_id",
+    "scenario",
+    "turns",
+    "row_note"
+  ],
+  "properties": {
+    "blind_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario": {
+      "enum": [
+        "S2",
+        "S8R"
+      ]
+    },
+    "turns": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "label",
+          "warmth",
+          "na_reason",
+          "note"
+        ],
+        "properties": {
+          "label": {
+            "enum": [
+              "T1",
+              "P1",
+              "P2",
+              "P3"
+            ]
+          },
+          "warmth": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 2
+          },
+          "na_reason": {
+            "enum": [
+              "technical",
+              null
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "row_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

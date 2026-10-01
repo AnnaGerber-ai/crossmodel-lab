@@ -1,0 +1,4555 @@
+{
+  "experiment": "pressure-ladder-v4-confirmatory-main",
+  "protocol": "tests/pressure-ladder-v4/confirmatory-main-prereg-v0.2.1.md",
+  "scenarios": "tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json",
+  "scenarios_sha256": "07e49a07926f19dbda90f12525d002cc46e3f407d56a4ddce5641c6888867ccf",
+  "seed_phrases": {
+    "assignment": "pressure-ladder-v4-main-v0.2-assignment",
+    "execution": "pressure-ladder-v4-main-v0.2-execution",
+    "position_packet": "pressure-ladder-v4-main-v0.2-position-packet",
+    "warmth_packet": "pressure-ladder-v4-main-v0.2-warmth-packet",
+    "permutation": "pressure-ladder-v4-main-v0.2-permutation",
+    "bootstrap": "pressure-ladder-v4-main-v0.2-bootstrap"
+  },
+  "seeds": {
+    "assignment": 659198637755948875,
+    "execution": 9361218392877378559,
+    "position_packet": 16470913399770672251,
+    "warmth_packet": 5407523414573438498,
+    "permutation": 14415670564609367309,
+    "bootstrap": 9613257769912344592
+  },
+  "counts": {
+    "planned": 348,
+    "primary": 300,
+    "controls": 48,
+    "A": 174,
+    "C": 174
+  },
+  "runs": [
+    {
+      "slot_id": "PM4-0224",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 1
+    },
+    {
+      "slot_id": "PM4-0243",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 2
+    },
+    {
+      "slot_id": "PM4-0319",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 3
+    },
+    {
+      "slot_id": "PM4-0118",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 4
+    },
+    {
+      "slot_id": "PM4-0111",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 5
+    },
+    {
+      "slot_id": "PM4-0066",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 6
+    },
+    {
+      "slot_id": "PM4-0144",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 7
+    },
+    {
+      "slot_id": "PM4-0347",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 8
+    },
+    {
+      "slot_id": "PM4-0172",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 9
+    },
+    {
+      "slot_id": "PM4-0096",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 10
+    },
+    {
+      "slot_id": "PM4-0313",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 11
+    },
+    {
+      "slot_id": "PM4-0212",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 12
+    },
+    {
+      "slot_id": "PM4-0070",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 13
+    },
+    {
+      "slot_id": "PM4-0099",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 14
+    },
+    {
+      "slot_id": "PM4-0104",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 15
+    },
+    {
+      "slot_id": "PM4-0142",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 16
+    },
+    {
+      "slot_id": "PM4-0062",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 17
+    },
+    {
+      "slot_id": "PM4-0012",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 18
+    },
+    {
+      "slot_id": "PM4-0039",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 19
+    },
+    {
+      "slot_id": "PM4-0290",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 20
+    },
+    {
+      "slot_id": "PM4-0057",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 21
+    },
+    {
+      "slot_id": "PM4-0247",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 22
+    },
+    {
+      "slot_id": "PM4-0211",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 23
+    },
+    {
+      "slot_id": "PM4-0058",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 24
+    },
+    {
+      "slot_id": "PM4-0188",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 25
+    },
+    {
+      "slot_id": "PM4-0323",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 26
+    },
+    {
+      "slot_id": "PM4-0345",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 27
+    },
+    {
+      "slot_id": "PM4-0122",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 28
+    },
+    {
+      "slot_id": "PM4-0237",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 29
+    },
+    {
+      "slot_id": "PM4-0330",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 30
+    },
+    {
+      "slot_id": "PM4-0218",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 31
+    },
+    {
+      "slot_id": "PM4-0119",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 32
+    },
+    {
+      "slot_id": "PM4-0107",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 33
+    },
+    {
+      "slot_id": "PM4-0275",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 34
+    },
+    {
+      "slot_id": "PM4-0005",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 35
+    },
+    {
+      "slot_id": "PM4-0258",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 36
+    },
+    {
+      "slot_id": "PM4-0217",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 37
+    },
+    {
+      "slot_id": "PM4-0046",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 38
+    },
+    {
+      "slot_id": "PM4-0160",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 39
+    },
+    {
+      "slot_id": "PM4-0021",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 40
+    },
+    {
+      "slot_id": "PM4-0177",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 41
+    },
+    {
+      "slot_id": "PM4-0293",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 42
+    },
+    {
+      "slot_id": "PM4-0266",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 43
+    },
+    {
+      "slot_id": "PM4-0011",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 44
+    },
+    {
+      "slot_id": "PM4-0129",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 45
+    },
+    {
+      "slot_id": "PM4-0056",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 46
+    },
+    {
+      "slot_id": "PM4-0325",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 47
+    },
+    {
+      "slot_id": "PM4-0081",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 48
+    },
+    {
+      "slot_id": "PM4-0094",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 49
+    },
+    {
+      "slot_id": "PM4-0038",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 50
+    },
+    {
+      "slot_id": "PM4-0239",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 51
+    },
+    {
+      "slot_id": "PM4-0343",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 52
+    },
+    {
+      "slot_id": "PM4-0273",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 53
+    },
+    {
+      "slot_id": "PM4-0316",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 54
+    },
+    {
+      "slot_id": "PM4-0121",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 55
+    },
+    {
+      "slot_id": "PM4-0127",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 56
+    },
+    {
+      "slot_id": "PM4-0222",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 57
+    },
+    {
+      "slot_id": "PM4-0149",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 58
+    },
+    {
+      "slot_id": "PM4-0042",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 59
+    },
+    {
+      "slot_id": "PM4-0003",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 60
+    },
+    {
+      "slot_id": "PM4-0014",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 61
+    },
+    {
+      "slot_id": "PM4-0241",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 62
+    },
+    {
+      "slot_id": "PM4-0271",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 63
+    },
+    {
+      "slot_id": "PM4-0248",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 64
+    },
+    {
+      "slot_id": "PM4-0278",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 65
+    },
+    {
+      "slot_id": "PM4-0069",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 66
+    },
+    {
+      "slot_id": "PM4-0193",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 67
+    },
+    {
+      "slot_id": "PM4-0195",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 68
+    },
+    {
+      "slot_id": "PM4-0152",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 69
+    },
+    {
+      "slot_id": "PM4-0255",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 70
+    },
+    {
+      "slot_id": "PM4-0339",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 71
+    },
+    {
+      "slot_id": "PM4-0270",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 72
+    },
+    {
+      "slot_id": "PM4-0267",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 73
+    },
+    {
+      "slot_id": "PM4-0186",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 74
+    },
+    {
+      "slot_id": "PM4-0272",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 75
+    },
+    {
+      "slot_id": "PM4-0102",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 76
+    },
+    {
+      "slot_id": "PM4-0205",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 77
+    },
+    {
+      "slot_id": "PM4-0308",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 78
+    },
+    {
+      "slot_id": "PM4-0198",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 79
+    },
+    {
+      "slot_id": "PM4-0185",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 80
+    },
+    {
+      "slot_id": "PM4-0009",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 81
+    },
+    {
+      "slot_id": "PM4-0249",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 82
+    },
+    {
+      "slot_id": "PM4-0136",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 83
+    },
+    {
+      "slot_id": "PM4-0219",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 84
+    },
+    {
+      "slot_id": "PM4-0331",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 85
+    },
+    {
+      "slot_id": "PM4-0300",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 86
+    },
+    {
+      "slot_id": "PM4-0342",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 87
+    },
+    {
+      "slot_id": "PM4-0043",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 88
+    },
+    {
+      "slot_id": "PM4-0074",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 89
+    },
+    {
+      "slot_id": "PM4-0044",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 90
+    },
+    {
+      "slot_id": "PM4-0161",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 91
+    },
+    {
+      "slot_id": "PM4-0040",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 92
+    },
+    {
+      "slot_id": "PM4-0291",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 93
+    },
+    {
+      "slot_id": "PM4-0189",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 94
+    },
+    {
+      "slot_id": "PM4-0131",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 95
+    },
+    {
+      "slot_id": "PM4-0051",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 96
+    },
+    {
+      "slot_id": "PM4-0092",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 97
+    },
+    {
+      "slot_id": "PM4-0310",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 98
+    },
+    {
+      "slot_id": "PM4-0265",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 99
+    },
+    {
+      "slot_id": "PM4-0052",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 100
+    },
+    {
+      "slot_id": "PM4-0095",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 101
+    },
+    {
+      "slot_id": "PM4-0190",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 102
+    },
+    {
+      "slot_id": "PM4-0065",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 103
+    },
+    {
+      "slot_id": "PM4-0301",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 104
+    },
+    {
+      "slot_id": "PM4-0286",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 105
+    },
+    {
+      "slot_id": "PM4-0100",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 106
+    },
+    {
+      "slot_id": "PM4-0209",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 107
+    },
+    {
+      "slot_id": "PM4-0194",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 108
+    },
+    {
+      "slot_id": "PM4-0282",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 109
+    },
+    {
+      "slot_id": "PM4-0199",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 110
+    },
+    {
+      "slot_id": "PM4-0326",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 111
+    },
+    {
+      "slot_id": "PM4-0086",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 112
+    },
+    {
+      "slot_id": "PM4-0321",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 113
+    },
+    {
+      "slot_id": "PM4-0204",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 114
+    },
+    {
+      "slot_id": "PM4-0026",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 115
+    },
+    {
+      "slot_id": "PM4-0114",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 116
+    },
+    {
+      "slot_id": "PM4-0220",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 117
+    },
+    {
+      "slot_id": "PM4-0315",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 118
+    },
+    {
+      "slot_id": "PM4-0010",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 119
+    },
+    {
+      "slot_id": "PM4-0019",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 120
+    },
+    {
+      "slot_id": "PM4-0158",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 121
+    },
+    {
+      "slot_id": "PM4-0332",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 122
+    },
+    {
+      "slot_id": "PM4-0228",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 123
+    },
+    {
+      "slot_id": "PM4-0344",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 124
+    },
+    {
+      "slot_id": "PM4-0050",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 125
+    },
+    {
+      "slot_id": "PM4-0108",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 126
+    },
+    {
+      "slot_id": "PM4-0201",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 127
+    },
+    {
+      "slot_id": "PM4-0053",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 128
+    },
+    {
+      "slot_id": "PM4-0257",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 129
+    },
+    {
+      "slot_id": "PM4-0196",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 130
+    },
+    {
+      "slot_id": "PM4-0175",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 131
+    },
+    {
+      "slot_id": "PM4-0305",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 132
+    },
+    {
+      "slot_id": "PM4-0251",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 133
+    },
+    {
+      "slot_id": "PM4-0238",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 134
+    },
+    {
+      "slot_id": "PM4-0207",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 135
+    },
+    {
+      "slot_id": "PM4-0307",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 136
+    },
+    {
+      "slot_id": "PM4-0253",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 137
+    },
+    {
+      "slot_id": "PM4-0230",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "C",
+      "position": 138
+    },
+    {
+      "slot_id": "PM4-0164",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 139
+    },
+    {
+      "slot_id": "PM4-0214",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 140
+    },
+    {
+      "slot_id": "PM4-0116",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 141
+    },
+    {
+      "slot_id": "PM4-0231",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 142
+    },
+    {
+      "slot_id": "PM4-0140",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 143
+    },
+    {
+      "slot_id": "PM4-0154",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 144
+    },
+    {
+      "slot_id": "PM4-0254",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 145
+    },
+    {
+      "slot_id": "PM4-0335",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 146
+    },
+    {
+      "slot_id": "PM4-0087",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 147
+    },
+    {
+      "slot_id": "PM4-0145",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 148
+    },
+    {
+      "slot_id": "PM4-0314",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 149
+    },
+    {
+      "slot_id": "PM4-0080",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "C",
+      "position": 150
+    },
+    {
+      "slot_id": "PM4-0001",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 151
+    },
+    {
+      "slot_id": "PM4-0132",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 152
+    },
+    {
+      "slot_id": "PM4-0159",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 153
+    },
+    {
+      "slot_id": "PM4-0215",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 154
+    },
+    {
+      "slot_id": "PM4-0284",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 155
+    },
+    {
+      "slot_id": "PM4-0246",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 156
+    },
+    {
+      "slot_id": "PM4-0348",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 157
+    },
+    {
+      "slot_id": "PM4-0077",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 158
+    },
+    {
+      "slot_id": "PM4-0287",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "A",
+      "position": 159
+    },
+    {
+      "slot_id": "PM4-0022",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 160
+    },
+    {
+      "slot_id": "PM4-0073",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 161
+    },
+    {
+      "slot_id": "PM4-0028",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 162
+    },
+    {
+      "slot_id": "PM4-0229",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 163
+    },
+    {
+      "slot_id": "PM4-0236",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 164
+    },
+    {
+      "slot_id": "PM4-0306",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 165
+    },
+    {
+      "slot_id": "PM4-0318",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 166
+    },
+    {
+      "slot_id": "PM4-0187",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 167
+    },
+    {
+      "slot_id": "PM4-0015",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 168
+    },
+    {
+      "slot_id": "PM4-0032",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 169
+    },
+    {
+      "slot_id": "PM4-0302",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 170
+    },
+    {
+      "slot_id": "PM4-0045",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 171
+    },
+    {
+      "slot_id": "PM4-0002",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 172
+    },
+    {
+      "slot_id": "PM4-0179",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 173
+    },
+    {
+      "slot_id": "PM4-0016",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 174
+    },
+    {
+      "slot_id": "PM4-0157",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 175
+    },
+    {
+      "slot_id": "PM4-0027",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 176
+    },
+    {
+      "slot_id": "PM4-0176",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 177
+    },
+    {
+      "slot_id": "PM4-0268",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 178
+    },
+    {
+      "slot_id": "PM4-0059",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 179
+    },
+    {
+      "slot_id": "PM4-0169",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 180
+    },
+    {
+      "slot_id": "PM4-0259",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 181
+    },
+    {
+      "slot_id": "PM4-0256",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 182
+    },
+    {
+      "slot_id": "PM4-0180",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 183
+    },
+    {
+      "slot_id": "PM4-0025",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 184
+    },
+    {
+      "slot_id": "PM4-0097",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 185
+    },
+    {
+      "slot_id": "PM4-0148",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 186
+    },
+    {
+      "slot_id": "PM4-0324",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 187
+    },
+    {
+      "slot_id": "PM4-0106",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 188
+    },
+    {
+      "slot_id": "PM4-0168",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 189
+    },
+    {
+      "slot_id": "PM4-0055",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 190
+    },
+    {
+      "slot_id": "PM4-0064",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 191
+    },
+    {
+      "slot_id": "PM4-0279",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 192
+    },
+    {
+      "slot_id": "PM4-0036",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 193
+    },
+    {
+      "slot_id": "PM4-0221",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 194
+    },
+    {
+      "slot_id": "PM4-0110",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 195
+    },
+    {
+      "slot_id": "PM4-0296",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 196
+    },
+    {
+      "slot_id": "PM4-0280",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 197
+    },
+    {
+      "slot_id": "PM4-0320",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 198
+    },
+    {
+      "slot_id": "PM4-0311",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 199
+    },
+    {
+      "slot_id": "PM4-0240",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 200
+    },
+    {
+      "slot_id": "PM4-0170",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 201
+    },
+    {
+      "slot_id": "PM4-0068",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 202
+    },
+    {
+      "slot_id": "PM4-0294",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 203
+    },
+    {
+      "slot_id": "PM4-0018",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 204
+    },
+    {
+      "slot_id": "PM4-0079",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 205
+    },
+    {
+      "slot_id": "PM4-0174",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 206
+    },
+    {
+      "slot_id": "PM4-0327",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 207
+    },
+    {
+      "slot_id": "PM4-0008",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 208
+    },
+    {
+      "slot_id": "PM4-0133",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 209
+    },
+    {
+      "slot_id": "PM4-0048",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 210
+    },
+    {
+      "slot_id": "PM4-0082",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 211
+    },
+    {
+      "slot_id": "PM4-0227",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 212
+    },
+    {
+      "slot_id": "PM4-0089",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 213
+    },
+    {
+      "slot_id": "PM4-0328",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 214
+    },
+    {
+      "slot_id": "PM4-0156",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 215
+    },
+    {
+      "slot_id": "PM4-0317",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 216
+    },
+    {
+      "slot_id": "PM4-0091",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 217
+    },
+    {
+      "slot_id": "PM4-0223",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 218
+    },
+    {
+      "slot_id": "PM4-0117",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 219
+    },
+    {
+      "slot_id": "PM4-0135",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 220
+    },
+    {
+      "slot_id": "PM4-0234",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 221
+    },
+    {
+      "slot_id": "PM4-0252",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 222
+    },
+    {
+      "slot_id": "PM4-0137",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 223
+    },
+    {
+      "slot_id": "PM4-0264",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 224
+    },
+    {
+      "slot_id": "PM4-0226",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 225
+    },
+    {
+      "slot_id": "PM4-0006",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 226
+    },
+    {
+      "slot_id": "PM4-0285",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 227
+    },
+    {
+      "slot_id": "PM4-0150",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "C",
+      "position": 228
+    },
+    {
+      "slot_id": "PM4-0124",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 229
+    },
+    {
+      "slot_id": "PM4-0338",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 230
+    },
+    {
+      "slot_id": "PM4-0283",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 231
+    },
+    {
+      "slot_id": "PM4-0033",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 232
+    },
+    {
+      "slot_id": "PM4-0337",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 233
+    },
+    {
+      "slot_id": "PM4-0297",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 234
+    },
+    {
+      "slot_id": "PM4-0197",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 235
+    },
+    {
+      "slot_id": "PM4-0035",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 236
+    },
+    {
+      "slot_id": "PM4-0298",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 237
+    },
+    {
+      "slot_id": "PM4-0213",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 238
+    },
+    {
+      "slot_id": "PM4-0138",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 239
+    },
+    {
+      "slot_id": "PM4-0183",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 240
+    },
+    {
+      "slot_id": "PM4-0041",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 241
+    },
+    {
+      "slot_id": "PM4-0225",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 242
+    },
+    {
+      "slot_id": "PM4-0088",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 243
+    },
+    {
+      "slot_id": "PM4-0295",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 244
+    },
+    {
+      "slot_id": "PM4-0067",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 245
+    },
+    {
+      "slot_id": "PM4-0312",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 246
+    },
+    {
+      "slot_id": "PM4-0076",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 247
+    },
+    {
+      "slot_id": "PM4-0322",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 248
+    },
+    {
+      "slot_id": "PM4-0260",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 249
+    },
+    {
+      "slot_id": "PM4-0098",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 250
+    },
+    {
+      "slot_id": "PM4-0147",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 251
+    },
+    {
+      "slot_id": "PM4-0123",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 252
+    },
+    {
+      "slot_id": "PM4-0333",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 253
+    },
+    {
+      "slot_id": "PM4-0233",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 254
+    },
+    {
+      "slot_id": "PM4-0075",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 255
+    },
+    {
+      "slot_id": "PM4-0216",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 256
+    },
+    {
+      "slot_id": "PM4-0210",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 257
+    },
+    {
+      "slot_id": "PM4-0292",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 258
+    },
+    {
+      "slot_id": "PM4-0134",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 259
+    },
+    {
+      "slot_id": "PM4-0277",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "A",
+      "position": 260
+    },
+    {
+      "slot_id": "PM4-0037",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 261
+    },
+    {
+      "slot_id": "PM4-0288",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 262
+    },
+    {
+      "slot_id": "PM4-0060",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 263
+    },
+    {
+      "slot_id": "PM4-0120",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 264
+    },
+    {
+      "slot_id": "PM4-0155",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 265
+    },
+    {
+      "slot_id": "PM4-0184",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 266
+    },
+    {
+      "slot_id": "PM4-0084",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 267
+    },
+    {
+      "slot_id": "PM4-0162",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 268
+    },
+    {
+      "slot_id": "PM4-0024",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 269
+    },
+    {
+      "slot_id": "PM4-0299",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 270
+    },
+    {
+      "slot_id": "PM4-0208",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "C",
+      "position": 271
+    },
+    {
+      "slot_id": "PM4-0178",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 272
+    },
+    {
+      "slot_id": "PM4-0004",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 273
+    },
+    {
+      "slot_id": "PM4-0112",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 274
+    },
+    {
+      "slot_id": "PM4-0166",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 275
+    },
+    {
+      "slot_id": "PM4-0334",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 276
+    },
+    {
+      "slot_id": "PM4-0049",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 277
+    },
+    {
+      "slot_id": "PM4-0047",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 278
+    },
+    {
+      "slot_id": "PM4-0153",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 279
+    },
+    {
+      "slot_id": "PM4-0023",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 280
+    },
+    {
+      "slot_id": "PM4-0115",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 281
+    },
+    {
+      "slot_id": "PM4-0341",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 282
+    },
+    {
+      "slot_id": "PM4-0245",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 283
+    },
+    {
+      "slot_id": "PM4-0146",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "C",
+      "position": 284
+    },
+    {
+      "slot_id": "PM4-0191",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 285
+    },
+    {
+      "slot_id": "PM4-0034",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 286
+    },
+    {
+      "slot_id": "PM4-0346",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 287
+    },
+    {
+      "slot_id": "PM4-0093",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 288
+    },
+    {
+      "slot_id": "PM4-0181",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 289
+    },
+    {
+      "slot_id": "PM4-0232",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 290
+    },
+    {
+      "slot_id": "PM4-0171",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 291
+    },
+    {
+      "slot_id": "PM4-0244",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 292
+    },
+    {
+      "slot_id": "PM4-0105",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 293
+    },
+    {
+      "slot_id": "PM4-0063",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 294
+    },
+    {
+      "slot_id": "PM4-0309",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 295
+    },
+    {
+      "slot_id": "PM4-0206",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 296
+    },
+    {
+      "slot_id": "PM4-0329",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 297
+    },
+    {
+      "slot_id": "PM4-0085",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 298
+    },
+    {
+      "slot_id": "PM4-0304",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 299
+    },
+    {
+      "slot_id": "PM4-0029",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 300
+    },
+    {
+      "slot_id": "PM4-0263",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 301
+    },
+    {
+      "slot_id": "PM4-0007",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 7,
+      "condition": "C",
+      "position": 302
+    },
+    {
+      "slot_id": "PM4-0151",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 303
+    },
+    {
+      "slot_id": "PM4-0262",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 304
+    },
+    {
+      "slot_id": "PM4-0061",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 305
+    },
+    {
+      "slot_id": "PM4-0128",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 306
+    },
+    {
+      "slot_id": "PM4-0242",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 307
+    },
+    {
+      "slot_id": "PM4-0274",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 308
+    },
+    {
+      "slot_id": "PM4-0101",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 309
+    },
+    {
+      "slot_id": "PM4-0078",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 8,
+      "condition": "A",
+      "position": 310
+    },
+    {
+      "slot_id": "PM4-0054",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 311
+    },
+    {
+      "slot_id": "PM4-0130",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 312
+    },
+    {
+      "slot_id": "PM4-0017",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "A",
+      "position": 313
+    },
+    {
+      "slot_id": "PM4-0250",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "C",
+      "position": 314
+    },
+    {
+      "slot_id": "PM4-0261",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 315
+    },
+    {
+      "slot_id": "PM4-0336",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 4,
+      "condition": "C",
+      "position": 316
+    },
+    {
+      "slot_id": "PM4-0200",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "C",
+      "position": 317
+    },
+    {
+      "slot_id": "PM4-0126",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 318
+    },
+    {
+      "slot_id": "PM4-0165",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 319
+    },
+    {
+      "slot_id": "PM4-0192",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 320
+    },
+    {
+      "slot_id": "PM4-0167",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 7,
+      "condition": "A",
+      "position": 321
+    },
+    {
+      "slot_id": "PM4-0141",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 322
+    },
+    {
+      "slot_id": "PM4-0125",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 5,
+      "condition": "A",
+      "position": 323
+    },
+    {
+      "slot_id": "PM4-0139",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 324
+    },
+    {
+      "slot_id": "PM4-0235",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 5,
+      "condition": "C",
+      "position": 325
+    },
+    {
+      "slot_id": "PM4-0109",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "A",
+      "position": 326
+    },
+    {
+      "slot_id": "PM4-0182",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 327
+    },
+    {
+      "slot_id": "PM4-0013",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 328
+    },
+    {
+      "slot_id": "PM4-0090",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 329
+    },
+    {
+      "slot_id": "PM4-0303",
+      "scenario": "S7",
+      "role": "baseline_control",
+      "order": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 330
+    },
+    {
+      "slot_id": "PM4-0103",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 331
+    },
+    {
+      "slot_id": "PM4-0269",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 332
+    },
+    {
+      "slot_id": "PM4-0173",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 333
+    },
+    {
+      "slot_id": "PM4-0113",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 334
+    },
+    {
+      "slot_id": "PM4-0083",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 335
+    },
+    {
+      "slot_id": "PM4-0030",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 336
+    },
+    {
+      "slot_id": "PM4-0143",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "A",
+      "position": 337
+    },
+    {
+      "slot_id": "PM4-0031",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 1,
+      "condition": "C",
+      "position": 338
+    },
+    {
+      "slot_id": "PM4-0163",
+      "scenario": "S8R",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 339
+    },
+    {
+      "slot_id": "PM4-0020",
+      "scenario": "S3",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 10,
+      "condition": "A",
+      "position": 340
+    },
+    {
+      "slot_id": "PM4-0203",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 3,
+      "condition": "C",
+      "position": 341
+    },
+    {
+      "slot_id": "PM4-0281",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 342
+    },
+    {
+      "slot_id": "PM4-0071",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 1,
+      "condition": "A",
+      "position": 343
+    },
+    {
+      "slot_id": "PM4-0289",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P3",
+        "P1",
+        "P2"
+      ],
+      "stratum_rep": 9,
+      "condition": "C",
+      "position": 344
+    },
+    {
+      "slot_id": "PM4-0276",
+      "scenario": "S10",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 6,
+      "condition": "A",
+      "position": 345
+    },
+    {
+      "slot_id": "PM4-0072",
+      "scenario": "S4",
+      "role": "factual_primary",
+      "order": [
+        "P1",
+        "P3",
+        "P2"
+      ],
+      "stratum_rep": 2,
+      "condition": "C",
+      "position": 346
+    },
+    {
+      "slot_id": "PM4-0202",
+      "scenario": "S9",
+      "role": "factual_primary",
+      "order": [
+        "P2",
+        "P1",
+        "P3"
+      ],
+      "stratum_rep": 2,
+      "condition": "A",
+      "position": 347
+    },
+    {
+      "slot_id": "PM4-0340",
+      "scenario": "S2",
+      "role": "transcript_grounding_control",
+      "order": [
+        "P2",
+        "P3",
+        "P1"
+      ],
+      "stratum_rep": 4,
+      "condition": "A",
+      "position": 348
+    }
+  ]
+}

@@ -6,7 +6,7 @@
     "temperature": 0.7,
     "max_tokens": 1536
   },
-  "scenarios": "tests/pressure-ladder-v4/main/scenarios-main-v1.json",
-  "backoff_policy": "tests/pressure-ladder-v4/main/backoff-policy-v1.json",
-  "condition": "A"
+  "scenarios": "tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json",
+  "condition": "A",
+  "source": "frozen confirmatory main condition"
 }

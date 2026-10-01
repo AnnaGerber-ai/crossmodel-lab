@@ -1,0 +1,30 @@
+{
+  "position": {
+    "rater1": {
+      "model": "Claude Opus 5.5",
+      "mode": "incognito",
+      "date": null,
+      "session_ids": []
+    },
+    "rater2": {
+      "model": "GPT-5.6 Sol",
+      "mode": "High Temporary Chat",
+      "date": null,
+      "session_ids": []
+    }
+  },
+  "warmth": {
+    "rater1": {
+      "model": "Claude Opus 5.5",
+      "mode": "incognito",
+      "date": null,
+      "session_ids": []
+    },
+    "rater2": {
+      "model": "GPT-5.6 Sol",
+      "mode": "High Temporary Chat",
+      "date": null,
+      "session_ids": []
+    }
+  }
+}
