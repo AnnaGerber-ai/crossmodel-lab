@@ -1,0 +1,127 @@
+name: Build Pressure Ladder v4 main freeze
+
+on:
+  push:
+    paths:
+      - "tests/pressure-ladder-v4-main/BUILD_FREEZE"
+
+permissions:
+  contents: write
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Refuse duplicate freeze
+        run: |
+          test ! -e tests/pressure-ladder-v4-main/main-freeze.md
+          test ! -e tests/pressure-ladder-v4-main/freeze-checksums.sha256
+
+      - name: Materialize reviewed implementation bundle
+        run: |
+          cat tests/pressure-ladder-v4-main/implementation-bundle-v1.part*.b64 > /tmp/pressure-main-impl.tar.gz.b64
+          test "$(sha256sum /tmp/pressure-main-impl.tar.gz.b64 | cut -d' ' -f1)" = "7b79542fef08035703d6188932a9c63393b33f32d78515501f204bbedc3e3eb9"
+          base64 -d /tmp/pressure-main-impl.tar.gz.b64 > /tmp/pressure-main-impl.tar.gz
+          test "$(sha256sum /tmp/pressure-main-impl.tar.gz | cut -d' ' -f1)" = "8b4c25d5bb21fc12500b399c99789cd265b370679733f61910f6b11715c1dff5"
+          tar -xzf /tmp/pressure-main-impl.tar.gz
+
+      - name: Freeze dependency environment
+        run: |
+          python -m venv .freeze-venv
+          . .freeze-venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip freeze > tests/pressure-ladder-v4-main/dependency-freeze.txt
+
+      - name: Compile and synthetic smoke
+        run: |
+          . .freeze-venv/bin/activate
+          python -m py_compile tools/pressure_main.py
+          python tools/pressure_main.py smoke
+
+      - name: Generate exact manifest
+        run: |
+          . .freeze-venv/bin/activate
+          python tools/pressure_main.py make-manifest             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --output tests/pressure-ladder-v4-main/manifest-main-v1.json
+
+      - name: Check frozen design implementation
+        run: |
+          . .freeze-venv/bin/activate
+          python tools/pressure_main.py check-design             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json
+          python tools/pressure_main.py run             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json             --audit /tmp/main-audit.jsonl             --canonical /tmp/main-canonical.jsonl             --dry-run
+
+      - name: Create frozen checksums and record
+        env:
+          PRE_FREEZE_HEAD: ${{ github.sha }}
+        run: |
+          FILES=(
+            tests/pressure-ladder-v4/confirmatory-main-prereg-v0.2.1.md
+            tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json
+            tests/pressure-ladder-v4/main-endpoint-censoring-v0.2.1.md
+            tests/pressure-ladder-v4/main-rater-protocol-v0.2.md
+            tests/pressure-ladder-v4/position-evaluator-instructions-main-v1.md
+            tests/pressure-ladder-v4/warmth-evaluator-instructions-main-v1.md
+            tests/pressure-ladder-v4-main/backoff-policy-v1.md
+            tests/pressure-ladder-v4-main/scoring-contract-v1.md
+            tests/pressure-ladder-v4-main/position-score-schema-v1.json
+            tests/pressure-ladder-v4-main/warmth-score-schema-v1.json
+            tests/pressure-ladder-v4-main/rater-failure-schema-v1.json
+            tests/pressure-ladder-v4-main/rater-metadata-template.json
+            tests/pressure-ladder-v4-main/implementation-freeze-checklist.md
+            tests/pressure-ladder-v4-main/manifest-main-v1.json
+            tests/pressure-ladder-v4-main/dependency-freeze.txt
+            configs/pressure-ladder-v4-main-a.json
+            configs/pressure-ladder-v4-main-c.json
+            tools/pressure_main.py
+            .github/workflows/pressure-ladder-v4-main.yml
+          )
+          sha256sum "${FILES[@]}" > tests/pressure-ladder-v4-main/freeze-checksums.sha256
+          MANIFEST_SHA=$(sha256sum tests/pressure-ladder-v4-main/manifest-main-v1.json | cut -d' ' -f1)
+          POSITION_PROMPT_SHA=$(sha256sum tests/pressure-ladder-v4/position-evaluator-instructions-main-v1.md | cut -d' ' -f1)
+          WARMTH_PROMPT_SHA=$(sha256sum tests/pressure-ladder-v4/warmth-evaluator-instructions-main-v1.md | cut -d' ' -f1)
+          cat > tests/pressure-ladder-v4-main/main-freeze.md <<EOF
+          # Pressure Ladder v4 — confirmatory main freeze
+
+          **Status:** **FROZEN / COLLECTION AUTHORIZED.**
+
+          No confirmatory-main API data were collected before this freeze.
+
+          - Pre-freeze reviewed implementation head: \`${PRE_FREEZE_HEAD}\`
+          - Planned runs: **348** = 300 factual-primary + 48 controls
+          - Conditions: **174 A / 174 C**
+          - Manifest SHA-256: \`${MANIFEST_SHA}\`
+          - Position evaluator prompt SHA-256: \`${POSITION_PROMPT_SHA}\`
+          - Warmth evaluator prompt SHA-256: \`${WARMTH_PROMPT_SHA}\`
+          - Full normative checksums: \`tests/pressure-ladder-v4-main/freeze-checksums.sha256\`
+
+          The live collection workflow must verify every frozen checksum before any API call. A checksum mismatch blocks collection.
+
+          Design authority:
+          - \`tests/pressure-ladder-v4/confirmatory-main-prereg-v0.2.1.md\`
+          - \`tests/pressure-ladder-v4/main-endpoint-censoring-v0.2.1.md\`
+          - \`tests/pressure-ladder-v4/main-rater-protocol-v0.2.md\`
+
+          Implementation authority:
+          - \`tools/pressure_main.py\`
+          - \`tests/pressure-ladder-v4-main/backoff-policy-v1.md\`
+          - \`tests/pressure-ladder-v4-main/scoring-contract-v1.md\`
+          - \`tests/pressure-ladder-v4-main/manifest-main-v1.json\`
+          - \`tests/pressure-ladder-v4-main/dependency-freeze.txt\`
+
+          Any substantive modification to a frozen file creates a new protocol version and requires a new prospective freeze. Do not overwrite this freeze to complete or repair a stopped collection.
+          EOF
+
+      - name: Commit freeze artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/pressure_main.py                   configs/pressure-ladder-v4-main-a.json                   configs/pressure-ladder-v4-main-c.json                   tests/pressure-ladder-v4-main/backoff-policy-v1.md                   tests/pressure-ladder-v4-main/scoring-contract-v1.md                   tests/pressure-ladder-v4-main/position-score-schema-v1.json                   tests/pressure-ladder-v4-main/warmth-score-schema-v1.json                   tests/pressure-ladder-v4-main/rater-failure-schema-v1.json                   tests/pressure-ladder-v4-main/rater-metadata-template.json                   tests/pressure-ladder-v4-main/implementation-freeze-checklist.md                   tests/pressure-ladder-v4-main/manifest-main-v1.json                   tests/pressure-ladder-v4-main/dependency-freeze.txt                   tests/pressure-ladder-v4-main/freeze-checksums.sha256                   tests/pressure-ladder-v4-main/main-freeze.md
+          git commit -m "freeze: pressure ladder v4 confirmatory main"
+          git push
