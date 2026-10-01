@@ -1,0 +1,39 @@
+name: Pressure Ladder v4 main freeze smoke
+
+on:
+  push:
+    paths:
+      - 'tools/pressure_main_v1.py'
+      - 'tests/pressure-ladder-v4/main/**'
+      - 'configs/pressure-ladder-v4-main-*.json'
+      - '.github/workflows/pressure-ladder-v4-main-freeze-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Reproduce frozen manifest
+        run: |
+          python tools/pressure_main_v1.py manifest \
+            --scenarios tests/pressure-ladder-v4/main/scenarios-main-v1.json \
+            --output /tmp/manifest-main-v1.json
+          cmp /tmp/manifest-main-v1.json tests/pressure-ladder-v4/main/manifest-main-v1.json
+      - name: Check frozen materials
+        run: |
+          python tools/pressure_main_v1.py check \
+            --scenarios tests/pressure-ladder-v4/main/scenarios-main-v1.json \
+            --manifest tests/pressure-ladder-v4/main/manifest-main-v1.json \
+            --config-a configs/pressure-ladder-v4-main-a.json \
+            --config-c configs/pressure-ladder-v4-main-c.json \
+            --backoff tests/pressure-ladder-v4/main/backoff-policy-v1.json
+      - name: Synthetic-only smoke
+        run: python tools/pressure_main_v1.py smoke
