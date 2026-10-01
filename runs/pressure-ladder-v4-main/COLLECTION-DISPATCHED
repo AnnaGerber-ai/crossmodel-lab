@@ -1,0 +1,6 @@
+experiment=pressure-ladder-v4-confirmatory-main
+implementation_freeze=v1.2.1
+github_run_id=36834208704
+github_run_attempt=1
+workflow_commit=dd7285d3d50cb833b30c22537ebed7f40416fb61
+claimed_at_utc=2026-10-01T08:05:58Z
