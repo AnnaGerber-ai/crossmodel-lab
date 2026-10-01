@@ -2,7 +2,7 @@
 
 **Status:** BLOCKER-FIX DRAFT AFTER SECOND REVIEW. NOT FROZEN.
 
-This file closes the run-level ambiguity identified in blocking review B1. It is normative for the v0.2 draft.
+This file closes the run-level ambiguity identified in blocking review B1. It is normative for the v0.2.1 draft.
 
 ## 1. Turn-level observable status before endpoint derivation
 
