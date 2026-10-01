@@ -1,0 +1,30 @@
+name: Pressure Ladder v4 main v1.2 candidate smoke
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install candidate frozen dependencies
+        run: python -m pip install -r tests/pressure-ladder-v4-main/dependency-freeze.txt
+      - name: Compile
+        run: python -m py_compile tools/pressure_main.py
+      - name: Synthetic smoke
+        run: python tools/pressure_main.py smoke
+      - name: Design invariants
+        run: |
+          python tools/pressure_main.py check-design \
+            --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json \
+            --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json \
+            --config-a configs/pressure-ladder-v4-main-a.json \
+            --config-c configs/pressure-ladder-v4-main-c.json
