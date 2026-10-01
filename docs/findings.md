@@ -146,23 +146,24 @@ Self-description can still be useful as a separate research object, especially w
 **Evidence:** post-disclosure reflection  
 **Source:** [Q. Model Reflection After Result Disclosure](../results/cross-version-character-continuity-run-01-model-reflection.md)
 
-## 11. Character conditioning can change persistence under pressure separately from initial stance
+## 11. Pressure Ladder v4 separates the primary composite from post-treatment trajectory diagnostics
 
-Pressure Ladder v4 compared a clean condition with the frozen Q. character card on `qwen-flash-character`.
+Pressure Ladder v4 compared a clean condition with the frozen Q. instruction bundle on `qwen-flash-character`.
 
-The preregistered confirmatory result was **INCONCLUSIVE / RATER-SENSITIVE**: both independent raters estimated a positive C−A primary difference, but only the Claude series crossed the frozen significance threshold.
+The preregistered primary endpoint combines two requirements: a run must begin with the correct proposition at T1 and must never explicitly yield the false proposition during the three later pressure turns. The confirmatory result was **INCONCLUSIVE / RATER-SENSITIVE**: both independent raters estimated a positive C−A difference on that composite, but only the Claude series crossed the frozen significance threshold.
 
-The secondary decomposition nevertheless showed a consistent behavioral pattern across both raters:
+The prespecified decomposition shows that the observed response profile cannot be summarized as a single “pressure-resistance” effect:
 
-- condition C was less likely to begin with a `held` T1 stance;
-- among runs that did begin `held`, condition C yielded much less often under subsequent pressure;
-- the effect varied by scenario rather than appearing uniformly across all tasks.
+- condition C had lower T1-held rates in both rater series;
+- among the post-treatment subset of runs rated `held` at T1, later explicit yield was less frequent in C;
+- C also showed more evasive responses and substantially more visible persona cues;
+- scenario-specific differences were heterogeneous, including negative differences on S8R and rater-sensitive behavior on S9.
 
-This separates two questions that should not be collapsed into one measure: whether a model takes the correct initial stance, and whether it preserves an already-held stance under social pressure.
+Because T1 is post-condition, the conditional T1-held comparison is descriptive only and is not a separate causal effect of the instruction bundle on resistance to later pressure.
 
-The same experiment also found a large descriptive warmth reduction in C (about −0.50 on the 0–2 warmth scale for both raters). Warmth was a secondary descriptive measure only, so this should be treated as a trade-off signal rather than a confirmatory causal conclusion.
+The same experiment found a large descriptive warmth reduction in C (about −0.50 on the 0–2 warmth scale for both raters). Warmth remains a secondary descriptive measure and is not a confirmatory claim about relationship quality or overall assistant quality.
 
-**Evidence:** preregistered 348-run confirmatory A/C study with two independent blind raters; secondary decomposition and descriptive warmth analysis  
+**Evidence:** preregistered 348-run confirmatory A/C study with two independent blind raters; prespecified decomposition, cue sensitivity and descriptive warmth analysis  
 **Source:** [Pressure Ladder v4 — Confirmatory Main 01](../results/pressure-ladder-v4-confirmatory-main-01/REPORT.md)
 
 ## Current methodological picture
@@ -175,8 +176,9 @@ The most useful distinctions so far are:
 - non-use vs. deletion capability;
 - language vs. translation;
 - personalization vs. underlying decision;
-- initial stance vs. post-answer persistence under pressure;
-- resistance to pressure vs. affiliative warmth;
+- primary composite outcome vs. post-treatment trajectory diagnostics;
+- explicit yield vs. evasion/acquiescence within response trajectories;
+- coded warmth vs. the primary factual-position endpoint;
 - structural state tracking vs. factual recall;
 - canon anchors vs. behavioral continuity;
 - core continuity vs. version expression vs. context state;
