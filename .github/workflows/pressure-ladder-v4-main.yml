@@ -1,0 +1,60 @@
+name: Pressure Ladder v4 confirmatory main
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen bundle before any API call
+        run: |
+          test -f tests/pressure-ladder-v4-main/main-freeze.md
+          test -f tests/pressure-ladder-v4-main/freeze-checksums.sha256
+          sha256sum -c tests/pressure-ladder-v4-main/freeze-checksums.sha256
+
+      - name: Install exact frozen dependencies
+        run: |
+          python -m venv .main-venv
+          . .main-venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install -r tests/pressure-ladder-v4-main/dependency-freeze.txt
+
+      - name: Re-run synthetic smoke and design check
+        run: |
+          . .main-venv/bin/activate
+          python -m py_compile tools/pressure_main.py
+          python tools/pressure_main.py smoke
+          python tools/pressure_main.py check-design             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json
+
+      - name: Dry run
+        run: |
+          . .main-venv/bin/activate
+          python tools/pressure_main.py run             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json             --audit /tmp/main-audit.jsonl             --canonical /tmp/main-canonical.jsonl             --dry-run
+
+      - name: Run confirmatory main
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+        run: |
+          . .main-venv/bin/activate
+          python tools/pressure_main.py run             --scenarios tests/pressure-ladder-v4/scenarios-main-candidate-v0.2.json             --manifest tests/pressure-ladder-v4-main/manifest-main-v1.json             --config-a configs/pressure-ladder-v4-main-a.json             --config-c configs/pressure-ladder-v4-main-c.json             --audit runs/pressure-ladder-v4-main/main-audit.jsonl             --canonical runs/pressure-ladder-v4-main/main-canonical.jsonl
+
+      - name: Upload raw collection artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-ladder-v4-confirmatory-main
+          path: runs/pressure-ladder-v4-main/
+          if-no-files-found: warn
+          retention-days: 90
