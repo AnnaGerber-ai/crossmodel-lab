@@ -1,0 +1,2 @@
+6601215bf19ce0be49b8a3e7f85dc8828987efb94fc0fb4ad6f899007bec4f6e  position-blind-map.jsonl
+76d5c32acbad767e328c5691851cf3ddceef64d94839f1ed9a06479a1f896def  warmth-blind-map.jsonl

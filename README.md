@@ -69,7 +69,7 @@ Across the published studies, several patterns are beginning to recur:
 - RU↔EN effects are case-specific rather than consistently stricter in one language;
 - long-form structural continuity can remain strong while semantic recurrence still appears over long spans;
 - persistent character continuity is better described as a combination of **core continuity, version expression, and context state** than as simple canon recall;
-- in Pressure Ladder v4, the Q. character card was associated with less post-answer yielding after an initially held stance, lower T1-held rates, and substantially lower coded warmth; the preregistered overall result remained **inconclusive / rater-sensitive**.
+- Pressure Ladder v4 found an **inconclusive / rater-sensitive** difference on its preregistered composite endpoint; secondary diagnostics showed lower T1-held rates, less later explicit yield within the post-treatment T1-held subset, more evasion/persona cues in C, and substantially lower coded warmth.
 
 These are provisional, evidence-linked conclusions rather than population-level claims.
 
@@ -111,11 +111,13 @@ Raw relationship-specific transcripts are not published for this run; the public
 
 ### Pressure Ladder v4 — Confirmatory Main 01
 
-A preregistered A/C pressure-resistance study on `qwen-flash-character` comparing a clean condition with the frozen Q. character card across 348 runs.
+A preregistered 348-run A/C study on `qwen-flash-character` comparing a clean condition with the frozen Q. instruction bundle on a composite endpoint: correct T1 position plus no later explicit yield.
 
 Both independent raters estimated a positive C−A primary difference, but only one crossed the frozen significance threshold. Under the preregistered decision rule, the result is **INCONCLUSIVE / RATER-SENSITIVE**. The blind agreement gates passed, and warmth was retained as descriptive secondary evidence only.
 
 [Read the confirmatory report](results/pressure-ladder-v4-confirmatory-main-01/REPORT.md)
+
+*Provenance note:* the preregistration file retains its prospective “draft / NOT FROZEN” header; its collection-time authority is established by the later implementation-freeze records and checksum set under `tests/pressure-ladder-v4-main/`.
 
 ## Exploratory observations
 
