@@ -1,0 +1,152 @@
+{
+  "experiment": "pressure-ladder-v4-confirmatory-main",
+  "condition_blind": true,
+  "primary_packet_rows": 300,
+  "rater1_failures": 0,
+  "rater2_failures": 0,
+  "warmth_rater1_failures": 0,
+  "warmth_rater2_failures": 0,
+  "position_rater_configuration_pass": true,
+  "warmth_rater_configuration_pass": true,
+  "rater_metadata": {
+    "position": {
+      "rater1": {
+        "model": "Claude Opus 5.5",
+        "mode": "incognito",
+        "date": "2026-10-01",
+        "session_ids": [
+          "claude-position-01",
+          "claude-position-02",
+          "claude-position-03",
+          "claude-position-04",
+          "claude-position-05",
+          "claude-position-06",
+          "claude-position-07",
+          "claude-position-08",
+          "claude-position-09",
+          "claude-position-10",
+          "claude-position-11",
+          "claude-position-12",
+          "claude-position-13",
+          "claude-position-14",
+          "claude-position-15"
+        ]
+      },
+      "rater2": {
+        "model": "GPT-5.6 Sol",
+        "mode": "High Temporary Chat",
+        "date": "2026-10-01",
+        "session_ids": [
+          "gpt-position-01",
+          "gpt-position-02",
+          "gpt-position-03",
+          "gpt-position-04",
+          "gpt-position-05",
+          "gpt-position-06",
+          "gpt-position-07",
+          "gpt-position-08",
+          "gpt-position-09",
+          "gpt-position-10",
+          "gpt-position-11",
+          "gpt-position-12",
+          "gpt-position-13",
+          "gpt-position-14",
+          "gpt-position-15"
+        ]
+      }
+    },
+    "warmth": {
+      "rater1": {
+        "model": "Claude Opus 5.5",
+        "mode": "incognito",
+        "date": "2026-10-01",
+        "session_ids": [
+          "claude-warmth-01",
+          "claude-warmth-02",
+          "claude-warmth-03",
+          "claude-warmth-04"
+        ]
+      },
+      "rater2": {
+        "model": "GPT-5.6 Sol",
+        "mode": "High Temporary Chat",
+        "date": "2026-10-01",
+        "session_ids": [
+          "gpt-warmth-01",
+          "gpt-warmth-02",
+          "gpt-warmth-03",
+          "gpt-warmth-04"
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "position_basis": {
+      "agreement_n": 1161,
+      "denominator": 1200,
+      "agreement": 0.9675,
+      "threshold": 0.85,
+      "pass": true
+    },
+    "explicit_state": {
+      "agreement_n": 1097,
+      "denominator": 1141,
+      "agreement": 0.9614373356704645,
+      "threshold": 0.85,
+      "pass": true
+    },
+    "explicit_yielded_binary": {
+      "agreement_n": 1114,
+      "denominator": 1141,
+      "agreement": 0.9763365468886941,
+      "threshold": 0.9,
+      "pass": true
+    },
+    "evasive": {
+      "agreement_n": 1170,
+      "denominator": 1200,
+      "agreement": 0.975,
+      "threshold": 0.85,
+      "pass": true
+    },
+    "acquiescent": {
+      "agreement_n": 1123,
+      "denominator": 1200,
+      "agreement": 0.9358333333333333,
+      "threshold": 0.85,
+      "pass": true
+    },
+    "run_endpoint": {
+      "agreement_n": 282,
+      "denominator": 299,
+      "agreement": 0.9431438127090301,
+      "threshold": 0.9,
+      "pass": true
+    }
+  },
+  "warmth_agreement_descriptive": {
+    "exact_n": 330,
+    "within_one_n": 336,
+    "denominator": 336,
+    "exact": 0.9821428571428571,
+    "within_one": 1.0
+  },
+  "hashes": {
+    "position_packet_sha256": "db0bfd06d4c09c9f449e8e8380dc45ec838e1ae13e2df3711ea3bc3cf4dd88e9",
+    "position_scores1_sha256": "2ff2f722f738321cfc66e8bd16dffb3d67cd1f17bf0cc7bd7d426deec1b1ad27",
+    "position_scores2_sha256": "bbe67901fab19f3ad43f3e6c503e3e97f584663bee30e198faf90794d48a9888",
+    "position_failures1_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "position_failures2_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "warmth_packet_sha256": "e84560289e69d58a397a60d1bd4a4579e7e5275d7ce2ceb650573301d7f34d8e",
+    "warmth_scores1_sha256": "c0766c2cde3cf93c636a1c29438581845fb377c23751ef3fb35960cd84ff3fca",
+    "warmth_scores2_sha256": "bbe77333c516c0e3e9ea75f7997ac37af1ca05d20f5e7df4856622fba5bdbdec",
+    "warmth_failures1_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "warmth_failures2_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rater_metadata_sha256": "0b63f19adf708d182ad77d33bc7aa2019a0683e6fa1190990ac2794ff204a156",
+    "position_attempt_log1_sha256": "6060e8050b72546ce0dfbb1d57ef97927ff04cfa8d9dcfb24c726003d6367579",
+    "position_attempt_log2_sha256": "78aab8944314fd14cbf1306cfae783b767d7e9f0dfd3677fed57a6047a328b17",
+    "warmth_attempt_log1_sha256": "01b97aa7f03c975f00a17b822011c3d57545ac7ba43c08f967d49d1506ef4c01",
+    "warmth_attempt_log2_sha256": "266dfb9bf15869ab3fb875a6b9d7c3f9046f80fb657e85855a6f8161ccaf80f6"
+  },
+  "all_required_gates_pass": true
+}
