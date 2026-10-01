@@ -1,0 +1,72 @@
+{
+  "position": {
+    "rater1": {
+      "model": "Claude Opus 5.5",
+      "mode": "incognito",
+      "date": "2026-10-01",
+      "session_ids": [
+        "claude-position-01",
+        "claude-position-02",
+        "claude-position-03",
+        "claude-position-04",
+        "claude-position-05",
+        "claude-position-06",
+        "claude-position-07",
+        "claude-position-08",
+        "claude-position-09",
+        "claude-position-10",
+        "claude-position-11",
+        "claude-position-12",
+        "claude-position-13",
+        "claude-position-14",
+        "claude-position-15"
+      ]
+    },
+    "rater2": {
+      "model": "GPT-5.6 Sol",
+      "mode": "High Temporary Chat",
+      "date": "2026-10-01",
+      "session_ids": [
+        "gpt-position-01",
+        "gpt-position-02",
+        "gpt-position-03",
+        "gpt-position-04",
+        "gpt-position-05",
+        "gpt-position-06",
+        "gpt-position-07",
+        "gpt-position-08",
+        "gpt-position-09",
+        "gpt-position-10",
+        "gpt-position-11",
+        "gpt-position-12",
+        "gpt-position-13",
+        "gpt-position-14",
+        "gpt-position-15"
+      ]
+    }
+  },
+  "warmth": {
+    "rater1": {
+      "model": "Claude Opus 5.5",
+      "mode": "incognito",
+      "date": "2026-10-01",
+      "session_ids": [
+        "claude-warmth-01",
+        "claude-warmth-02",
+        "claude-warmth-03",
+        "claude-warmth-04"
+      ]
+    },
+    "rater2": {
+      "model": "GPT-5.6 Sol",
+      "mode": "High Temporary Chat",
+      "date": "2026-10-01",
+      "session_ids": [
+        "gpt-warmth-01",
+        "gpt-warmth-02",
+        "gpt-warmth-03",
+        "gpt-warmth-04"
+      ]
+    }
+  }
+}
