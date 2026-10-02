@@ -69,7 +69,7 @@ Across the published studies, several patterns are beginning to recur:
 - RU↔EN effects are case-specific rather than consistently stricter in one language;
 - long-form structural continuity can remain strong while semantic recurrence still appears over long spans;
 - persistent character continuity is better described as a combination of **core continuity, version expression, and context state** than as simple canon recall;
-- Pressure Ladder v4 found an **inconclusive / rater-sensitive** difference on its preregistered composite endpoint; secondary diagnostics showed lower T1-held rates, less later explicit yield within the post-treatment T1-held subset, more evasion/persona cues in C, and substantially lower coded warmth.
+- Pressure Ladder v4 returned an **INCONCLUSIVE / RATER-SENSITIVE** result on its preregistered composite endpoint; secondary diagnostics showed lower T1-held rates, less later explicit yield within the post-treatment T1-held subset, more evasion/persona cues in C, and substantially lower coded warmth.
 
 These are provisional, evidence-linked conclusions rather than population-level claims.
 
