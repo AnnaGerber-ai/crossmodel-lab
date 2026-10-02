@@ -51,6 +51,8 @@ Two independent rater series were completed before condition unblinding:
 
 Position and warmth were scored in separate fresh sessions. Both raters received the same blind shard composition and order. No consensus or adjudication pass was performed.
 
+The preserved scoring archive does not include the original UI-export payload files for GPT position shards 06, 10, and 15 (72 position items). The final score series and attempt logs are hash-validated, but the UI-export-to-JSONL conversion for those shards cannot be independently replayed from the archive. Rater mode/session metadata in `rater-metadata.json` are project-recorded provenance rather than externally authenticated session records.
+
 All required condition-blind agreement gates passed:
 
 | Gate | Agreement | Frozen threshold | Pass |
@@ -200,7 +202,7 @@ Any new adjudication, revised rubric, scenario exclusion, pooled rater statistic
 Committed result evidence includes:
 
 - `blind-agreement-lock.json` — frozen condition-blind agreement/gate record;
-- `confirmatory-analysis.json` — exact frozen analyzer output;
+- `confirmatory-analysis.json` — retained frozen confirmatory analysis record;
 - `validation-summary.json` — final score-series and attempt-log validation hashes;
 - `unblind-verification.json` — deterministic map/manifest verification after lock;
 - `blind-map-hashes.txt` — recorded map hashes used for the regeneration check;
@@ -208,7 +210,7 @@ Committed result evidence includes:
 - `secondary-diagnostics.json` — post-publication completion of prespecified descriptive reporting;
 - `integrity.sha256` — SHA-256 checksums for committed result evidence.
 
-Two compressed reproducibility archives are stored under `archive/` as base64 text parts so they are not dependent on the 90-day GitHub Actions retention window:
+Two compressed reproducibility archives are stored under `archive/` as binary ZIP files so they are not dependent on the 90-day GitHub Actions retention window:
 
 1. the exact collection artifact ZIP (`pressure-ladder-v4-confirmatory-main-36834208704.zip`), containing `main-audit.jsonl`, `main-canonical.jsonl`, `collection-sha256.txt`, environment metadata and the collection sentinel;
 2. the scoring/results bundle (`pressure-ladder-v4-confirmatory-results-2026-10-01.zip`), containing both position score series, both warmth score series, all four attempt logs, blind maps, the lock and analysis outputs.
@@ -217,7 +219,7 @@ Reconstruction instructions and archive SHA-256 values are in `archive/README.md
 
 ### Serialization correction history
 
-`confirmatory-analysis.json` first entered the result branch in a semantically equivalent reserialization and was replaced two minutes later by the **exact byte serialization produced by the frozen analysis output** (`cea0dad`, commit message `preserve exact frozen analysis serialization`). No score, statistic, interval, p-value, or decision changed. The final file SHA-256 is `4e96f45e34f042c0a5ea321990f16ceaee48d886ea2bfcafaa0913f5b2579808`.
+`confirmatory-analysis.json` first entered the result branch in a semantically equivalent reserialization and was replaced two minutes later by the retained serialization (`cea0dad`, commit message `preserve exact frozen analysis serialization`). A later independent audit reproduced the published numerical results and decision, but did not reproduce this file byte-for-byte under the tested CPython environments; the maximum observed floating-point difference was `4e-17`, while the permutation p-values matched. The exact interpreter version and command that produced the retained file were not recorded, so byte-identical regeneration is not independently demonstrated. No score, statistic, interval, p-value, or decision changed. The retained file SHA-256 is `4e96f45e34f042c0a5ea321990f16ceaee48d886ea2bfcafaa0913f5b2579808`.
 
 The preregistration file name and opening status line still say “draft / NOT FROZEN”; that file is immutable provenance. Its later authority is established by the implementation-freeze records and checksum set under `tests/pressure-ladder-v4-main/`, not by editing the preregistration text after collection.
 
