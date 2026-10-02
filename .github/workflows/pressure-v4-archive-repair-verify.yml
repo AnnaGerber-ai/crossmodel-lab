@@ -6,6 +6,8 @@ on:
       - pressure-v4-archive-repair-20261002
     paths:
       - "results/pressure-ladder-v4-confirmatory-main-01/archive/scoring-results.zip.b64"
+      - "results/pressure-ladder-v4-confirmatory-main-01/archive/scoring-results.zip.b64.part00"
+      - "results/pressure-ladder-v4-confirmatory-main-01/archive/scoring-results.zip.b64.part01"
       - ".github/workflows/pressure-v4-archive-repair-verify.yml"
 
 permissions:
@@ -18,13 +20,44 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify repaired scoring archive
+      - name: Diagnose and verify scoring archive
         run: |
           set -euo pipefail
-          A="results/pressure-ladder-v4-confirmatory-main-01/archive"
-          base64 -d "$A/scoring-results.zip.b64" > /tmp/scoring-results.zip
-          echo "79d11e264c56f450a9872c19fd8fa009b0231eaf36d20c8be7117667da3d6be4  /tmp/scoring-results.zip" | sha256sum -c -
-          unzip -t /tmp/scoring-results.zip
+          python - <<'PY'
+          import base64, hashlib, io, pathlib, string, zipfile
+          A=pathlib.Path("results/pressure-ladder-v4-confirmatory-main-01/archive")
+          target="79d11e264c56f450a9872c19fd8fa009b0231eaf36d20c8be7117667da3d6be4"
+          cur="".join((A/"scoring-results.zip.b64").read_text().split())
+          p0="".join((A/"scoring-results.zip.b64.part00").read_text().split())
+          p1="".join((A/"scoring-results.zip.b64.part01").read_text().split())
+          suffix=cur[-10000:]
+          alphabet=string.ascii_uppercase+string.ascii_lowercase+string.digits+"+/"
+          print("current_sha256", hashlib.sha256(base64.b64decode(cur)).hexdigest())
+          try:
+              with zipfile.ZipFile(io.BytesIO(base64.b64decode(cur))) as z:
+                  print("current_zip_test", z.testzip())
+          except Exception as e:
+              print("current_zip_error", repr(e))
+          assert len(p0)==9999 and len(p1)==16000 and len(suffix)==10000
+          pos=3617
+          found=None
+          for ch in alphabet:
+              s=p0[:pos]+ch+p0[pos:]+p1+suffix
+              raw=base64.b64decode(s, validate=True)
+              if hashlib.sha256(raw).hexdigest()==target:
+                  found=(ch,s,raw)
+                  break
+          if not found:
+              raise SystemExit("no target SHA among 64 insertions at part00 offset 3617")
+          ch,s,raw=found
+          print("FOUND_CHAR", ch)
+          print("FOUND_BASE64_LEN", len(s))
+          with zipfile.ZipFile(io.BytesIO(raw)) as z:
+              bad=z.testzip()
+              print("FOUND_ZIP_TEST", bad)
+              if bad is not None:
+                  raise SystemExit(f"zip CRC failure: {bad}")
+          PY
 
       - name: Verify exact collection artifact
         env:
