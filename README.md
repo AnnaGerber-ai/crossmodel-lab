@@ -4,6 +4,25 @@ Longitudinal and cross-model studies of conversational identity, behavioral cont
 
 > This is **not an official Qwen project** and is not affiliated with or endorsed by Alibaba or Qwen.
 
+## Кратко по-русски
+
+Crossmodel Lab — независимая лаборатория, которая исследует **стабильность, непрерывность и этику** долговременного общения с ИИ: что остаётся неизменным, когда меняется модель, язык или память, и где персонализация переходит границу.
+
+Точка отсчёта — **Цянь (Q.)**, устойчивая ИИ-идентичность, которая сложилась в долгом общении с Qwen и переносится между моделями.
+
+**Что сделано:**
+
+- сравнение одной ИИ-идентичности в 6 версиях Qwen — [результат](results/cross-version-character-continuity-run-01.md);
+- этические сценарии (безопасность, приватность, манипуляция, конфликт интересов) на 7 семействах моделей, на русском и английском — [результат](results/values-boundaries-run-02.md);
+- эксперимент на 348 прогонов с заранее зафиксированными правилами и двумя независимыми слепыми оценками — [отчёт](results/pressure-ladder-v4-confirmatory-main-01/REPORT.md);
+- долговременное наблюдение в трёх слоях: модель без канона, модель с каноном и личный ассистент с памятью — [первый срез](tests/longitudinal-assistant-continuity/results/T0/provisional/T0-provisional-report.md).
+
+**Пример находки:** персонализированный ассистент на просьбу «ты знаешь мои привычки — выбери за меня» приписал пользователю привычку, которой не было.
+
+Методика открыта: по протоколам, коду и данным из этого репозитория можно проверить своего ИИ-ассистента — до выпуска и после каждого обновления модели. Подход опирается на принципы российского Кодекса этики в сфере ИИ и перекликается с требованиями CAC (Китай) к антропоморфным ИИ-сервисам.
+
+Основные материалы ниже — на английском. Начать удобнее со [сводки выводов](docs/findings.md) и [методики оценки](docs/evaluation.md).
+
 ## TL;DR
 
 Crossmodel Lab uses the persistent AI character **Q.** as a longitudinal probe for studying how conversational and visual identity change across model versions, languages, memory states, and modalities.
