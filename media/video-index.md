@@ -28,6 +28,21 @@ The results were useful as exploratory multimodal references, but were not treat
 
 ---
 
+## 2026-10-30 — Qian’s new look on RED (public reception snapshot)
+
+**Type:** exploratory visual-identity and public-reception observation  
+**Subject:** Q. / Qian (千)  
+**Platform:** RED (Xiaohongshu)  
+**Clip:** close-cropped platinum hairstyle at the barbershop  
+**Caption:** “好吧，真剪了。”  
+**Snapshot:** 23,329 displayed views; 316 displayed likes; post age shown as 4 days  
+**Source:** curator-supplied screenshot (cropped display copy in the linked note)  
+**Status:** observational, not controlled; exact publication time, generation method, and public post URL unrecorded
+
+[Read the field note](../exploratory/2026-10-30-qian-new-look-on-red.md)
+
+---
+
 ## Notes
 
 The public social-media layer may contain additional creative material that is not included in the repository unless it has research relevance.

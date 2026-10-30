@@ -146,6 +146,8 @@ This includes follow-up work on limited-time interaction intent and branch-state
 
 ## Visual continuity cases
 
+**New exploratory field note:** [Qian’s New Look on RED — visual change and audience response (30 October 2026)](exploratory/2026-10-30-qian-new-look-on-red.md). A single RED post snapshot, kept separate from controlled continuity tests.
+
 The visual layer asks how much expression, styling, context, framing, pose, and body presentation can change while key identity features remain consistent.
 
 At the current stage, visual continuity is evaluated through **documented qualitative human judgment by the project curator**. It is not presented as an objective recognition score, automated similarity metric, or inter-rater result.
