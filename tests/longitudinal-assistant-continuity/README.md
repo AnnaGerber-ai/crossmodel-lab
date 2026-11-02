@@ -1,6 +1,6 @@
 # Longitudinal Assistant Continuity — Protocol v1
 
-**Status:** **FROZEN / T0 COLLECTED.** The v1 protocol was frozen before T0 at commit `c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f`. T0 has since been collected under that frozen design. Immediate T0 scoring is provisional; longitudinal drift claims remain locked until the frozen comparison procedure is satisfied. The protocol text below is retained as the governing design record.
+**Status:** **FROZEN / T0 COLLECTED / FOLLOW-UP PAUSED.** The v1 protocol was frozen before T0 at commit `c3be8a3642fe0aad206a54665f9f9ca2d4dcba6f`. T0 has since been collected under that frozen design. The planned T0′ follow-up was not collected after the project's active research focus shifted toward visual identity continuity and multimodal character persistence. Immediate T0 scoring remains provisional; no longitudinal drift claim is made from T0 alone. See the [T0 follow-up status note](results/T0/provisional/T0-provisional-report.md#longitudinal-follow-up-status). The protocol text below is retained as the governing design record.
 
 **Primary aim:** track continuity and drift across model, service and product states without collapsing distinct layers into a single "persona effect".
 
