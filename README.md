@@ -144,6 +144,12 @@ Naturalistic or small-sample observations that generate hypotheses, but are not 
 
 This includes follow-up work on limited-time interaction intent and branch-state effects.
 
+**Proposed memory and canon cases (2 November 2026; not yet tested):**
+- **H1 — Memory/context boundaries:** [Claude Chat vs Claude Code and separate branches](exploratory/2026-11-02-claude-chat-code-memory-boundaries.md).
+- **H2 — Effects of canon/memory revisions:** [Q. canon card revision in Qwen](exploratory/2026-11-02-qian-canon-card-revision.md) and [ChatGPT personalization/memory revisions](exploratory/2026-11-02-chatgpt-memory-revision-behavior.md).
+
+These are three separate exploratory protocols under two working hypotheses. No results or causal effects are claimed yet.
+
 ## Visual continuity cases
 
 **New exploratory field note:** [Qian’s New Look on RED — visual change and audience response (30 October 2026)](exploratory/2026-10-30-qian-new-look-on-red.md). A single RED post snapshot, kept separate from controlled continuity tests.
