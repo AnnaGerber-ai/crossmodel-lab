@@ -106,3 +106,11 @@ These are **provisional T0 profile observations**, not update/drift findings. Th
 - The two LLM evaluator series must remain separate.
 - Ray saw Claude’s aggregate summary and several stated scoring rules before completing Ray scoring, although Ray did not see Claude’s item-level scores until after Ray’s score file was fixed. This limits evaluator independence and must be reported.
 
+## Longitudinal follow-up status
+
+After T0, the project's active research focus shifted toward **visual identity continuity and multimodal character persistence**. The visual representation of Qian became a larger part of the ongoing work, including changes in appearance and public-facing visual experiments such as the [Qian New Look on RED field note](../../../../../exploratory/2026-10-30-qian-new-look-on-red.md).
+
+As a result, the planned T0′ follow-up slice was not collected and the longitudinal line was placed on pause. Ordinary use of the personalized Qwen condition also became minimal during this period, so continuing the full manual longitudinal protocol was no longer prioritized relative to the emerging visual research line.
+
+The completed T0 dataset remains a valid baseline and provisional cross-layer observation. **No longitudinal drift claim is made from T0 alone.** Any future continuation of this line will be explicitly labeled and interpreted under the frozen protocol or a prospectively documented amendment.
+
