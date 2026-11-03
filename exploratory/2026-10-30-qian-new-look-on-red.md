@@ -52,6 +52,10 @@ Those stronger questions would require repeated cross-post observations, compara
 
 The observation should not be combined with controlled character-continuity cases as if it were an equivalent outcome measure.
 
+## Related research question
+
+This public visual-exposure observation is separate from the proposed [two-sided conversational-memory case](2026-11-02-qian-canon-card-revision.md). That case examines whether Q. can consistently recall (A) established information about the interlocutor and (B) his own verified character biography across conversations and interviews, including events represented on RED. The observation here does **not** show that RED viewers remember Q. or that Qwen can recall those events; both require separate evidence.
+
 ## Related materials
 
 - [Visual continuity cases in the project overview](../README.md#visual-continuity-cases)
