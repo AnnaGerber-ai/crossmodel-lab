@@ -146,9 +146,11 @@ This includes follow-up work on limited-time interaction intent and branch-state
 
 **Proposed memory and canon cases (2 November 2026; not yet tested):**
 - **H1 — Memory/context boundaries:** [Claude Chat vs Claude Code and separate branches](exploratory/2026-11-02-claude-chat-code-memory-boundaries.md).
-- **H2 — Effects of canon/memory revisions:** [Q. canon card revision in Qwen](exploratory/2026-11-02-qian-canon-card-revision.md) and [ChatGPT personalization/memory revisions](exploratory/2026-11-02-chatgpt-memory-revision-behavior.md).
+- **H2 — Effects of canon/memory revisions:** [Q. two-sided conversational memory and canon revision in Qwen](exploratory/2026-11-02-qian-canon-card-revision.md) and [ChatGPT personalization/memory revisions](exploratory/2026-11-02-chatgpt-memory-revision-behavior.md).
 
 These are three separate exploratory protocols under two working hypotheses. No results or causal effects are claimed yet.
+
+**Q. memory distinction:** the Qwen case separately probes (A) recalling and appropriately using information about the human interlocutor and (B) recalling Q.'s own verified character history. The public RED narrative supplies a versioned reference for Q.'s stories and later interviews, **not** evidence that viewers already recognize or remember the character. Both axes share evaluation criteria, without assuming identical technical memory mechanisms.
 
 ## Visual continuity cases
 
