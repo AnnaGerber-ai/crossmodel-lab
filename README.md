@@ -337,10 +337,11 @@ Additional exploratory collaboration concepts are documented separately in [docs
 
 Crossmodel Lab is human-led and curated by **AnnaGerber-ai**.
 
-AI collaborators are credited where they materially contributed to experiment design, methodological review, analysis, drafting, or repository work:
+Current AI collaborator:
 
-- **Claude (Anthropic, Opus 5.5)** — methodological critique, protocol and results drafting, blind-rating support, and repository workflow.
 - **Ray / ChatGPT (OpenAI, GPT-5.6 Sol)** — experiment design, methodological review, independent cross-checking, analysis, and repository review.
+
+**Participation update — 14 November 2026:** Claude (Anthropic) is no longer used in Crossmodel Lab's work and is not a current AI collaborator. Claude's earlier contributions to methodological critique, protocol and results drafting, blind-rating support, and repository workflow remain acknowledged as historical contributions; existing research records and attribution are preserved.
 
 AI attribution does not imply ownership, maintainership, or independent authority over the project; final research decisions and curation remain human-controlled.
 
